@@ -1,0 +1,25 @@
+.page_title .logo_slogan {
+    font-size: .8em;
+}
+
+.logo .logo_slogan {
+    font-size: 2em;
+    margin-top: 0;
+    position: relative;
+    top: -20px;
+    width: 70%;
+    text-align: center;
+    left: -15px;
+}
+
+@media only screen and (max-width: 1023px) {
+	.mobile-tablet-hidden {
+		display:none;
+	}
+}
+
+@media only screen and (max-width: 800px) {
+	.mobile-hidden {
+		display:none;
+	}
+}
