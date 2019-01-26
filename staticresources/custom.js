@@ -104,7 +104,20 @@ var millwood;
 						millwood.utils.init_arrows(ele);
 					})
 				}
-			}
+			},
+			'config_calendar': function () {
+				$('td.tribe-events-has-events').each(function (){
+					if ($(this).children('.tribe_events').length > 0) {
+						$(this).addClass('has-event');
+						$('<div />', {
+							'class' : 'mobile-event desktop-hidden'
+						}).appendTo($(this));
+
+						$(this).children('.tribe_events').addClass('mobile-hidden')
+					}
+				})
+			},
+			'is_mobile' : function () {return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);}
 		},
 		'success': {
 			'output_event_widget' : function (data) {	
@@ -183,6 +196,22 @@ var millwood;
 
 				}
 			})
+		}
+	}
+
+	if ($('table.tribe-events-calendar').length>0) {
+		millwood.utils.config_calendar();
+
+		if(millwood.utils.is_mobile() == true) {
+			try {
+				if (TribeList == undefined) {
+					$('#tribe-bar-views-option-list').click();
+				}
+			} catch(e) {
+				setTimeout(function () {
+					$('#tribe-bar-views-option-list').click();
+				},1000)
+			}
 		}
 	}
 
