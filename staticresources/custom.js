@@ -161,7 +161,9 @@ var millwood;
 
 	if ($('.footer_area').length > 0 ) {
 
-
+		if (millwood.wp_data.rest_url.indexOf('index.php')<0) {
+			millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
+		}
 
 		$.ajax({
 			'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
