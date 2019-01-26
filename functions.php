@@ -5,9 +5,47 @@
 
 add_action( 'wp_footer', 'my_footer_scripts' );
 function my_footer_scripts(){
-    	wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/custom.css' ); 
-	wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom.js' );
+    wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/custom.css' ); 
+	   wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom.js' );
+      wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' ); 
+     wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
+      wp_enqueue_style( 'slickcss',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.min.css' );
+      wp_enqueue_script( 'slickjs',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.js' );
+ 
+
+
+ /** 
+  Global vars to be passed to custom javascript
+  **/
+  
+  global $template;
+  $dataToBePassed = array(
+        'template'              => basename($template),
+        'stylesheet_dir'        => get_stylesheet_directory_uri(),
+        'home_url'              => get_home_url(),
+        'site_url'              => get_option( 'siteurl' ),
+        'is_admin'              => is_admin(),
+        'rest_url'              => get_rest_url(),
+        'template_events'       => get_custom_template_file('Templates/Events.html'),
+        'template_events_single'=> get_custom_template_file('Templates/Events_single.html')
+    );
+    wp_localize_script( 'customjs', 'php_vars', $dataToBePassed );
+
+
+
 }
+
+add_action('init', 'get_custom_template_file');
+function get_custom_template_file($fileName){
+    $pluginDirectory = plugin_dir_path( __FILE__ );
+    $filePath = $pluginDirectory . $fileName;
+    $fileContents = file_get_contents($filePath);
+    return $fileContents;
+}
+
+
+
+
 
 /**
  * Grab latest event posts
@@ -16,11 +54,25 @@ function my_footer_scripts(){
  * @return $object, or null if none.  */
  
 	 function get_latest_events ( $params ){
-  	 $post = get_posts( array(
-		'post_type' => $params['post_type'],
-            	'posts_per_page'  => 3,
-            	'offset'      => 0
-      ) );
+
+    if ($params['post_type']=='') {
+      $params['post_type'] = 'tribe_events';
+    }
+    if ($params['start_date'] =='') {
+      $params['start_date'] = '2019-01-20 08:00:00';
+    }
+
+
+    $post = get_posts( array(
+          'post_type' => $params['post_type'],
+          'post_status' => 'publish',
+          'meta_key' => '_EventStartDate',
+          'meta_value' => $params['start_date'],
+          'meta_compare' => '>=',
+          'order_by' => '_EventStartDate',
+          'order' => 'ASC'
+     ) );
+
 
  
   	 	if( empty( $post ) ){
@@ -37,3 +89,4 @@ function my_footer_scripts(){
                 'callback' => 'get_latest_events'
             ) );
      } );  
+?>
