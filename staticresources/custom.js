@@ -161,23 +161,27 @@ var millwood;
 
 	if ($('.footer_area').length > 0 ) {
 
-		if (millwood.wp_data.rest_url.indexOf('index.php')<0) {
-			millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
-		}
+		var pathname = location.pathname.split('/');
 
-		$.ajax({
-			'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
-			'type': 'GET',
-			'data': {'post_type': 'tribe_events',
-					'start_date': millwood.utils.getmysqlnow()
-					},
-			'success': function (data) {
-				if (data != null) {
-					millwood.success.output_event_widget(data);
-				}// end if data length is more than 0
-
+		if (pathname.length <= 3) {
+			if (millwood.wp_data.rest_url.indexOf('index.php')<0) {
+				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
 			}
-		})
+
+			$.ajax({
+				'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
+					'type': 'GET',
+					'data': {'post_type': 'tribe_events',
+						'start_date': millwood.utils.getmysqlnow()
+						},
+				'success': function (data) {
+					if (data != null) {
+						millwood.success.output_event_widget(data);
+					}// end if data length is more than 0
+
+				}
+			})
+		}
 	}
 
 }(jQuery));
