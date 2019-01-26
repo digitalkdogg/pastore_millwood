@@ -160,10 +160,12 @@ var millwood;
 	}
 
 	if ($('.footer_area').length > 0 ) {
+		var href = location.href;
+		if (location.href.slice('-1') == '/') {
+			href = href.substr(0, href.length-1);
+		}
 
-		var pathname = location.pathname.split('/');
-
-		if (pathname.length <= 3) {
+		if (millwood.wp_data.homeurl == href) {
 			if (millwood.wp_data.rest_url.indexOf('index.php')<0) {
 				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
 			}
