@@ -1,7 +1,3 @@
-body {
-	background-color : #f7f7f7;
-}
-
 .page_title .logo_slogan {
     font-size: .8em;
 }
@@ -11,6 +7,10 @@ body {
     font-size: 2em;
     color: #ccc;
     margin-top: 30px;
+}
+
+.article_style_boxed .content > article > .post_content, .article_style_boxed[class*="single-"] .content > .comments_wrap, .article_style_boxed[class*="single-"] .content > article > .post_info_share, .article_style_boxed:not(.layout_excerpt):not(.single) .content .post_item {
+    background: #fff;
 }
 
 @media only screen and (max-width: 800px) {
