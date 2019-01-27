@@ -143,6 +143,8 @@ var millwood;
 						'html': 'Upcoming Events'
 					}).prependTo('.footer_area');
 
+					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + 'index.php/calendar" />');
+
 					$('#footer-event-wraper .event').each(function (index, val) {
 						$(this).attr('data-index', index) 
 

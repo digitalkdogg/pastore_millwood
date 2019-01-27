@@ -1,3 +1,7 @@
+body {
+	background-color : #f7f7f7;
+}
+
 .page_title .logo_slogan {
     font-size: .8em;
 }
@@ -76,6 +80,7 @@
     overflow: hidden;
 }
 
+
 span.read-more {
     float: right;
     margin-right: 5px;
@@ -97,9 +102,15 @@ span.read-more:hover {
 }
 
 div#footer-event-title {
-    margin: 0 0 0 10%;
-    font-size: 1.5em;
+    margin: 0;
+    font-size: 1.7em;
     text-decoration: underline;
+    color: black;
+    text-align:center;
+}
+
+div#footer-event-title:hover {
+    color: #777;
 }
 
 button.slick-arrow {
