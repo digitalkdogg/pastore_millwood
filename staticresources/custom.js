@@ -104,6 +104,10 @@ var millwood;
 						millwood.utils.init_arrows(ele);
 					})
 				}
+
+				$('.slick-slide').children('div').each(function () {
+					$(this).addClass('slick-event');
+				})
 			},
 			'config_calendar': function () {
 				$('td.tribe-events-has-events').each(function (){

@@ -95,6 +95,10 @@ button.slick-arrow {
 
 }
 
+.slick-event {
+    padding: 0 10px;
+}
+
 button.slick-prev.slick-arrow {
     top: 150px;
     left: -20px;
