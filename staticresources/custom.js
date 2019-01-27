@@ -134,14 +134,14 @@ var millwood;
 					$('<div />', {
 						'html': html,
 						'id' : 'footer-event-wraper'
-					}).prependTo('.footer_area');
+					}).insertAfter('.page_content_wrap .content_wrap');
 					
 					$( ".event" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
 
 					$('<div />', {
 						'id': 'footer-event-title',
 						'html': 'Upcoming Events'
-					}).prependTo('.footer_area');
+					}).insertAfter('.page_content_wrap .content_wrap');
 
 					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + 'index.php/calendar" />');
 
@@ -191,7 +191,7 @@ var millwood;
 		$('.top_panel_title_inner .logo_slogan').addClass('mobile-tablet-hidden');
 	}
 
-	if ($('.footer_area').length > 0 ) {
+	if ($('.page_content_wrap .content_wrap').length > 0) {
 		var href = location.href;
 		if (location.href.slice('-1') == '/') {
 			href = href.substr(0, href.length-1);
