@@ -151,11 +151,24 @@ var millwood;
 							'text': data[index].post_title
 						}).appendTo($(this))
 
-						$('<span />', {
+						$('<div />', {
 							'class': 'event-content',
 							'html': data[index].post_content
 						}).appendTo($(this));
 
+						$('<span />', {
+							'class': 'read-more',
+							'text': 'Read More',
+							'data-id' : data[index].post_name
+						}).appendTo($(this));
+
+					})
+
+					$(document).on('click', 'span.read-more',function () {
+						try {
+							var dataid = $(this).attr('data-id');
+							location.href = millwood.wp_data.homeurl+ '/index.php/event/'+dataid
+						} catch(e) {console.log(e)}
 					})
 
 					try {

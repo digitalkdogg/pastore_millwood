@@ -71,6 +71,24 @@
     margin-bottom: 4px;
 }
 
+#footer-event-wraper .event .event-content {
+    height: 220px;
+    overflow: hidden;
+}
+
+span.read-more {
+    float: right;
+    margin-right: 5px;
+    background: #333;
+    padding: 0 5px;
+}
+
+span.read-more:hover {
+	background:#ccc;
+	color: #333;
+	cursor: pointer;
+}
+
 @media only screen and (max-width: 800px) {
 	#footer-event-wraper .event {
 		margin:10px 0;
@@ -144,4 +162,8 @@ a.tribe-events-ical.tribe-events-button.sc_button.sc_button_style_filled {
 
 .tribe-events-page-title:after {
     display:none;
+}
+
+.tribe-events-single-event-title:after, .eg-home1-element-0:after, .sc_item_title:after, .sc_title_underline:after {
+	display:none;
 }
