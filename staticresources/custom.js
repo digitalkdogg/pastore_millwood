@@ -11,7 +11,9 @@ var millwood;
         	'site_url' : php_vars.site_url,
         	'is_admin' : php_vars.is_admin,
         	'rest_url' : php_vars.rest_url,
-        	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url
+        	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
+        	'show_events': true,
+        	'show_news': false
 		},
 		'templates' : {
 			'events': php_vars.template_events,
@@ -143,7 +145,7 @@ var millwood;
 						'html': 'Upcoming Events'
 					}).insertAfter('.page_content_wrap .content_wrap');
 
-					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + 'index.php/calendar" />');
+					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/index.php/calendar" />');
 
 					$('#footer-event-wraper .event').each(function (index, val) {
 						$(this).attr('data-index', index) 
@@ -202,21 +204,42 @@ var millwood;
 				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
 			}
 
-			$.ajax({
-				'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
+			if (millwood.wp_data.show_events == true) {
+
+				$.ajax({
+					'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
 					'type': 'GET',
 					'data': {'post_type': 'tribe_events',
-						'start_date': millwood.utils.getmysqlnow()
-						},
-				'success': function (data) {
-					if (data != null) {
-						millwood.success.output_event_widget(data);
-					}// end if data length is more than 0
+							'start_date': millwood.utils.getmysqlnow()
+							},
+					'success': function (data) {
+						if (data != null) {
+							millwood.success.output_event_widget(data);
+						}// end if data length is more than 0
 
-				}
-			})
+					}
+				}) //end ajax calendar
+			}//end showevents true
+
+			if (millwood.wp_data.show_news == true) {
+				$.ajax({
+					'url': millwood.wp_data.rest_url + '/news/v1/latest-news',
+					'type': 'GET',
+					'data': {},
+					//'data': {'post_type': 'tribe_events',
+					//		'start_date': millwood.utils.getmysqlnow()
+					//		},
+					'success': function (data) {
+						console.log(data);
+						//if (data != null) {
+						//	millwood.success.output_event_widget(data);
+						//}// end if data length is more than 0
+					}
+				}) //end ajax calendar
+			} //end show news true
+
 		}
-	}
+	} //end contentwrap length
 
 	if ($('table.tribe-events-calendar').length>0) {
 		millwood.utils.config_calendar();
