@@ -59,11 +59,13 @@
 
 #footer-event-wraper .event {
     background: #ae9b7c;
-    margin: 10px;
-    min-height: 150px;
-    max-height:290px;
-    padding:10px;
     color:white;
+}
+
+#footer-event-wraper .event, #footer-news-wraper .news {
+    margin-top: 10px;
+    min-height: 150px;
+    max-height:310px;
     overflow: hidden;
     height:400px;
 }
@@ -75,11 +77,21 @@
     margin-bottom: 4px;
 }
 
-#footer-event-wraper .event .event-content {
+#footer-event-wraper .event .event-content, #footer-news-wraper .news .news-content {
     height: 220px;
     overflow: hidden;
 }
 
+#footer-news-wraper .news .news-content {
+    border-bottom: 1px solid #ccc;
+    margin-bottom:10px;
+    padding: 0 10%;
+}
+
+.news img, .event img {
+    height: 150px;
+    width: 150px;
+}
 
 span.read-more {
     float: right;
@@ -89,9 +101,28 @@ span.read-more {
 }
 
 span.read-more:hover {
-	background:#ccc;
 	color: #333;
 	cursor: pointer;
+}
+
+.event .read-more {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.news .read-more {
+    padding: 15px;
+    text-align: center;
+    margin: 0 40%;
+    width: 200px;
+    font-size: 1.2em;
+}
+
+.news .news-name {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 @media only screen and (max-width: 800px) {
@@ -101,7 +132,7 @@ span.read-more:hover {
 
 }
 
-div#footer-event-title {
+div#footer-event-title, div#footer-news-title {
     margin: 0;
     font-size: 1.7em;
     text-decoration: underline;
@@ -113,6 +144,15 @@ div#footer-event-title:hover {
     color: #777;
 }
 
+div#footer-news-wraper {
+    background: #e9e9e9;
+}
+
+div#footer-news-wraper {
+    border-bottom: 1px solid #777;
+    border-top: 1px solid #777;
+}
+
 button.slick-arrow {
 	color:black;
 	background:#ccc;
@@ -121,7 +161,11 @@ button.slick-arrow {
     z-index: 10;
     width: 50px;
     opacity:.8;
+}
 
+button.slick-arrow:hover {
+    opacity: 1;
+    cursor: pointer;
 }
 
 .slick-event {

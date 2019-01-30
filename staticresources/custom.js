@@ -13,11 +13,12 @@ var millwood;
         	'rest_url' : php_vars.rest_url,
         	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
         	'show_events': true,
-        	'show_news': false
+        	'show_news': true
 		},
 		'templates' : {
 			'events': php_vars.template_events,
-			'events_single' : php_vars.template_events_single
+			'events_single' : php_vars.template_events_single,
+			'news_single' : php_vars.template_news_single
 		},
 		'utils': {
 			'getmysqlnow' :function () {
@@ -31,11 +32,30 @@ var millwood;
     			('00' + date.getUTCSeconds()).slice(-2);
 				return date;
 			},
-			'init_arrows' :function (ele) {
-				var screenwidth = $(ele).width();
-				$('button.slick-next').css({
-					'left': (screenwidth- 30) + 'px' 
+			'init_arrows' :function (ele, children, fullwidth) {
+				var selector = ele[0].parentElement;
+				selector = $(selector).attr('id');
+				$('#'+selector+ ' .'+children).each(function () {
+					if ($(this).attr('data-num')=='3') {
+						var width = $(this).width();
+						var left = $(this).position().left
+						var screenwidth = (width + left);
+						if (fullwidth == true) {
+							screenwidth = screenwidth - 70;
+							$('#'+selector + ' button.slick-prev').css({
+								'left': 20 + 'px' 
+							})
+						}
+
+						$('#'+selector + ' button.slick-next').css({
+							'left': (screenwidth) + 'px' 
+						})
+
+					}
 				})
+			
+
+				
 
 				$('button.slick-arrow').each(function () {
 					if ($(this).hasClass('slick-prev') == true) {
@@ -46,7 +66,7 @@ var millwood;
 					}
 				});
 			},
-			'slickthis': function (ele, settings) {
+			'slickthis': function (ele, settings, children) {
 				if (settings==undefined) {
 					settings = {};
 				}
@@ -68,6 +88,10 @@ var millwood;
 				}
 				if (settings.arrows == undefined) {
 					settings.arrows = true;
+				}
+
+				if (settings.fullwidth == undefined) {
+					settings.fullwidth = false;
 				}
 
 				if (settings.responsive == undefined) {
@@ -100,10 +124,10 @@ var millwood;
 				$(ele).not('slick-intialized').slick(settings);
 				
 				if (settings.arrows == true) {
-					millwood.utils.init_arrows(ele);
+					millwood.utils.init_arrows(ele, children, settings.fullwidth);
 
 					$(window).resize(function () {
-						millwood.utils.init_arrows(ele);
+						millwood.utils.init_arrows(ele, children, settings.fullwidth);
 					})
 				}
 
@@ -137,6 +161,10 @@ var millwood;
 						'html': html,
 						'id' : 'footer-event-wraper'
 					}).insertAfter('.page_content_wrap .content_wrap');
+
+					$('#footer-event-wraper .event').each(function (index, val) {
+						$(this).attr('data-num', index+1)
+					})
 					
 					$( ".event" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
 
@@ -161,7 +189,7 @@ var millwood;
 						}).appendTo($(this));
 
 						$('<span />', {
-							'class': 'read-more',
+							'class': 'sc_button sc_button_style_filled read-more',
 							'text': 'Read More',
 							'data-id' : data[index].post_name
 						}).appendTo($(this));
@@ -175,14 +203,74 @@ var millwood;
 						} catch(e) {console.log(e)}
 					})
 
+
 					try {
-						millwood.utils.slickthis($('#slickthis'));
+						millwood.utils.slickthis($('#footer-event-wraper #slickthis'), {}, 'event');
 					} catch(e) {
 						console.log(e);
 					}
 
+				} //end data length check
+			},//end output event widget
+			'output_news_widget':   function(data) {
+				if (data.length > 0 ) {
+					var html = '';
+					$.each(data, function () {
+						html = html+ millwood.templates.news_single;
+					}); //end data each
+
+					$('<div />', {
+						'html': html,
+						'id' : 'footer-news-wraper'
+					}).insertAfter('.page_content_wrap .content_wrap');
+
+					$('#footer-news-wraper .news').each(function (index, val) {
+						$(this).attr('data-num', index+1)
+					})
+
+					$( ".news" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
+
+					$('<div />', {
+						'id': 'footer-news-title',
+						'html': 'The Latest News'
+					}).insertAfter('.page_content_wrap .content_wrap');
+
+					//$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/index.php/calendar" />');
+
+					$('#footer-news-wraper .news').each(function (index, val) {
+						$(this).attr('data-index', index) 
+
+						$('<div />', {
+							'class': 'news-name',
+							'text': data[index].post_title
+						}).appendTo($(this))
+
+						$('<div />', {
+							'class': 'news-content',
+							'html': data[index].post_content
+						}).appendTo($(this));
+
+						$('<span />', {
+							'class': 'sc_button sc_button_square sc_button_style_filled sc_button_size_small read-more',
+							'text': 'Read More',
+							'data-id' : data[index].post_name
+						}).appendTo($(this));
+
+					})
+
+
+					var settings = {
+						'fullwidth' : true
+					}
+
+					try {
+						millwood.utils.slickthis($('#footer-news-wraper #slickthis'), settings, 'news');
+					} catch(e) {
+						console.log(e);
+					}
+
+
 				}
-			
 			}
 		}
 
@@ -205,7 +293,6 @@ var millwood;
 			}
 
 			if (millwood.wp_data.show_events == true) {
-
 				$.ajax({
 					'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
 					'type': 'GET',
@@ -222,20 +309,19 @@ var millwood;
 			}//end showevents true
 
 			if (millwood.wp_data.show_news == true) {
-				$.ajax({
-					'url': millwood.wp_data.rest_url + '/news/v1/latest-news',
-					'type': 'GET',
-					'data': {},
-					//'data': {'post_type': 'tribe_events',
-					//		'start_date': millwood.utils.getmysqlnow()
-					//		},
-					'success': function (data) {
-						console.log(data);
-						//if (data != null) {
-						//	millwood.success.output_event_widget(data);
-						//}// end if data length is more than 0
-					}
-				}) //end ajax calendar
+				setTimeout(function () {
+					$.ajax({
+						'url': millwood.wp_data.rest_url + '/news/v1/latest-news',
+						'type': 'GET',
+						'data': {'category': 'homepagenews'},
+						'success': function (data) {
+							if (data != null) {
+								millwood.success.output_news_widget(data);
+							//	millwood.success.output_event_widget(data);
+							}// end if data length is more than 0
+						}
+					}) //end ajax calendar
+			},500);
 			} //end show news true
 
 		}

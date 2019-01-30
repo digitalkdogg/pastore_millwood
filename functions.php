@@ -27,7 +27,8 @@ function my_footer_scripts(){
         'is_admin'              => is_admin(),
         'rest_url'              => get_rest_url(),
         'template_events'       => get_custom_template_file('Templates/Events.html'),
-        'template_events_single'=> get_custom_template_file('Templates/Events_single.html')
+        'template_events_single'=> get_custom_template_file('Templates/Events_single.html'),
+        'template_news_single'  => get_custom_template_file('Templates/News_single.html')
     );
     wp_localize_script( 'customjs', 'php_vars', $dataToBePassed );
 
@@ -43,17 +44,13 @@ function get_custom_template_file($fileName){
     return $fileContents;
 }
 
-
-
-
-
 /**
  * Grab latest event posts
  *
  * @param array $data Options for the function.
  * @return $object, or null if none.  */
  
-	 function get_latest_events ( $params ){
+   function get_latest_events ( $params ){
 
     if ($params['post_type']=='') {
       $params['post_type'] = 'tribe_events';
@@ -75,10 +72,45 @@ function get_custom_template_file($fileName){
 
 
  
+      if( empty( $post ) ){
+        return null;
+      }
+    return $post;
+      //return $post[0]->post_title;
+     }
+
+
+
+/**
+ * Grab latest event posts
+ *
+ * @param array $data Options for the function.
+ * @return $object, or null if none.  */
+ 
+	 function get_latest_news ( $params ){
+
+    if ($params['category']=='') {
+      $params['category'] = 'homepagenews';
+    }
+    
+
+    $category = get_term_by('name', $params['category'], 'category');
+
+    if ($category != false) {
+      $post = get_posts( array(
+            'post_status' => 'publish',
+            'cat' => $category->term_id,
+            'posts_per_page' => 10,
+            'orderby' => 'date',
+            'order' => 'ASC' 
+       ) );
+    }
+
   	 	if( empty( $post ) ){
   	 		return null;
   	 	}
- 		return $post;
+ 		   
+       return $post;
   	 	//return $post[0]->post_title;
   	 }
 
@@ -87,6 +119,11 @@ function get_custom_template_file($fileName){
             register_rest_route( 'calendar/v1', 'latest-events',array( 
                 'methods'  => 'GET',
                 'callback' => 'get_latest_events'
+            ) );
+
+            register_rest_route( 'news/v1', 'latest-news',array( 
+                'methods'  => 'GET',
+                'callback' => 'get_latest_news'
             ) );
      } );  
 ?>
