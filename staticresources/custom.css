@@ -118,6 +118,12 @@ span.read-more:hover {
     font-size: 1.2em;
 }
 
+@media only screen and (max-width: 800px) {
+    .news .read-more {
+        margin: 0 20%;
+    }
+}
+
 .news .news-name {
     text-align: center;
     font-size: 1.2em;
