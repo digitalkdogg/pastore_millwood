@@ -12,6 +12,7 @@ var millwood;
         	'is_admin' : php_vars.is_admin,
         	'rest_url' : php_vars.rest_url,
         	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
+        	'menu' : JSON.parse(php_vars.menu),
         	'show_events': true,
         	'show_news': true
 		},
@@ -173,7 +174,8 @@ var millwood;
 						'html': 'Upcoming Events'
 					}).insertAfter('.page_content_wrap .content_wrap');
 
-					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/index.php/calendar" />');
+					console.log(millwood.wp_data.menu[0].url)
+					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.menu[0].url + '" />');
 
 					$('#footer-event-wraper .event').each(function (index, val) {
 						$(this).attr('data-index', index) 

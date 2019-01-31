@@ -26,13 +26,14 @@ function my_footer_scripts(){
         'site_url'              => get_option( 'siteurl' ),
         'is_admin'              => is_admin(),
         'rest_url'              => get_rest_url(),
+        'menu'                  => wp_json_encode(wp_get_nav_menu_items('MainMenu')),
         'template_events'       => get_custom_template_file('Templates/Events.html'),
         'template_events_single'=> get_custom_template_file('Templates/Events_single.html'),
         'template_news_single'  => get_custom_template_file('Templates/News_single.html')
     );
     wp_localize_script( 'customjs', 'php_vars', $dataToBePassed );
 
-
+//var_dump(yourprefix_get_menu_items(''));
 
 }
 
