@@ -27,6 +27,7 @@ function my_footer_scripts(){
         'is_admin'              => is_admin(),
         'rest_url'              => get_rest_url(),
         'menu'                  => wp_json_encode(wp_get_nav_menu_items('MainMenu')),
+        'custom_super_options' => get_theme_super_customizations(),
         'template_events'       => get_custom_template_file('Templates/Events.html'),
         'template_events_single'=> get_custom_template_file('Templates/Events_single.html'),
         'template_news_single'  => get_custom_template_file('Templates/News_single.html')
@@ -43,6 +44,16 @@ function get_custom_template_file($fileName){
     $filePath = $pluginDirectory . $fileName;
     $fileContents = file_get_contents($filePath);
     return $fileContents;
+}
+
+function get_theme_super_customizations() {
+  $options = array('homepage_show_events', 'homepage_show_news'); 
+  $returnarray = array();
+
+  foreach ($options as &$value) {
+    $returnarray[$value] = pastore_church_get_custom_option($value);
+  }
+  return $returnarray;
 }
 
 /**

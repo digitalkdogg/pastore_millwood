@@ -2,7 +2,7 @@ var millwood;
 
 (function($) {
 	"use strict";
-
+	console.log(php_vars);
 	millwood = {
 		'wp_data': {
 			'stylesheet_dir':php_vars.stylesheet_dir,
@@ -13,8 +13,7 @@ var millwood;
         	'rest_url' : php_vars.rest_url,
         	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
         	'menu' : JSON.parse(php_vars.menu),
-        	'show_events': true,
-        	'show_news': true
+        	'custom_super_options' : php_vars.custom_super_options
 		},
 		'templates' : {
 			'events': php_vars.template_events,
@@ -294,7 +293,7 @@ var millwood;
 				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
 			}
 
-			if (millwood.wp_data.show_events == true) {
+			if (millwood.wp_data.custom_super_options.homepage_show_events == 'yes') {
 				$.ajax({
 					'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
 					'type': 'GET',
@@ -310,7 +309,7 @@ var millwood;
 				}) //end ajax calendar
 			}//end showevents true
 
-			if (millwood.wp_data.show_news == true) {
+			if (millwood.wp_data.custom_super_options.homepage_show_news == 'yes') {
 				setTimeout(function () {
 					$.ajax({
 						'url': millwood.wp_data.rest_url + '/news/v1/latest-news',
