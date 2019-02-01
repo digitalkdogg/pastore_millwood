@@ -47,7 +47,11 @@ function get_custom_template_file($fileName){
 }
 
 function get_theme_super_customizations() {
-  $options = array('homepage_show_events', 'homepage_show_news'); 
+  $options = array('homepage_show_events', 
+                  'homepage_show_news',
+                  'homepage_events_arrow_position',
+                  'homepage_news_arrow_position'
+                ); 
   $returnarray = array();
 
   foreach ($options as &$value) {

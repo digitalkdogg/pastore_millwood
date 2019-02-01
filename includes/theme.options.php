@@ -385,12 +385,42 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "switch"
 					),
 
+		'homepage_events_arrow_position' => array( 
+					"title" => esc_html__('Events Widget Arrow Position',  'pastore-church'),
+					"desc" => wp_kses_data( __('Select arrow position',  'pastore-church') ),
+					"std" => "normal",
+					"dependency" => array(
+						'homepage_show_events' => array('yes')
+					),
+					"options" => array(
+						'normal' => "Normal",
+						'fullwidth' => "Full Width",
+						
+					),
+					"type" => "select"
+					),
+
 		'homepage_show_news' => array(
 					"title" => esc_html__('Show News On Homepage', 'pastore-church'),
 					"desc" => wp_kses_data( __('Determines if the news feed widget is visible or not') ),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
+					),
+
+		'homepage_news_arrow_position' => array( 
+					"title" => esc_html__('News Widget Arrow Position',  'pastore-church'),
+					"desc" => wp_kses_data( __('Select arrow position',  'pastore-church') ),
+					"std" => "normal",
+					"dependency" => array(
+						'homepage_show_news' => array('yes')
+					),
+					"options" => array(
+						'normal' => "Normal",
+						'fullwidth' => "Full Width",
+						
+					),
+					"type" => "select"
 					),
 		
 		
