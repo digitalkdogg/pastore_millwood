@@ -12,7 +12,8 @@ var millwood;
         	'rest_url' : php_vars.rest_url,
         	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
         	'menu' : JSON.parse(php_vars.menu),
-        	'custom_super_options' : php_vars.custom_super_options
+        	'custom_super_options' : php_vars.custom_super_options,
+        	'responsive' : {'ismobile': false}
 		},
 		'templates' : {
 			'events': php_vars.template_events,
@@ -20,6 +21,21 @@ var millwood;
 			'news_single' : php_vars.template_news_single
 		},
 		'utils': {
+			'checkismobile': function () {
+				var breakpoint = millwood.wp_data.custom_super_options.menu_mobile
+				var windowsize = window.innerWidth
+
+				if(windowsize >= breakpoint) {
+					$('body').addClass('desktop');
+					millwood.wp_data.responsive['breakpoint'] = breakpoint
+					millwood.wp_data.responsive['ismobie'] = false;
+				} else {
+					$('body').removeClass('desktop');
+					millwood.wp_data.responsive['breakpoint'] = breakpoint
+					millwood.wp_data.responsive['ismobie'] = true;
+				}
+				return null;
+			},
 			'getmysqlnow' :function () {
 				var date;
 				date = new Date();
@@ -288,6 +304,14 @@ var millwood;
 
 	}; //end millwood
 
+
+	millwood.utils.checkismobile();
+
+	$(window).resize(function () {
+		millwood.utils.checkismobile();
+	})
+	
+
 	if ($('.logo_slogan').length > 0 ) {
 		$( '.logo_slogan' ).clone().appendTo( '.top_panel_title_inner .content_wrap' );
 		$('.top_panel_title_inner .logo_slogan').addClass('mobile-tablet-hidden');
@@ -354,6 +378,37 @@ var millwood;
 			}
 		}
 	}
+
+	if (millwood.wp_data.responsive.ismobile == false) {
+		if ($('body.desktop #menu_main > .menu-item').length < $('body.desktop #menu_main .menu-item').length) {
+			$('body.desktop #menu_main > .menu-item').each(function() {
+				var kids = $(this).children('ul');
+				if (kids.length >0) {
+					$(this).children('a').append('<span class="open_child_menu" />')
+					var id = $(this).attr('id');
+					var menu = id;
+					id = id.replace(/menu-item-/g, '')
+
+					$.each(millwood.wp_data.menu, function () {
+						if (id == this.ID) {
+							this.arrow = $('#' + menu + ' span.open_child_menu');
+						}
+					})
+					
+				}
+
+				$(this).on('mouseenter' , function () {
+					$('#'+menu+ ' span.open_child_menu').addClass('hover');
+				})
+
+				$(this).on('mouseleave' , function () {
+					$('#'+menu+ ' span.open_child_menu').removeClass('hover');
+				})
+
+			})
+		}
+	}
+	
 
 }(jQuery));
 

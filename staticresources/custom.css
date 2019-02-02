@@ -233,3 +233,24 @@ a.tribe-events-ical.tribe-events-button.sc_button.sc_button_style_filled {
 .tribe-events-single-event-title:after, .eg-home1-element-0:after, .sc_item_title:after, .sc_title_underline:after {
 	display:none;
 }
+
+
+body.desktop span.open_child_menu {
+    right: -10px;
+    top: 7px;
+    font-size: 1.5em;
+    transition-duration: 0.8s;
+    transition-property: transform;
+     transform: rotate(-90deg);
+}
+
+span.open_child_menu:hover {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+}
+
+body.desktop span.open_child_menu.hover {
+    transition-duration: 0.8s;
+    transition-property: transform;
+    transform: rotate(0deg);
+}

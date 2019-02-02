@@ -50,7 +50,8 @@ function get_theme_super_customizations() {
   $options = array('homepage_show_events', 
                   'homepage_show_news',
                   'homepage_events_arrow_position',
-                  'homepage_news_arrow_position'
+                  'homepage_news_arrow_position',
+                  'menu_mobile'
                 ); 
   $returnarray = array();
 
