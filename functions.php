@@ -51,6 +51,8 @@ function get_theme_super_customizations() {
                   'homepage_show_events_page',
                   'homepage_show_news',
                   'homepage_show_news_page',
+                  'homepage_events_rev_arrows',
+                  'homepage_news_rev_arrows',
                   'homepage_events_arrow_position',
                   'homepage_news_arrow_position',
                   'menu_mobile'

@@ -1,3 +1,8 @@
+/************** colors        ******************/
+/* Millwood red : #cf4a46 *******************/
+
+/************************************************/
+
 .content input {
     font-family: inherit;
 }
@@ -265,4 +270,21 @@ body.desktop span.open_child_menu.hover {
     transition-duration: 0.8s;
     transition-property: transform;
     transform: rotate(0deg);
+}
+
+.custom.tparrows.tp-leftarrow, .custom.tparrows.tp-rightarrow  {
+    border:2px solid #cf4a46;
+}
+
+.custom.tparrows.tp-leftarrow:before, .custom.tparrows.tp-rightarrow:before  {
+    color: #cf4a46;
+}
+
+.custom.tparrows.tp-leftarrow:hover, .custom.tparrows.tp-rightarrow:hover  {
+    background:#cf4a46 !important;
+    opacity: .4;
+}
+
+.custom.tparrows.tp-leftarrow:hover:before, .custom.tparrows.tp-rightarrow:hover:before  {
+    opacity:.8;
 }

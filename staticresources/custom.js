@@ -48,9 +48,47 @@ var millwood;
     			('00' + date.getUTCSeconds()).slice(-2);
 				return date;
 			},
+			'switch_to_rev_arrows': function (selector) {
+				$('<div />', {
+					'id': 'slick-prev',
+					'class': 'tp-leftarrow tparrows custom',
+					'style': 'top: 40%; transform: matrix(1, 0, 0, 1, 30, -21); left: 0px;'
+				}).insertBefore('#'+selector+' button.slick-prev.slick-arrow');
+				$('#'+selector+ ' div#slick-prev').click(function (e) {
+					e.preventDefault();
+					var findprev = $(this).next('button.slick-prev');
+					$(findprev).click();
+				})
+
+				$('<div />', {
+					'id': 'slick-next',
+					'class': 'tp-rightarrow tparrows custom',
+					'style': 'top: 40%; transform: matrix(1, 0, 0, 1, 30, -21); left: 0px;'
+				}).insertBefore('#'+selector+' button.slick-next.slick-arrow');
+				$('#'+selector+' div#slick-next').click(function (e) {
+					e.preventDefault();
+					var findnext = $(this).next('button.slick-next');
+					$(findnext).click();
+				})
+				$('#'+selector+' button.slick-next').addClass('hidden');
+				$('#'+selector+' button.slick-prev').addClass('hidden');
+			},
 			'init_arrows' :function (ele, children, fullwidth) {
 				var selector = ele[0].parentElement;
 				selector = $(selector).attr('id');
+
+				if (children=='news') {
+					if (millwood.wp_data.custom_super_options.homepage_news_rev_arrows=='yes') {
+						millwood.utils.switch_to_rev_arrows(selector);
+					}
+				}
+
+				if (children=='events') {
+					if (millwood.wp_data.custom_super_options.homepage_events_rev_arrows=='yes') {
+						millwood.utils.switch_to_rev_arrows(selector);
+					}
+				}
+
 				$('#'+selector+ ' .'+children).each(function () {
 					if ($(this).attr('data-num')=='3') {
 
@@ -63,6 +101,11 @@ var millwood;
 							$('#'+selector + ' button.slick-next').css({
 								'left': (screenwidth) + 'px' 
 							})
+
+							$('#'+selector + ' div#slick-next').css({
+								'left': (screenwidth- 20) + 'px'
+							})
+
 						} else {
 							var width = $(this).width();
 							width = (width-10) * 3
@@ -70,13 +113,16 @@ var millwood;
 							$('#'+selector + ' button.slick-next').css({
 								'left': (screenwidth) + 'px' 
 							})
+
+							$('#'+selector + ' div#slick-next').css({
+								'left': (screenwidth-20) + 'px'
+							})
 							return false;
 						}
 
 					}
 				})
 			
-
 				
 
 				$('button.slick-arrow').each(function () {
