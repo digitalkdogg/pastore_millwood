@@ -333,6 +333,7 @@ var millwood;
 
 		if (millwood.wp_data.homeurl == href) {
 			millwood.wp_data['is_homepage'] = true;
+			$('body').addClass('homepage')
 
 			if (millwood.wp_data.needindexphp == true) {
 				millwood.wp_data.homeurl = millwood.wp_data.homeurl + '/index.php';
