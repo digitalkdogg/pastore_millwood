@@ -383,7 +383,6 @@ var millwood;
 
 			if (millwood.wp_data.needindexphp == true) {
 				millwood.wp_data.homeurl = millwood.wp_data.homeurl + '/index.php';
-				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json';
 			}
 
 			if (millwood.wp_data.custom_super_options.homepage_show_events == 'yes') {
