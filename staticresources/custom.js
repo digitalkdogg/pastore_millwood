@@ -387,7 +387,7 @@ var millwood;
 
 			if (millwood.wp_data.custom_super_options.homepage_show_events == 'yes') {
 				$.ajax({
-					'url': millwood.wp_data.rest_url + '/calendar/v1/latest-events',
+					'url': millwood.wp_data.rest_url + 'calendar/v1/latest-events',
 					'type': 'GET',
 					'data': {'post_type': 'tribe_events',
 							'start_date': millwood.utils.getmysqlnow()
@@ -404,7 +404,7 @@ var millwood;
 			if (millwood.wp_data.custom_super_options.homepage_show_news == 'yes') {
 				setTimeout(function () {
 					$.ajax({
-						'url': millwood.wp_data.rest_url + '/news/v1/latest-news',
+						'url': millwood.wp_data.rest_url + 'news/v1/latest-news',
 						'type': 'GET',
 						'data': {'category': 'homepagenews'},
 						'success': function (data) {
