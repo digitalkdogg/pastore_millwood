@@ -13,7 +13,8 @@ var millwood;
         	'ajax_url' : PASTORE_CHURCH_STORAGE.ajax_url,
         	'menu' : JSON.parse(php_vars.menu),
         	'custom_super_options' : php_vars.custom_super_options,
-        	'responsive' : {'ismobile': false}
+        	'responsive' : {'ismobile': false},
+        	'needindexphp': false
 		},
 		'templates' : {
 			'events': php_vars.template_events,
@@ -198,7 +199,7 @@ var millwood;
 						'html': 'Upcoming Events'
 					}).insertAfter('.page_content_wrap .content_wrap');
 
-					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.menu[0].url + '" />');
+					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_events_page + '" />');
 
 					$('#footer-event-wraper .event').each(function (index, val) {
 						$(this).attr('data-index', index) 
@@ -264,7 +265,7 @@ var millwood;
 						'html': 'The Latest News'
 					}).insertAfter('.page_content_wrap .content_wrap');
 
-					//$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/index.php/calendar" />');
+					$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_news_page  +'" />');
 
 					$('#footer-news-wraper .news').each(function (index, val) {
 						$(this).attr('data-index', index) 
@@ -323,9 +324,19 @@ var millwood;
 			href = href.substr(0, href.length-1);
 		}
 
+		$.each(millwood.wp_data.menu, function () {
+			if (this.url.indexOf('index.php') >= 0) {
+				millwood.wp_data.needindexphp = true;
+			}
+			return;
+		});
+
 		if (millwood.wp_data.homeurl == href) {
-			if (millwood.wp_data.rest_url.indexOf('index.php')<0) {
-				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json'
+			millwood.wp_data['is_homepage'] = true;
+
+			if (millwood.wp_data.needindexphp == true) {
+				millwood.wp_data.homeurl = millwood.wp_data.homeurl + '/index.php';
+				millwood.wp_data.rest_url = millwood.wp_data.site_url + '/index.php/wp-json';
 			}
 
 			if (millwood.wp_data.custom_super_options.homepage_show_events == 'yes') {
