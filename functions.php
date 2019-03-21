@@ -38,6 +38,20 @@ function my_footer_scripts(){
 
 }
 
+function remove_nonadmin_menu_items() {
+    if( !current_user_can( 'administrator' ) ):
+        remove_menu_page( 'edit.php?post_type=services' );
+        remove_menu_page( 'edit.php?post_type=clients' );
+        remove_menu_page( 'edit.php?post_type=testimonial' );
+        remove_menu_page( 'users.php' );
+        remove_menu_page( 'tools.php' );
+        remove_menu_page( 'options-general.php' );
+
+    endif;
+}
+add_action( 'admin_menu', 'remove_nonadmin_menu_items' );
+
+
 add_action('init', 'get_custom_template_file');
 function get_custom_template_file($fileName){
     $pluginDirectory = plugin_dir_path( __FILE__ );

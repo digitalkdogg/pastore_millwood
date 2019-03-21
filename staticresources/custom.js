@@ -23,17 +23,28 @@ var millwood;
 		},
 		'utils': {
 			'checkismobile': function () {
+				var superdesktop = 1300;
 				var breakpoint = millwood.wp_data.custom_super_options.menu_mobile
 				var windowsize = window.innerWidth
 
-				if(windowsize >= breakpoint) {
+				if (windowsize >= superdesktop) {
+					$('body').addClass('desktop superdesktop');
+					millwood.wp_data.responsive['ismobile'] = false;
+					millwood.wp_data.responsive['isdesktop'] = true;
+					millwood.wp_data.responsive['issuperdesktop'] = true;
+				} else if(windowsize >= breakpoint) {
 					$('body').addClass('desktop');
-					millwood.wp_data.responsive['breakpoint'] = breakpoint
-					millwood.wp_data.responsive['ismobie'] = false;
+					$('body').removeClass('superdesktop');
+					millwood.wp_data.responsive['breakpoint'] = breakpoint;
+					millwood.wp_data.responsive['isdesktop'] = true;
+					millwood.wp_data.responsive['ismobile'] = false;
+					millwood.wp_data.responsive['issuperdesktop'] = false;
 				} else {
 					$('body').removeClass('desktop');
 					millwood.wp_data.responsive['breakpoint'] = breakpoint
-					millwood.wp_data.responsive['ismobie'] = true;
+					millwood.wp_data.responsive['ismobile'] = true;
+					millwood.wp_data.responsive['isdesktop'] = false;
+					millwood.wp_data.responsive['issuperdesktop'] = false;
 				}
 				return null;
 			},
@@ -436,6 +447,14 @@ var millwood;
 		}
 	}
 
+	if ($('.direct-stripe').length>0) {
+		var directstripe = $('.direct-stripe')
+		$('<span />', {
+			'text':'Amount : ',
+			'class': 'lable'
+		}).prependTo($(directstripe))
+	}
+
 	if (millwood.wp_data.responsive.ismobile == false) {
 		if ($('body.desktop #menu_main > .menu-item').length < $('body.desktop #menu_main .menu-item').length) {
 			$('body.desktop #menu_main > .menu-item').each(function() {
@@ -464,9 +483,15 @@ var millwood;
 
 			})
 		}
+
+		if (millwood.wp_data.responsive.ismobile == false && millwood.wp_data.responsive.issuperdesktop == false) {
+			var logotext = $('.top_panel_middle .logo_text')
+			$('<div />', {
+				html: logotext
+			}).prependTo('.top_panel_middle .logo')
+		}
 	}
 	
-
 }(jQuery));
 
 

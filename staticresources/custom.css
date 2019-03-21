@@ -3,6 +3,7 @@
 
 /************************************************/
 
+
 .content input {
     font-family: inherit;
 }
@@ -18,6 +19,119 @@
 .page_title .logo_slogan {
     font-size: .8em;
 }
+
+@media only screen and (max-width: 1024px) {
+    .header_mobile .logo a {
+        width: 100%;
+        margin: -10px 10px;
+    }
+
+    .header_mobile .logo img.logo_main {
+        display:none;
+    }
+}
+
+@media only screen and (min-width : 640px) {
+    .header_mobile .logo img.logo_main {
+        display:none;
+    }
+}
+
+@media only screen and (min-width : 768px) {
+    .header_mobile .logo img.logo_main {
+        margin:0 35%;
+    }
+
+}
+
+@media only screen and (min-width : 1024px) {
+    .top_panel_middle .logo .logo_text {
+        clear: left;
+    }
+
+    .top_panel_wrap .logo {
+        margin: 0px 0 10px 0;
+    }
+
+    .top_panel_wrap .logo img.logo_main {
+        margin: 0 20%;
+    }
+
+    .top_panel_wrap .logo .logo_text { 
+        margin: 30px 0 0 0;
+     }
+}
+
+
+@media only screen and (min-width : 1100px) {
+    .top_panel_middle .content_wrap {
+        width:99%;
+        padding: 0 2%;
+    }
+}
+
+
+@media only screen and (min-width: 1250px) {
+    .top_panel_middle .content_wrap {
+        padding: 0;
+    }
+
+    .top_panel_wrap .logo img.logo_main {
+        margin: 0;
+    }
+
+    .top_panel_middle .logo .logo_text {
+        clear: none;
+        margin: 5% 0;
+        line-height: 1;
+    }
+
+    .top_panel_middle .contact_logo {
+        width: 50%;
+    }
+
+    .top_panel_middle .logo a {
+        width:100%;
+    }
+}
+
+@media only screen and (min-width: 1350px) {
+    .content_wrap {
+        width:1250px;
+    }
+
+     .top_panel_middle .content_wrap {
+        width:1250px;
+    }
+
+      .top_panel_middle .contact_logo {
+        width: 50%;
+    }
+}
+
+@media only screen and (min-width: 1500px) {
+    .top_panel_middle .contact_logo {
+        width: 60%;
+    }
+
+     .content_wrap, .top_panel_middle .content_wrap {
+        width: 1300px;
+    }
+
+}
+
+@media only screen and (min-width: 1600px) {
+    .content_wrap, .top_panel_middle .content_wrap {
+        width:1400px;
+    }
+
+}
+/*@media only screen and (min-width: 1200px) {
+   .content-wrap{
+        width: 100%;
+        border: 1px solid red;
+   }
+}*/
 
 .top_panel_title .logo_slogan {
     text-align: center;
@@ -97,6 +211,7 @@
 #footer-event-wraper .event .event-content, #footer-news-wraper .news .news-content {
     height: 220px;
     overflow: hidden;
+    margin:0 20px;
 }
 
 #footer-news-wraper .news .news-content {
@@ -127,7 +242,7 @@ span.read-more:hover {
     margin-right: 10px;
 }
 
-.news .read-more {
+.news .read-more, .event .read-more {
     padding: 15px;
     text-align: center;
     margin: 0 40%;
@@ -287,4 +402,26 @@ body.desktop span.open_child_menu.hover {
 
 .custom.tparrows.tp-leftarrow:hover:before, .custom.tparrows.tp-rightarrow:hover:before  {
     opacity:.8;
+}
+
+button#ds-donate-btn {
+    background-color: #cf4a46;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+button#ds-donate-btn:hover {
+	opacity: .8;
+	cursor: pointer;
+}
+
+.direct-stripe .donationvalue {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.directStripe_answer.error {
+    color: red;
+    background-color: #ccc;
+    margin: 30px 0;
 }
