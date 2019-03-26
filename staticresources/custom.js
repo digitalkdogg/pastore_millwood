@@ -449,10 +449,42 @@ var millwood;
 
 	if ($('.direct-stripe').length>0) {
 		var directstripe = $('.direct-stripe')
+		var directbtn = $('button#ds-donate-btn')		
 		$('<span />', {
-			'text':'Amount : ',
+			'text':'Amount : $ ',
 			'class': 'lable'
 		}).prependTo($(directstripe))
+
+		$('<div />', {
+			'id' : 'heart-wrapper',
+			'class' : 'inline-block'
+		}).prependTo($(directbtn))
+
+		$('<i />', {
+			'id': 'spinner',
+			'class': 'icon-heart-light'
+		}).prependTo($('#heart-wrapper'));
+
+		$('input.donationvalue').val('0');
+
+		$(directbtn).click(function () {
+			var donateval = $('input.donationvalue').val();
+			if (donateval.length > 0) {
+				$('i.icon-heart-light').animate({
+					'font-size': '1.6em',
+				}, 500, function () {
+					$(this).animate({
+						'font-size': '.5em'
+					}, 500, function () {
+						$(this).animate({
+							'font-size': '1.6em'
+						}, 500, function () {
+							$(this).animate({'font-size': '1em'})
+						})
+					})
+				})
+			}
+		});
 	}
 
 	if (millwood.wp_data.responsive.ismobile == false) {
