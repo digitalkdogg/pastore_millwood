@@ -469,7 +469,7 @@ var millwood;
 
 		$(directbtn).click(function () {
 			var donateval = $('input.donationvalue').val();
-			if (donateval.length > 0) {
+			if (donateval.length > 0  && donateval > 0) {
 				$('i.icon-heart-light').animate({
 					'font-size': '1.6em',
 				}, 500, function () {
