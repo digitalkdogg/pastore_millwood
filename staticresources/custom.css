@@ -453,6 +453,9 @@ div#heart-wrapper {
     width: 40px;
 }
 
+.post_content blockquote {
+	text-align:left;
+}
 .post_content blockquote:before {
 	display:none;
 }
