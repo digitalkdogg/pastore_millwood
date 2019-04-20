@@ -158,6 +158,22 @@
     display: none;
 } 
 
+@media only screen and (max-width: 800px) {
+	.page_content_wrap .content_wrap {
+		width: 95%;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.page_content_wrap .content_wrap {
+		width: 99%;
+	}
+}
+
+section.post_content {
+    min-height: 500px;
+}
+
 @media screen and (min-width: 0px) and (max-width: 400px) {
   .desktop-hidden { display: block; }  /* show it on small screens */
 }
