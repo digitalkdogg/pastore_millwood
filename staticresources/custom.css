@@ -456,6 +456,7 @@ div#heart-wrapper {
 .post_content blockquote {
 	margin:0;
 	padding:0 10px;
+	text-align:left;
 }
 
 .post_content blockquote p {
