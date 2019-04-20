@@ -452,3 +452,7 @@ div#heart-wrapper {
     height: 20px;
     width: 40px;
 }
+
+.post_content blockquote:before {
+	display:none;
+}
