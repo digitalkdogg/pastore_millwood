@@ -3,6 +3,13 @@
 
 /************************************************/
 
+body {
+    font-family:Raleway;
+}
+
+header.top_panel_wrap {
+    font-family: Raleway;
+}
 
 .content input {
     font-family: inherit;
@@ -29,6 +36,12 @@
 	font-size:16px;
 }
 
+.content_wrap {
+    width: auto;
+    padding: 0 5%;
+}
+
+/*
 @media only screen and (max-width: 1024px) {
     .header_mobile .logo a {
         width: 100%;
@@ -149,6 +162,7 @@
 
 }
 
+
 @media only screen and (min-width: 1500px) {
     .top_panel_middle .contact_logo {
         width: 35%;
@@ -159,8 +173,8 @@
     }
 
 }
-
-@media only screen and (min-width: 1600px) {
+*/
+/*@media only screen and (min-width: 1600px) {
     .content_wrap, .top_panel_middle .content_wrap {
         width:1600px;
     }
@@ -176,6 +190,42 @@
     font-size: 2em;
     color: #ccc;
     margin-top: 30px;
+} */
+
+@media only screen and (max-width: 600px) {
+    .logo .logo_text {
+        font-size:2em;
+    }
+}
+
+@media only screen and (min-width: 1024px) {
+    /* if the screen is above 1024px wide */
+    .content_wrap .logo_slogan {
+        color:white;
+        text-align:center;
+        font-size: 1.5em;
+    }
+    
+    .menu_main_nav>li>a {
+        padding: 1em;
+    }
+    
+    .menu_show .top_panel_middle .search_wrap {
+        display: block;
+        padding: 0 !important;
+        top: -5px;
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .content_wrap {
+        width: auto;
+        padding: 0 1%;
+    }
+    
+    .menu_main_nav > li > a {
+        padding: 1em 10px !important;
+    }
 }
 
 .article_style_boxed .content > article > .post_content, .article_style_boxed[class*="single-"] .content > .comments_wrap, .article_style_boxed[class*="single-"] .content > article > .post_info_share, .article_style_boxed:not(.layout_excerpt):not(.single) .content .post_item {
@@ -432,11 +482,14 @@ a.tribe-events-ical.tribe-events-button.sc_button.sc_button_style_filled {
 
 body.desktop span.open_child_menu {
     right: -10px;
-    top: 10px;
     font-size: 1.5em;
     transition-duration: 0.8s;
     transition-property: transform;
      transform: rotate(-90deg);
+}
+
+body.desktop .menu-item-has-children .sub-menu {
+    top: 50px;
 }
 
 span.open_child_menu:hover {
