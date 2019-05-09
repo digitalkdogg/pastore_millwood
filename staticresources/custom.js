@@ -126,7 +126,7 @@ var millwood;
 							})
 
 							$('#'+selector + ' div#slick-next').css({
-								'left': (screenwidth-20) + 'px'
+								'left': (screenwidth-75) + 'px'
 							})
 							return false;
 						}
