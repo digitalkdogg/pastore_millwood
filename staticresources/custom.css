@@ -441,3 +441,13 @@ div#heart-wrapper {
 .post_content blockquote:before {
 	display:none;
 }
+
+.page_content_wrap section.post_content {
+    margin: 0 15%;
+}
+
+@media only screen and (max-width: 1024px) {
+.page_content_wrap section.post_content {
+    margin: initial;
+}
+}
