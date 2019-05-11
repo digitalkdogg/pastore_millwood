@@ -451,3 +451,9 @@ div#heart-wrapper {
     margin: initial;
 }
 }
+
+.page_content_wrap .post_item h1.post_title {
+    font-size: 2em;
+    /* font-weight: 100; */
+    font-family: inherit;
+}
