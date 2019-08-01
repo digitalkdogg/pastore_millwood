@@ -63,7 +63,7 @@ var millwood;
 				$('<div />', {
 					'id': 'slick-prev',
 					'class': 'tp-leftarrow tparrows custom',
-					'style': 'top: 40%; transform: matrix(1, 0, 0, 1, 30, -21); left: 0px;'
+					'style': 'top: 60%; transform: matrix(1, 0, 0, 1, 30, -21); left: 10px;'
 				}).insertBefore('#'+selector+' button.slick-prev.slick-arrow');
 				$('#'+selector+ ' div#slick-prev').click(function (e) {
 					e.preventDefault();
@@ -74,7 +74,7 @@ var millwood;
 				$('<div />', {
 					'id': 'slick-next',
 					'class': 'tp-rightarrow tparrows custom',
-					'style': 'top: 40%; transform: matrix(1, 0, 0, 1, 30, -21); left: 0px;'
+					'style': 'top: 60%; transform: matrix(1, 0, 0, 1, 30, -21);'
 				}).insertBefore('#'+selector+' button.slick-next.slick-arrow');
 				$('#'+selector+' div#slick-next').click(function (e) {
 					e.preventDefault();
@@ -85,7 +85,9 @@ var millwood;
 				$('#'+selector+' button.slick-prev').addClass('hidden');
 			},
 			'init_arrows' :function (ele, children, fullwidth) {
-				var selector = ele[0].parentElement;
+
+				var selector = ele[0];
+
 				selector = $(selector).attr('id');
 
 				if (children=='news') {
@@ -101,6 +103,7 @@ var millwood;
 				}
 
 				$('#'+selector+ ' .'+children).each(function () {
+					
 					if ($(this).attr('data-num')=='3') {
 
 						var screenwidth = 0;
@@ -118,9 +121,15 @@ var millwood;
 							})
 
 						} else {
+
 							var width = $(this).width();
-							width = (width-10) * 3
+							width = (width-12) * 3
 							screenwidth = width;
+
+							$('#'+ selector + ' button.slick-prev').css({
+								'left': '20px'
+							})
+
 							$('#'+selector + ' button.slick-next').css({
 								'left': (screenwidth) + 'px' 
 							})
@@ -176,18 +185,18 @@ var millwood;
 				if (settings.responsive == undefined) {
 					var responsive = new Array();
 					var breakpoint = {
-						breakpoint: 600,
+						breakpoint: 1024,
 						    settings: {
 						    	arrows: false,
 						        slidesToShow: 2,
-						        slidesToScroll: 2
+						        slidesToScroll: 1
 						      }
 						  	}
 					
 					responsive.push(breakpoint);
 
 					breakpoint = {
-						breakpoint: 480,
+						breakpoint: 600,
 						settings: {
 							arrows: false,
 						    slidesToShow: 1,
@@ -195,7 +204,7 @@ var millwood;
 						    }
 						}
 
-					responsive.push(breakpoint)
+					responsive.push(breakpoint)					
 				
 					settings.responsive = responsive
 				}
@@ -203,6 +212,7 @@ var millwood;
 				$(ele).not('slick-intialized').slick(settings);
 				
 				if (settings.arrows == true) {
+
 					millwood.utils.init_arrows(ele, children, settings.fullwidth);
 
 					$(window).resize(function () {
@@ -301,6 +311,7 @@ var millwood;
 			},//end output event widget
 			'output_news_widget':   function(data) {
 				if (data.length > 0 ) {
+
 					var html = '';
 					$.each(data, function () {
 						html = html+ millwood.templates.news_single;
@@ -312,51 +323,88 @@ var millwood;
 					}).insertAfter('.page_content_wrap .content_wrap');
 
 					$('#footer-news-wraper .news').each(function (index, val) {
-						$(this).attr('data-num', index+1)
-					})
-
-					$( ".news" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
-
-					$('<div />', {
-						'id': 'footer-news-title',
-						'html': 'The Latest News'
-					}).insertAfter('.page_content_wrap .content_wrap');
-
-					$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_news_page  +'" />');
-
-					$('#footer-news-wraper .news').each(function (index, val) {
-						$(this).attr('data-index', index) 
-
+						console.log(data[index]);
+						var thisdata = data[index];	
 						$('<div />', {
-							'class': 'news-name',
-							'text': data[index].post_title
+							'text': thisdata.post_title,
+							'class': 'news-title'
 						}).appendTo($(this))
 
 						$('<div />', {
-							'class': 'news-content',
-							'html': data[index].post_content
-						}).appendTo($(this));
+							'html': thisdata.post_content,
+							'class': 'news-content'
+						}).appendTo($(this))
 
-						$('<span />', {
-							'class': 'sc_button sc_button_square sc_button_style_filled sc_button_size_small read-more',
-							'text': 'Read More',
-							'data-id' : data[index].post_name
-						}).appendTo($(this));
-
+						$('<div />', {
+							'html': '<a href = "' + thisdata.guid + '" target= "_blank"><button class = "news-btn">Read More</button></a>',
+							'class': 'news-footer'
+						}).appendTo($(this))
 					})
 
+					
 					if (millwood.wp_data.custom_super_options.homepage_news_arrow_position =='fullwidth') {
 						var settings = {'fullwidth' : true}
 					} else { var settings = {}}
 
-					try {
-						millwood.utils.slickthis($('#footer-news-wraper #slickthis'), settings, 'news');
-					} catch(e) {
-						console.log(e);
-					}
+					$('#footer-news-wraper .news').each(function (index, val) {
+
+						$(this).attr('data-num', index+1)
+					})
+
+					millwood.utils.slickthis($('#footer-news-wraper'), settings, 'news');
+
+					//$( ".news" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
+//
+
+
+				//	$('#footer-news-wraper .news').each(function (index, val) {
+				//		$(this).attr('data-num', index+1)
+				//	})
+
+				
+//					$('<div />', {
+//						'id': 'footer-news-title',
+//						'html': 'The Latest News'
+//					}).insertAfter('.page_content_wrap .content_wrap');
+
+//					$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_news_page  +'" />');
+//
+//					$('#footer-news-wraper .news').each(function (index, val) {
+//						$(this).attr('data-index', index) 
+//
+//						$('<div />', {
+//							'class': 'news-name',
+//							'text': data[index].post_title
+//						}).appendTo($(this))
+//
+//						$('<div />', {
+//							'class': 'news-content',
+//							'html': data[index].post_content
+//						}).appendTo($(this));
+
+//						$('<span />', {
+//							'class': 'sc_button sc_button_square sc_button_style_filled sc_button_size_small read-more',
+//							'text': 'Read More',
+//							'data-id' : data[index].post_name
+//						}).appendTo($(this));
+
+//					})
+
+//					if (millwood.wp_data.custom_super_options.homepage_news_arrow_position =='fullwidth') {
+//						var settings = {'fullwidth' : true}
+//					} else { var settings = {}}
+//
+//					try {
+//						millwood.utils.slickthis($('#footer-news-wraper #slickthis'), settings, 'news');
+//					} catch(e) {
+//						console.log(e);
+//					}
 
 
 				}
+
+
+
 			}
 		}
 
@@ -413,6 +461,7 @@ var millwood;
 			}//end showevents true
 
 			if (millwood.wp_data.custom_super_options.homepage_show_news == 'yes') {
+				console.log('i am news');
 				setTimeout(function () {
 					$.ajax({
 						'url': millwood.wp_data.rest_url + 'news/v1/latest-news',
