@@ -16,7 +16,11 @@ header.top_panel_wrap {
     font-family: inherit;
 }
 
-.post_item .post_info_posted_by {
+.post_item .post_info_posted_by, .post_info .post_info_posted {
+    display: none;
+}
+
+.home .body_wrap .page_wrap .post_info {
     display: none;
 }
 
@@ -133,7 +137,9 @@ section.post_content {
 }
 
 #footer-event-wraper {
-    padding: 1px 5% 1px 5%;
+    background: #faf6f2;
+    margin: 30px 0;
+    padding: 10px 0;
 }
 
 @media only screen and (max-width: 800px) {
@@ -142,47 +148,26 @@ section.post_content {
 	}
 }
 
-#footer-event-wraper .event {
-    background: #ae9b7c;
-    color:white;
-}
-
-/*#footer-event-wraper .event, #footer-news-wraper .news {
-    margin-top: 10px;
-    min-height: 150px;
-    max-height:350px;
-    overflow: hidden;
-    height:400px;
-    opacity:.8;
-} */
-
-#footer-event-wraper .event-name {
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 4px;
-    font-size:22px;
-}
-
-#footer-news-wraper .news {
+#footer-news-wraper .news, #footer-event-wraper .event {
     border-radius: 5px;
     padding: 5px;
-    border: 1px solid #cf4a46;
+    border: 2px solid #cf4a46;
     height: 350px;
     overflow:hidden;
+    background:white;
 }
 
-#footer-news-wraper .news-title {
+#footer-news-wraper .news-title, #footer-event-wraper .event-title {
     font-size: 1.8em;
     font-weight: bold;
     border-bottom: 1px solid #ccc;
 }
 
-#footer-news-wraper .news-content {
+#footer-news-wraper .news-content, #footer-event-wraper .event-content {
     height:245px;
 }
 
-#footer-news-wraper button.news-btn {
+#footer-news-wraper button.news-btn, #footer-event-wraper button.event-btn {
     color: white;
     font-size: 1.5em;
     border-radius: 5px;
@@ -192,7 +177,7 @@ section.post_content {
     text-decoration: underline;
 }
 
-#footer-news-wraper button.news-btn:hover {
+#footer-news-wraper button.news-btn:hover, #footer-event-wraper button.event-btn {
     cursor : pointer;
 }
 
@@ -208,6 +193,13 @@ section.post_content {
     margin-bottom:10px;
     padding: 0 5%;
     font-size:20px;
+}
+
+#footer-event-wraper .cat-title, #footer-news-wraper .cat-title {
+    font-size: 2em;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    margin: 0 10px 10px;
 }
 
 .news img, .event img {
@@ -288,7 +280,7 @@ div#footer-news-wraper {
    background: #faf6f2;
 }
 
-div#footer-news-wraper {
+div#footer-news-wraper, div#footer-event-wraper {
     border-bottom: 1px solid #777;
     border-top: 1px solid #777;
     padding:10px 0;

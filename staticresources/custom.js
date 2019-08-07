@@ -96,7 +96,7 @@ var millwood;
 					}
 				}
 
-				if (children=='events') {
+				if (children=='event') {
 					if (millwood.wp_data.custom_super_options.homepage_events_rev_arrows=='yes') {
 						millwood.utils.switch_to_rev_arrows(selector);
 					}
@@ -210,6 +210,7 @@ var millwood;
 				}
 
 				$(ele).not('slick-intialized').slick(settings);
+
 				
 				if (settings.arrows == true) {
 
@@ -246,102 +247,87 @@ var millwood;
 						html = html+ millwood.templates.events_single;
 					}); //end data each
 
-					$('<div />', {
-						'class': 'clear-both'
-					}).appendTo('.page_content_wrap .content_wrap');
 
-					$('<div />', {
+				$('<div />', {
 						'html': html,
 						'id' : 'footer-event-wraper'
 					}).insertAfter('.page_content_wrap .content_wrap');
 
 					$('#footer-event-wraper .event').each(function (index, val) {
-						$(this).attr('data-num', index+1)
-					})
 					
-					$( ".event" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
-
-					$('<div />', {
-						'id': 'footer-event-title',
-						'html': 'Upcoming Events'
-					}).insertAfter('.page_content_wrap .content_wrap');
-
-					$('div#footer-event-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_events_page + '" />');
-
-					$('#footer-event-wraper .event').each(function (index, val) {
-						$(this).attr('data-index', index) 
-
+						var thisdata = data[index];	
 						$('<div />', {
-							'class': 'event-name',
-							'text': data[index].post_title
+							'text': thisdata.post_title,
+							'class': 'event-title'
 						}).appendTo($(this))
-
+//
 						$('<div />', {
-							'class': 'event-content',
-							'html': data[index].post_content
-						}).appendTo($(this));
-
-						$('<span />', {
-							'class': 'sc_button sc_button_style_filled read-more',
-							'text': 'Read More',
-							'data-id' : data[index].post_name
-						}).appendTo($(this));
-
+							'html': thisdata.post_content,
+							'class': 'event-content'
+						}).appendTo($(this))
+//
+						$('<div />', {
+							'html': '<a href = "' + thisdata.guid + '" target= "_blank"><button class = "event-btn">Read More</button></a>',
+							'class': 'event-footer'
+						}).appendTo($(this))
 					})
 
-					$(document).on('click', 'span.read-more',function () {
-						try {
-							var dataid = $(this).attr('data-id');
-							location.href = millwood.wp_data.homeurl+ '/index.php/event/'+dataid
-						} catch(e) {console.log(e)}
-					})
-
-
-					if (millwood.wp_data.custom_super_options.homepage_events_arrow_position =='fullwidth') {
+					
+					if (millwood.wp_data.custom_super_options.homepage_event_arrow_position =='fullwidth') {
 						var settings = {'fullwidth' : true}
 					} else { var settings = {}}
 
-					try {
-						millwood.utils.slickthis($('#footer-event-wraper #slickthis'), settings, 'event');
-					} catch(e) {
-						console.log(e);
-					}
+					$('#footer-event-wraper .event').each(function (index, val) {
+
+						$(this).attr('data-num', index+1)
+					})
+
+					millwood.utils.slickthis($('#footer-event-wraper'), settings, 'event');
+
+					$('<div />', {
+						'class' : 'cat-title',
+						'text' : 'Latest Activities At Millwood'
+					}).prependTo('#footer-event-wraper');
+
+
 
 				} //end data length check
 			},//end output event widget
 			'output_news_widget':   function(data) {
 				if (data.length > 0 ) {
 
-					var html = '';
-					$.each(data, function () {
-						html = html+ millwood.templates.news_single;
-					}); //end data each
-
 					$('<div />', {
-						'html': html,
-						'id' : 'footer-news-wraper'
-					}).insertAfter('.page_content_wrap .content_wrap');
+						'id': 'footer-news-wraper'
+					}).insertAfter('.page_content_wrap .content_wrap')
 
-					$('#footer-news-wraper .news').each(function (index, val) {
-						console.log(data[index]);
-						var thisdata = data[index];	
-						$('<div />', {
-							'text': thisdata.post_title,
-							'class': 'news-title'
-						}).appendTo($(this))
+					$.each(data, function (index, val) {
+						var $this = this;
+						$('#footer-news-wraper').append(millwood.templates.news_single);
 
-						$('<div />', {
-							'html': thisdata.post_content,
-							'class': 'news-content'
-						}).appendTo($(this))
+						$('#footer-news-wraper .news').each(function () {
 
-						$('<div />', {
-							'html': '<a href = "' + thisdata.guid + '" target= "_blank"><button class = "news-btn">Read More</button></a>',
-							'class': 'news-footer'
-						}).appendTo($(this))
-					})
+							if ($this != undefined) {
+								if ($(this).children().length == 0 ) {
+									$('<div />' , {
+										'class' : 'news-title',
+										'text' : $this.post_title
+									}).appendTo($(this))
 
-					
+									$('<div />' , {
+										'class' : 'news-content',
+										'html' : $this.post_content
+									}).appendTo($(this))
+
+									$('<div />' , {
+										'class' : 'news-footer',
+										'html' : '<a href = "' + $this.guid + '" target= "_blank"><button class = "news-btn">Read More</button></a>'
+									}).appendTo($(this))
+
+								}
+							}
+						});
+					})//end each
+
 					if (millwood.wp_data.custom_super_options.homepage_news_arrow_position =='fullwidth') {
 						var settings = {'fullwidth' : true}
 					} else { var settings = {}}
@@ -353,57 +339,13 @@ var millwood;
 
 					millwood.utils.slickthis($('#footer-news-wraper'), settings, 'news');
 
-					//$( ".news" ).wrapAll( "<div class='grid-x' id = 'slickthis' />");
-//
 
-
-				//	$('#footer-news-wraper .news').each(function (index, val) {
-				//		$(this).attr('data-num', index+1)
-				//	})
-
-				
-//					$('<div />', {
-//						'id': 'footer-news-title',
-//						'html': 'The Latest News'
-//					}).insertAfter('.page_content_wrap .content_wrap');
-
-//					$('div#footer-news-title').wrap('<a href = "'+millwood.wp_data.homeurl + '/' + millwood.wp_data.custom_super_options.homepage_show_news_page  +'" />');
-//
-//					$('#footer-news-wraper .news').each(function (index, val) {
-//						$(this).attr('data-index', index) 
-//
-//						$('<div />', {
-//							'class': 'news-name',
-//							'text': data[index].post_title
-//						}).appendTo($(this))
-//
-//						$('<div />', {
-//							'class': 'news-content',
-//							'html': data[index].post_content
-//						}).appendTo($(this));
-
-//						$('<span />', {
-//							'class': 'sc_button sc_button_square sc_button_style_filled sc_button_size_small read-more',
-//							'text': 'Read More',
-//							'data-id' : data[index].post_name
-//						}).appendTo($(this));
-
-//					})
-
-//					if (millwood.wp_data.custom_super_options.homepage_news_arrow_position =='fullwidth') {
-//						var settings = {'fullwidth' : true}
-//					} else { var settings = {}}
-//
-//					try {
-//						millwood.utils.slickthis($('#footer-news-wraper #slickthis'), settings, 'news');
-//					} catch(e) {
-//						console.log(e);
-//					}
-
+					$('<div />', {
+						'class' : 'cat-title',
+						'text' : 'What\'s happening at Millwood'
+					}).prependTo('#footer-news-wraper');
 
 				}
-
-
 
 			}
 		}
@@ -445,6 +387,7 @@ var millwood;
 			}
 
 			if (millwood.wp_data.custom_super_options.homepage_show_events == 'yes') {
+
 				$.ajax({
 					'url': millwood.wp_data.rest_url + 'calendar/v1/latest-events',
 					'type': 'GET',
@@ -461,7 +404,6 @@ var millwood;
 			}//end showevents true
 
 			if (millwood.wp_data.custom_super_options.homepage_show_news == 'yes') {
-				console.log('i am news');
 				setTimeout(function () {
 					$.ajax({
 						'url': millwood.wp_data.rest_url + 'news/v1/latest-news',

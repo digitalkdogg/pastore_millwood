@@ -90,16 +90,24 @@ function get_theme_super_customizations() {
     if ($params['post_type']=='') {
       $params['post_type'] = 'tribe_events';
     }
-    if ($params['start_date'] =='') {
+   if ($params['start_date'] =='') {
       $params['start_date'] = '2019-01-20 08:00:00';
     }
-	$params['start_date'] = date_sub($params['start_date'], date_interval_create_from_date_string("2 days"));
+	//$params['start_date'] = date_sub($params['start_date'], date_interval_create_from_date_string("2 days"));
+
+    $date = new DateTime($params['start_date']);
+    $date->modify('-2 day')->format('Y-m-d H:i:s');
+
+   // var_dump($date);
+
+   // $date = trim($date, "/t");
+    
 
     $post = get_posts( array(
           'post_type' => $params['post_type'],
           'post_status' => 'publish',
           'meta_key' => '_EventStartDate',
-          'meta_value' => $params['start_date'],
+          'meta_value' => date_format($date, "Y-m-d H:i:s"),
           'meta_compare' => '>=',
           'order_by' => '_EventStartDate',
           'order' => 'ASC'
