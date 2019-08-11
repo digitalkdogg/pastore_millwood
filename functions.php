@@ -11,6 +11,7 @@ function my_footer_scripts(){
      wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
       wp_enqueue_style( 'slickcss',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.min.css' );
       wp_enqueue_script( 'slickjs',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.js' );
+      wp_enqueue_script('fbjs', 'https://connect.facebook.net/en_US/sdk.js');
  
 
 
