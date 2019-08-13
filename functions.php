@@ -31,7 +31,8 @@ function my_footer_scripts(){
         'custom_super_options' => get_theme_super_customizations(),
         'template_events'       => get_custom_template_file('Templates/Events.html'),
         'template_events_single'=> get_custom_template_file('Templates/Events_single.html'),
-        'template_news_single'  => get_custom_template_file('Templates/News_single.html')
+        'template_news_single'  => get_custom_template_file('Templates/News_single.html'),
+        'template_fb_single'    => get_custom_template_file('Templates/fb_single.html'),
     );
     wp_localize_script( 'customjs', 'php_vars', $dataToBePassed );
 
@@ -70,6 +71,10 @@ function get_theme_super_customizations() {
                   'homepage_news_rev_arrows',
                   'homepage_events_arrow_position',
                   'homepage_news_arrow_position',
+                  'homepage_show_fb',
+                  'homepage_fb_access_token',
+                  'homepage_fb_app_id',
+                  'homepage_fb_rev_arrows',
                   'menu_mobile'
                 ); 
   $returnarray = array();
@@ -157,6 +162,7 @@ function get_theme_super_customizations() {
        return $post;
   	 	//return $post[0]->post_title;
   	 }
+
 
 	 // Register the rest route here.
   	 add_action( 'rest_api_init', function () {     

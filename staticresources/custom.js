@@ -19,7 +19,8 @@ var millwood;
 		'templates' : {
 			'events': php_vars.template_events,
 			'events_single' : php_vars.template_events_single,
-			'news_single' : php_vars.template_news_single
+			'news_single' : php_vars.template_news_single,
+			'fb_single' : php_vars.template_fb_single,
 		},
 		'utils': {
 			'checkismobile': function () {
@@ -86,9 +87,12 @@ var millwood;
 			},
 			'init_arrows' :function (ele, children, fullwidth) {
 
+
 				var selector = ele[0];
 
 				selector = $(selector).attr('id');
+
+				console.log(children)
 
 				if (children=='news') {
 					if (millwood.wp_data.custom_super_options.homepage_news_rev_arrows=='yes') {
@@ -98,6 +102,12 @@ var millwood;
 
 				if (children=='event') {
 					if (millwood.wp_data.custom_super_options.homepage_events_rev_arrows=='yes') {
+						millwood.utils.switch_to_rev_arrows(selector);
+					}
+				}
+
+				if (children=='fb') {
+					if (millwood.wp_data.custom_super_options.homepage_fb_rev_arrows=='yes') {
 						millwood.utils.switch_to_rev_arrows(selector);
 					}
 				}
@@ -347,7 +357,84 @@ var millwood;
 
 				}
 
+			}, //end output news widget
+			output_fb_widget: function (data) {
+				if (data.data.length > 0 ) {
+
+					$('<div />', {
+						'id': 'footer-fb-wraper'
+					}).insertAfter('.page_content_wrap .content_wrap')
+
+					$.each(data.data, function (index, val) {
+						var $this = this;
+						$('#footer-fb-wraper').append(millwood.templates.fb_single);
+
+						$('#footer-fb-wraper .fb').each(function () {
+
+							if ($this != undefined) {
+
+								if ($(this).children().length == 0 ) {
+									$(this).attr('id', $this.id);
+
+									$('<div />' , {
+										'class' : 'fb-content large-8 medium-8 small-8 columns',
+										'html' : $this.message.substring(0, 300)
+									}).appendTo($(this))
+
+									if ($this.picture.length > 0 ) {
+										$('<div />', {
+											'class': 'img-wraper'
+										}).appendTo($(this));
+
+										$('<img />', {
+											'src': $this.picture,
+											'class' : 'fb-img large-4 medium-4 small-2 columns'
+										}).appendTo('#'+$this.id+' .img-wraper');
+									} 
+
+									$('<div />', {
+										'class' : 'row fb-footer'
+									}).appendTo($(this))
+
+									$('<div />' , {
+										'class': 'large-12 medium-12 small-12 columns fb-footer-row',
+									}).appendTo('#'+$this.id + ' .fb-footer');
+
+									$('<span />', {
+										'html': 'Posted At : ' + $this.created_time,
+										'class': 'large-8 medium-8 small-8 columns'
+									}).appendTo('#'+$this.id + ' .fb-footer-row');
+
+									$('<a />', {
+										'href' : '#',
+										'class': 'large-4 medium-4 small-4 columns',
+										'html' : '<button class = "fb-btn">Read More</button>'
+									}).appendTo('#'+$this.id + ' .fb-footer-row')
+
+								}
+							}
+						});
+					})//end each
+
+					if (millwood.wp_data.custom_super_options.homepage_fb_arrow_position =='fullwidth') {
+						var settings = {'fullwidth' : true}
+					} else { var settings = {}}
+
+					$('#footer-fb-wraper .fb').each(function (index, val) {
+
+						$(this).attr('data-num', index+1)
+					})
+
+					millwood.utils.slickthis($('#footer-fb-wraper'), settings, 'fb');
+
+
+					$('<div />', {
+						'class' : 'cat-title',
+						'text' : 'Millwood Social'
+					}).prependTo('#footer-fb-wraper');
+				}
 			}
+
 		}
 
 	}; //end millwood
@@ -358,7 +445,10 @@ var millwood;
 	$(window).resize(function () {
 		millwood.utils.checkismobile();
 	})
-	
+
+
+
+
 
 	if ($('.logo_slogan').length > 0 ) {
 		$( '.logo_slogan' ).clone().appendTo( '.top_panel_title_inner .content_wrap' );
@@ -418,6 +508,27 @@ var millwood;
 					}) //end ajax calendar
 			},500);
 			} //end show news true
+
+			if (millwood.wp_data.custom_super_options.homepage_show_fb == 'yes') {
+				var settings = {
+  					'async': true,
+  					'crossDomain': true,
+  					'url' :  'https://graph.facebook.com/v2.4/364157146652/posts?fields=id,from,name,message,created_time,story,description,link,picture,object_id&limit=5&access_token=EAAP9hArvboQBADbJXCKcPPXxTZCNxvn0S2keTUWMtOCngBtsOSFTBsfAsx0JJmoh3WzpTn9L9wCJMIY9WySWcX6vnSjFUXQOp8cm38L9iG5fio6LHvlRVR6h2hQ4g34ZAQlXqkbUUKVSNuLD29StI0RQGjveGyeZC4gZBysvZAgZDZD',
+  					'method': 'GET',
+  					'headers': {
+   						'cache-control': 'no-cache',
+  					},
+  					'success': function (data) {
+  						setTimeout(function () {
+  							millwood.success.output_fb_widget(data);
+  						}, 500);
+  					}
+				}
+
+				$.ajax(settings).complete(function (response) {
+  					console.log(response);
+				});
+			} //end show fb true
 
 		}
 	} //end contentwrap length
@@ -516,5 +627,4 @@ var millwood;
 	}
 	
 }(jQuery));
-
 

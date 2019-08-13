@@ -467,7 +467,47 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"type" => "switch"
 					),
+
+		'homepage_show_fb' => array(
+					"title" => esc_html__('Show Facebook On Homepage', 'pastore-church'),
+					"desc" => wp_kses_data( __('Determines if the facebook feed widget is visible or not') ),
+					"std" => "yes",
+					"options" => pastore_church_get_options_param('list_yes_no'),
+					"type" => "switch"
+					),
+
+		'homepage_fb_access_token' => array(
+					"title" => esc_html__('FB Access Token',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter the access token for developer.facebook.com", 'pastore-church') ),
+					//"override" => "category,services_group,post,page,custom",
+					"dependency" => array(
+						'homepage_show_fb' => array('yes')
+					),
+					"std" => "access token",
+					"type" => "text"
+					),
 		
+		'homepage_fb_app_id' => array(
+					"title" => esc_html__('FB App ID',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter the app id for developer.facebook.com", 'pastore-church') ),
+					//"override" => "category,services_group,post,page,custom",
+					"dependency" => array(
+						'homepage_show_fb' => array('yes')
+					),
+					"std" => "app id",
+					"type" => "text"
+					),
+
+		'homepage_fb_rev_arrows' => array(
+					"title" => esc_html__('Use revolution slider arrows instead', 'pastore-church'),
+					"desc" => wp_kses_data( __('Determine if you want the arrows to match the main slider on the homepage') ),
+					"std" => "yes",
+					"options" => pastore_church_get_options_param('list_yes_no'),
+					"dependency" => array(
+						'homepage_show_fb' => array('yes')
+					),
+					"type" => "switch"
+					),
 		
 		// Customization -> Header
 		//-------------------------------------------------
