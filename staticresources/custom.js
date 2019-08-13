@@ -405,6 +405,12 @@ var millwood;
 										'class': 'large-8 medium-8 small-8 columns'
 									}).appendTo('#'+$this.id + ' .fb-footer-row');
 
+									if ($this.story != undefined) {
+										$('<span />', {
+											'html': 'Headline : ' + $this.story,
+											'class': 'large-6 medium-6 small-6 columns'
+										}).appendTo('#'+$this.id + ' .fb-footer-row');
+									}
 									$('<a />', {
 										'href' : '#',
 										'class': 'large-4 medium-4 small-4 columns',
@@ -510,10 +516,13 @@ var millwood;
 			} //end show news true
 
 			if (millwood.wp_data.custom_super_options.homepage_show_fb == 'yes') {
+
+				var appid = millwood.wp_data.custom_super_options.homepage_fb_app_id;
+				var apptoken = millwood.wp_data.custom_super_options.homepage_fb_access_token
 				var settings = {
   					'async': true,
   					'crossDomain': true,
-  					'url' :  'https://graph.facebook.com/v2.4/364157146652/posts?fields=id,from,name,message,created_time,story,description,link,picture,object_id&limit=5&access_token=EAAP9hArvboQBADbJXCKcPPXxTZCNxvn0S2keTUWMtOCngBtsOSFTBsfAsx0JJmoh3WzpTn9L9wCJMIY9WySWcX6vnSjFUXQOp8cm38L9iG5fio6LHvlRVR6h2hQ4g34ZAQlXqkbUUKVSNuLD29StI0RQGjveGyeZC4gZBysvZAgZDZD',
+  					'url' :  'https://graph.facebook.com/v2.4/'+ appid + '/feed?fields=id,from,name,message,created_time,story,description,link,picture,object_id&limit=5&access_token='+apptoken,
   					'method': 'GET',
   					'headers': {
    						'cache-control': 'no-cache',
