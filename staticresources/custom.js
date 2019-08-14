@@ -64,7 +64,7 @@ var millwood;
 				$('<div />', {
 					'id': 'slick-prev',
 					'class': 'tp-leftarrow tparrows custom',
-					'style': 'top: 60%; transform: matrix(1, 0, 0, 1, 30, -21); left: 10px;'
+					'style': 'top: 65%; transform: matrix(1, 0, 0, 1, 30, -21); left: 10px;'
 				}).insertBefore('#'+selector+' button.slick-prev.slick-arrow');
 				$('#'+selector+ ' div#slick-prev').click(function (e) {
 					e.preventDefault();
@@ -75,7 +75,7 @@ var millwood;
 				$('<div />', {
 					'id': 'slick-next',
 					'class': 'tp-rightarrow tparrows custom',
-					'style': 'top: 60%; transform: matrix(1, 0, 0, 1, 30, -21);'
+					'style': 'top: 65%; transform: matrix(1, 0, 0, 1, 30, -21);'
 				}).insertBefore('#'+selector+' button.slick-next.slick-arrow');
 				$('#'+selector+' div#slick-next').click(function (e) {
 					e.preventDefault();
@@ -91,8 +91,6 @@ var millwood;
 				var selector = ele[0];
 
 				selector = $(selector).attr('id');
-
-				console.log(children)
 
 				if (children=='news') {
 					if (millwood.wp_data.custom_super_options.homepage_news_rev_arrows=='yes') {
@@ -381,7 +379,7 @@ var millwood;
 										'html' : $this.message.substring(0, 300)
 									}).appendTo($(this))
 
-									if ($this.picture.length > 0 ) {
+									if ($this.picture != undefined) {
 										$('<div />', {
 											'class': 'img-wraper'
 										}).appendTo($(this));
@@ -411,10 +409,16 @@ var millwood;
 											'class': 'large-6 medium-6 small-6 columns'
 										}).appendTo('#'+$this.id + ' .fb-footer-row');
 									}
+
+									var link = 'https://facebook.com/millwoodchurch/posts/' + $this.id
+									var appid = millwood.wp_data.custom_super_options.homepage_fb_app_id;
+
+									link = link.replace(appid + '_', '');
 									$('<a />', {
-										'href' : '#',
+										'href' : link,
 										'class': 'large-4 medium-4 small-4 columns',
-										'html' : '<button class = "fb-btn">Read More</button>'
+										'html' : '<button class = "fb-btn">Read More</button>',
+										'target': '_blank'
 									}).appendTo('#'+$this.id + ' .fb-footer-row')
 
 								}
@@ -522,7 +526,8 @@ var millwood;
 				var settings = {
   					'async': true,
   					'crossDomain': true,
-  					'url' :  'https://graph.facebook.com/v2.4/'+ appid + '/feed?fields=id,from,name,message,created_time,story,description,link,picture,object_id&limit=5&access_token='+apptoken,
+  					'url': 'https://graph.facebook.com/v3.0/'+ appid + '/feed?fields=id,name,message,created_time,story,description,link,picture&limit=5&access_token='+apptoken,
+  					//'url' :  'https://graph.facebook.com/v4.0/'+ appid + '/feed?fields=id,from,name,message,created_time,story,description,link,picture&limit=5&access_token='+apptoken,
   					'method': 'GET',
   					'headers': {
    						'cache-control': 'no-cache',
@@ -535,7 +540,7 @@ var millwood;
 				}
 
 				$.ajax(settings).complete(function (response) {
-  					console.log(response);
+  					///console.log(response);
 				});
 			} //end show fb true
 
