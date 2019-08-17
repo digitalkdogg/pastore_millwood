@@ -705,7 +705,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"title" => esc_html__('Show language selector', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show language selector in the user menu (if WPML plugin installed and current page/post has multilanguage version)', 'pastore-church') ),
 					"dependency" => array(
-						'show_top_panel_top' => array('yes')
+						'show_top_panel_top' => array('no')
 					),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
@@ -715,7 +715,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"title" => esc_html__('Show Login/Logout buttons', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show Login and Logout buttons in the user menu area', 'pastore-church') ),
 					"dependency" => array(
-						'show_top_panel_top' => array('yes')
+						'show_top_panel_top' => array('no')
 					),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
@@ -1140,7 +1140,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"title" => esc_html__('Show main sidebar',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select position for the main sidebar or hide it',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
-					"std" => "right",
+					"std" => "none",
 					"options" => pastore_church_get_options_param('list_positions'),
 					"dir" => "horizontal",
 					"type" => "checklist"),
