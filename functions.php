@@ -75,6 +75,8 @@ function get_theme_super_customizations() {
                   'homepage_fb_access_token',
                   'homepage_fb_app_id',
                   'homepage_fb_rev_arrows',
+                  'homepage_fb_limit',
+                  'homepage_fb_months_ago',
                   'menu_mobile'
                 ); 
   $returnarray = array();

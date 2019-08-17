@@ -508,6 +508,28 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"type" => "switch"
 					),
+
+		'homepage_fb_months_ago' => array(
+					"title" => esc_html__('FB Months Ago',  'pastore-church'),
+					"desc" => wp_kses_data( __("Number of months to query for", 'pastore-church') ),
+					//"override" => "category,services_group,post,page,custom",
+					"dependency" => array(
+						'homepage_show_fb' => array('yes')
+					),
+					"std" => "6",
+					"type" => "text"
+					),
+
+		'homepage_fb_limit' => array(
+					"title" => esc_html__('FB Months Ago',  'pastore-church'),
+					"desc" => wp_kses_data( __("Number of enteries to limit to", 'pastore-church') ),
+					//"override" => "category,services_group,post,page,custom",
+					"dependency" => array(
+						'homepage_show_fb' => array('yes')
+					),
+					"std" => "10",
+					"type" => "text"
+					),
 		
 		// Customization -> Header
 		//-------------------------------------------------
