@@ -625,10 +625,15 @@ var millwood;
 				}
 
 				$(this).on('mouseenter' , function () {
-					$('#'+menu+ ' span.open_child_menu').addClass('hover');
+					$('#'+menu+ ' span.open_child_menu ').css({'display':'block'});
+					setTimeout(function () {
+						$('#'+menu+ ' span.open_child_menu').addClass('hover');
+					},100)
+					
 				})
 
 				$(this).on('mouseleave' , function () {
+					$('#'+menu+ ' span.open_child_menu ').css({'display':'none'});
 					$('#'+menu+ ' span.open_child_menu').removeClass('hover');
 				})
 

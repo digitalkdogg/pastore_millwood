@@ -383,6 +383,9 @@ a.tribe-events-ical.tribe-events-button.sc_button.sc_button_style_filled {
 	display:none;
 }
 
+li.menu-item-has-children span.open_child_menu {
+    display: none;
+}
 
 body.desktop span.open_child_menu {
     right: -10px;
