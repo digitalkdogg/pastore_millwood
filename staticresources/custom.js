@@ -245,6 +245,27 @@ var millwood;
 					}
 				})
 			},
+			'get_location_from_url': function () {
+				var pathname = window.location.pathname
+				pathname = pathname.split('/');
+
+				for (var i = 0; i<pathname.length; i++) {
+					if (pathname[i] != "") {
+						pathname[i] = pathname[i];
+					} else {
+						pathname.splice(i, 1);
+					}
+				}
+
+				millwood.wp_data['location'] = window.location;
+
+
+				for (var i=0; i< pathname.length; i++) {
+					if ((i+1) == pathname.length) {
+						millwood.wp_data.location['endingpath'] = pathname[i];
+					}
+				}
+			},
 			'is_mobile' : function () {return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);}
 		},
 		'success': {
@@ -451,13 +472,11 @@ var millwood;
 
 
 	millwood.utils.checkismobile();
+	millwood.utils.get_location_from_url();
 
 	$(window).resize(function () {
 		millwood.utils.checkismobile();
 	})
-
-
-
 
 
 	if ($('.logo_slogan').length > 0 ) {
@@ -547,6 +566,12 @@ var millwood;
 				$.ajax(settings).complete(function (response) { })
 			} //end show fb true
 
+		}  else {//end is homepagge
+			if (millwood.wp_data.location.endingpath == millwood.wp_data.custom_super_options.api_news_page) {
+				if (millwood.wp_data.custom_super_options.api_show_cc_news == 'yes') {
+					console.log('make ajax call on line 572');
+				}
+			}
 		}
 	} //end contentwrap length
 
