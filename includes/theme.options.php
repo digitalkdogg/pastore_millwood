@@ -373,7 +373,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 		//-------------------------------------------------
 		
 		'customization_homepage' => array(
-					"title" => esc_html__("Homepage", 'pastore-church'),
+					"title" => esc_html__("API Feeds", 'pastore-church'),
 					"icon" => 'iconadmin-window',
 					"type" => "tab"),
 
@@ -528,6 +528,24 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						'homepage_show_fb' => array('yes')
 					),
 					"std" => "10",
+					"type" => "text"
+					),
+
+		'api_show_cc_news' => array(
+					"title" => esc_html__('Show Constant Contact on news page', 'pastore-church'),
+					"desc" => wp_kses_data( __('Determines if the news page will load the recently important constant contact') ),
+					"std" => "yes",
+					"options" => pastore_church_get_options_param('list_yes_no'),
+					"type" => "switch"
+					),
+
+		'api_news_page' => array(
+					"title" => esc_html__('News Page',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter the page slug of the news page", 'pastore-church') ),
+					"dependency" => array(
+						'api_show_cc_news' => array('yes')
+					),
+					"std" => "news",
 					"type" => "text"
 					),
 		

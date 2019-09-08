@@ -77,7 +77,9 @@ function get_theme_super_customizations() {
                   'homepage_fb_rev_arrows',
                   'homepage_fb_limit',
                   'homepage_fb_months_ago',
-                  'menu_mobile'
+                  'menu_mobile',
+                  'api_show_cc_news',
+                  'api_news_page'
                 ); 
   $returnarray = array();
 
