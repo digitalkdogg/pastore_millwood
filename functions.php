@@ -167,6 +167,19 @@ function get_theme_super_customizations() {
   	 	//return $post[0]->post_title;
   	 }
 
+     /**
+ * Grab latest event posts
+ * @param array $data Options for the function.
+ * @return $object, or null if none.  */
+ 
+   function get_latest_cc ( $params ){
+     global $wpdb;
+     $result = $wpdb->get_results('select * from wp_campaigns limit 10');
+     var_dump($result);
+     echo 'hi';
+     return "hello";
+   }
+
 
 	 // Register the rest route here.
   	 add_action( 'rest_api_init', function () {     
@@ -179,5 +192,10 @@ function get_theme_super_customizations() {
                 'methods'  => 'GET',
                 'callback' => 'get_latest_news'
             ) );
+
+            register_rest_route('cc/v1', 'latest-cc',array(
+              'methods' => 'GET',
+              'callback' => 'get_latest_cc'
+            ));
      } );  
 ?>

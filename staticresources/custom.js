@@ -569,7 +569,17 @@ var millwood;
 		}  else {//end is homepagge
 			if (millwood.wp_data.location.endingpath == millwood.wp_data.custom_super_options.api_news_page) {
 				if (millwood.wp_data.custom_super_options.api_show_cc_news == 'yes') {
-					console.log('make ajax call on line 572');
+					$.ajax({
+						'url': millwood.wp_data.rest_url + 'cc/v1/latest-cc',
+						'type': 'GET',
+						'data': {},
+						'success': function (data) {
+							if (data != null) {
+								console.log(data)
+							//	millwood.success.output_news_widget(data);
+							}// end if data length is more than 0
+						}
+					}) //end ajax calendar
 				}
 			}
 		}
