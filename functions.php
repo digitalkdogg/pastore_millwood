@@ -174,10 +174,9 @@ function get_theme_super_customizations() {
  
    function get_latest_cc ( $params ){
      global $wpdb;
-     $result = $wpdb->get_results('select * from wp_campaigns limit 10');
-     var_dump($result);
-     echo 'hi';
-     return "hello";
+     $result = $wpdb->get_results('SELECT * FROM millwood_wp.wp_campaigns where status = "Done" order by created_at desc');
+     return json_encode($result);
+
    }
 
 

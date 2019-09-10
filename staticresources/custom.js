@@ -575,8 +575,40 @@ var millwood;
 						'data': {},
 						'success': function (data) {
 							if (data != null) {
-								console.log(data)
-							//	millwood.success.output_news_widget(data);
+								data = JSON.parse(data);
+								$('article.post_item .post_content').empty()
+								$('<div />', {
+									'class': 'cc-news-wrap'
+								}).appendTo('article.post_item .post_content');
+								$.each(data, function () {
+
+									var created_at = new Date(this.created_at);
+									var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+									$('<div />', {
+										'id': this.cc_id,
+										'class': 'row'
+									}).appendTo('article.post_item .post_content .cc-news-wrap');
+
+									$('<div />', {
+										'class': 'large-2 medium-2 small-2 columns date',
+										'html': months[created_at.getMonth()] + '<br /><span class = "dates">' + created_at.getDate() + '</span>'
+									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+									$('<div />', {
+										'class': 'large-4 medium-4 small-4 columns title',
+										'text': this.title
+									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+									$('<span />', {
+										'data-href' : this.permalink_url,
+										'class': 'large-4 medium-4 small-4 columns cc-link',
+										'html' : '<span class = "read-more">Read More</span>',
+									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+								
+
+								})
 							}// end if data length is more than 0
 						}
 					}) //end ajax calendar

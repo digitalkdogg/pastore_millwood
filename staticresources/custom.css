@@ -231,7 +231,7 @@ section.post_content {
 .news img, .event img, .fb img {
     height: 200px;
     width: 200px;
-} */
+} 
 
 span.read-more {
     float: right;
@@ -250,7 +250,7 @@ span.read-more:hover {
     margin-right: 10px;
 }
 
-.news .read-more, .event .read-more {
+.news .read-more, .event .read-more, .cc-link .read-more {
     padding: 15px;
     text-align: center;
     margin: -15px 20%;
@@ -273,13 +273,39 @@ body.homepage .content_wrap .post_content h1.post_title.entry-title {
     opacity: .8;
 }
 
-/*
-.news .news-name {
+.cc-news-wrap .row {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.cc-news-wrap .date {
+    background: #faf6f2;
     text-align: center;
-    font-size: 20px;
+    padding: 10px;
+    color: black;
+    border: 1px solid black;
+}
+
+.cc-news-wrap .title {
+    padding: 20px 0;
+    margin: 0 20px;
+    font-size: 1.5em;
+}
+
+.cc-news-wrap span.dates {
+    font-size: 2em;
+}
+
+.cc-link span.read-more {
+    background: #cf4a46;
+    border-radius: 20px;
+    padding: 10px 0px;
+    min-width: 100px;
+    color: white;
+    margin: 20px 0;
     font-weight: bold;
-    text-decoration: underline;
-} */
+}
 
 @media only screen and (max-width: 800px) {
 	#footer-event-wraper .event {
