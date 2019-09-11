@@ -307,6 +307,19 @@ body.homepage .content_wrap .post_content h1.post_title.entry-title {
     font-weight: bold;
 }
 
+#myModal.reveal-modal {
+    z-index: 10003;
+}
+
+#myModal p#modalBody {
+    height: 40rem;
+}
+
+iframe.cc-news {
+    width:100%;
+    height:100%;
+}
+
 @media only screen and (max-width: 800px) {
 	#footer-event-wraper .event {
 		margin:10px 0;

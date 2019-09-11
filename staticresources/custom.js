@@ -49,6 +49,20 @@ var millwood;
 				}
 				return null;
 			},
+			'showmodal': function (modal) {
+				$(modal.id).show();
+				$(modal.id).css({'visibility': 'visible'})
+				$(modal.id).children('h2#modalTitle').text(modal.title);
+				$(modal.id).children('p#modalBody').html(modal.html);
+				$(modal.id).children('a.close-reveal-modal').click(function () {
+					millwood.utils.hidemodal(modal);
+				})
+			},
+			'hidemodal': function (modal) {
+				$(modal.id).hide();
+				$(modal.id).children('h2#modalTitle').text('');
+				$(modal.id).children('p#modalBody').html('')
+			},
 			'getmysqlnow' :function () {
 				var date;
 				date = new Date();
@@ -464,8 +478,63 @@ var millwood;
 						'text' : 'Millwood Social'
 					}).prependTo('#footer-fb-wraper');
 				}
-			}
+			},
+			'output_cc_news': function (data) {
+				$('article.post_item .post_content').empty()
+				$('<div />', {
+					'class': 'cc-news-wrap'
+				}).appendTo('article.post_item .post_content');
 
+				var html = '<h2 id="modalTitle"></h2><p id = "modalBody" class="lead"></p><a class="close-reveal-modal" aria-label="Close">&#215;</a>';
+				$('<div />', {
+					'id': 'myModal',
+					'class': 'reveal-modal',
+					'data-reveal' : '',
+					'aria-labelledby': 'modalTitle',
+					'aria-hidden': 'true',
+					'role': 'dialog',
+					'html': html
+				}).appendTo('article.post_item .post_content .cc-news-wrap');
+
+				$.each(data, function () {
+
+					var created_at = new Date(this.created_at);
+					var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+
+					$('<div />', {
+						'id': this.cc_id,
+						'class': 'row'
+					}).appendTo('article.post_item .post_content .cc-news-wrap');
+
+					$('<div />', {
+						'class': 'large-2 medium-2 small-2 columns date',
+						'html': months[created_at.getMonth()] + '<br /><span class = "dates">' + created_at.getDate() + '</span>'
+					}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+					$('<div />', {
+						'class': 'large-4 medium-4 small-4 columns title',
+						'text': this.title
+					}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+					$('<a />', {
+						'data-href' : this.permalink_url,
+						'data-title' : this.title,
+						'href' : '#',
+						'data-reveal-id': 'myModal',
+						'class': 'large-4 medium-4 small-4 columns cc-link',
+						'html' : '<span class = "read-more">Read More</span>',
+					}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+
+					$('#'+this.cc_id + ' a.cc-link').on('click', function () {
+						var modal = {'id': '#myModal',
+									'title': $(this).attr('data-title'),
+									'html': '<iframe class = "cc-news" src = "' + $(this).attr('data-href') + '"></iframe>',
+									'action': 'show'}
+						millwood.utils.showmodal(modal);
+					})
+
+				})
+			}
 		}
 
 	}; //end millwood
@@ -576,39 +645,7 @@ var millwood;
 						'success': function (data) {
 							if (data != null) {
 								data = JSON.parse(data);
-								$('article.post_item .post_content').empty()
-								$('<div />', {
-									'class': 'cc-news-wrap'
-								}).appendTo('article.post_item .post_content');
-								$.each(data, function () {
-
-									var created_at = new Date(this.created_at);
-									var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-
-									$('<div />', {
-										'id': this.cc_id,
-										'class': 'row'
-									}).appendTo('article.post_item .post_content .cc-news-wrap');
-
-									$('<div />', {
-										'class': 'large-2 medium-2 small-2 columns date',
-										'html': months[created_at.getMonth()] + '<br /><span class = "dates">' + created_at.getDate() + '</span>'
-									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
-
-									$('<div />', {
-										'class': 'large-4 medium-4 small-4 columns title',
-										'text': this.title
-									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
-
-									$('<span />', {
-										'data-href' : this.permalink_url,
-										'class': 'large-4 medium-4 small-4 columns cc-link',
-										'html' : '<span class = "read-more">Read More</span>',
-									}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
-
-								
-
-								})
+								millwood.success.output_cc_news(data);
 							}// end if data length is more than 0
 						}
 					}) //end ajax calendar
