@@ -480,10 +480,22 @@ var millwood;
 				}
 			},
 			'output_cc_news': function (data) {
-				$('.page_content_wrap .content .post_content').empty()
+				var ele;
+				
+				if ($('.page_content_wrap .content .post_content').length> 0) {
+					$('.page_content_wrap .content .post_content').each(function(index, val) {
+						$(this).addClass(index)
+						if (index == 0) {
+							ele = $(this);
+						}
+					})
+				}
+
+				$(ele).empty();
+			
 				$('<div />', {
 					'class': 'cc-news-wrap'
-				}).appendTo('.page_content_wrap .content .post_content');
+				}).appendTo(ele)
 
 				var html = '<h2 id="modalTitle"></h2><p id = "modalBody" class="lead"></p><a class="close-reveal-modal" aria-label="Close">&#215;</a>';
 				$('<div />', {
