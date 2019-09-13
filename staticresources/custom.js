@@ -480,10 +480,10 @@ var millwood;
 				}
 			},
 			'output_cc_news': function (data) {
-				$('article.post_item .post_content').empty()
+				$('.page_content_wrap .content .post_content').empty()
 				$('<div />', {
 					'class': 'cc-news-wrap'
-				}).appendTo('article.post_item .post_content');
+				}).appendTo('.page_content_wrap .content .post_content');
 
 				var html = '<h2 id="modalTitle"></h2><p id = "modalBody" class="lead"></p><a class="close-reveal-modal" aria-label="Close">&#215;</a>';
 				$('<div />', {
@@ -638,6 +638,7 @@ var millwood;
 		}  else {//end is homepagge
 			if (millwood.wp_data.location.endingpath == millwood.wp_data.custom_super_options.api_news_page) {
 				if (millwood.wp_data.custom_super_options.api_show_cc_news == 'yes') {
+					$('.pasge_content_wrap .content_wrap .content').empty();
 					$.ajax({
 						'url': millwood.wp_data.rest_url + 'cc/v1/latest-cc',
 						'type': 'GET',
