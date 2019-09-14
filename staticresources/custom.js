@@ -528,22 +528,24 @@ var millwood;
 						'text': this.title
 					}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
 
-					$('<a />', {
-						'data-href' : this.permalink_url,
-						'data-title' : this.title,
-						'href' : '#',
-						'data-reveal-id': 'myModal',
-						'class': 'large-4 medium-4 small-4 columns cc-link',
-						'html' : '<span class = "read-more">Read More</span>',
-					}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
+					if (this.permalink_url != null) {
+						$('<a />', {
+							'data-href' : this.permalink_url,
+							'data-title' : this.title,
+							'href' : '#',
+							'data-reveal-id': 'myModal',
+							'class': 'large-4 medium-4 small-4 columns cc-link',
+							'html' : '<span class = "read-more">Read More</span>',
+						}).appendTo('article.post_item .post_content .cc-news-wrap #'+this.cc_id)
 
-					$('#'+this.cc_id + ' a.cc-link').on('click', function () {
-						var modal = {'id': '#myModal',
+						$('#'+this.cc_id + ' a.cc-link').on('click', function () {
+							var modal = {'id': '#myModal',
 									'title': $(this).attr('data-title'),
 									'html': '<iframe class = "cc-news" src = "' + $(this).attr('data-href') + '"></iframe>',
 									'action': 'show'}
-						millwood.utils.showmodal(modal);
-					})
+							millwood.utils.showmodal(modal);
+						})
+					}
 
 				})
 			}
