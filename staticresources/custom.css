@@ -17,6 +17,10 @@ header.top_panel_wrap {
     font-family: inherit;
 }
 
+.top_panel_title_inner .content_wrap .breadcrumbs {
+    visibility: hidden;
+}
+
 .post_item .post_info_posted_by, .post_info .post_info_posted {
     display: none;
 }
