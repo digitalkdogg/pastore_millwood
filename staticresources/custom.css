@@ -64,11 +64,11 @@ header.top_panel_wrap {
         text-align:center;
         font-size: 1.5em;
     }
-    
+
     .menu_main_nav>li>a {
         padding: 1em;
     }
-    
+
     .menu_show .top_panel_middle .search_wrap {
         display: block;
         padding: 0 !important;
@@ -81,7 +81,7 @@ header.top_panel_wrap {
         width: auto;
         padding: 0 1%;
     }
-    
+
     .menu_main_nav > li > a {
         padding: 1em 10px !important;
     }
@@ -103,7 +103,7 @@ header.top_panel_wrap {
 
 .top_panel_title .page_title {
     display: none;
-} 
+}
 
 @media only screen and (max-width: 800px) {
 	.page_content_wrap .content_wrap {
@@ -217,7 +217,7 @@ section.post_content {
     overflow: hidden;
     padding:0 10px;
     font-size:18px;
-} 
+}
 
 #footer-news-wraper .news .news-content {
     margin-bottom:10px;
@@ -235,7 +235,7 @@ section.post_content {
 .news img, .event img, .fb img {
     height: 200px;
     width: 200px;
-} 
+}
 
 span.read-more {
     float: right;
@@ -309,6 +309,25 @@ body.homepage .content_wrap .post_content h1.post_title.entry-title {
     color: white;
     margin: 20px 0;
     font-weight: bold;
+}
+
+@media only screen and (max-width: 800px) {
+  .cc-news-wrap {
+      padding: 0 20%;
+  }
+
+  .cc-link span.read-more {
+    margin: 0 40px;
+  }
+
+  .cc-news-wrap .row {
+    margin: 40px 0;
+  }
+
+  .cc-news-wrap span.months {
+    font-size:1.5em;
+  }
+
 }
 
 #myModal.reveal-modal {
