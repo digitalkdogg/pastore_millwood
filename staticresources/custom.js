@@ -444,7 +444,7 @@ var millwood;
 
 											if ($this.picture != undefined) {
 												$('<div />', {
-													'class': 'img-wraper large-4 medium-4 small-4 columns',	
+													'class': 'img-wraper large-4 medium-4 small-4 columns',
 												}).appendTo($(this));
 
 											$('<img />', {
@@ -463,7 +463,7 @@ var millwood;
 
 											$('<span />', {
 												'html': 'Posted At : ' + millwood.utils.getreadabledate($this.created_time),
-												'class': 'large-6 medium-6 small-6 columns postdate'
+												'class': 'large-7 medium-7 small-7 columns postdate'
 											}).appendTo('#'+$this.id + ' .fb-footer-row');
 
 											if ($this.story != undefined) {
@@ -485,7 +485,7 @@ var millwood;
 											}).appendTo('#'+$this.id + ' .fb-footer-row')
 
 											$('<div />', {
-												'class': 'large-2 medium-2 small-2 columns'
+												'class': 'large-1 medium-1 small-1 columns'
 											}).appendTo('#'+$this.id + ' .fb-footer-row');
 										}
 									}
