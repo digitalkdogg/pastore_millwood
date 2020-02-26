@@ -168,6 +168,10 @@ section.post_content {
     border-bottom: 1px solid #ccc;
 }
 
+#footer-fb-wraper .fb-footer .postdate {
+  padding-top:20px
+}
+
 #footer-news-wraper .news-content, #footer-event-wraper .event-content {
     height:275px;
 }
