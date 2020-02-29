@@ -426,32 +426,16 @@ var millwood;
 
 								if ($(this).children().length == 0 ) {
 									$(this).attr('id', $this.id);
-
-
 											if($this.message != undefined) {
-												if ($this.picture == undefined) {
+
 													$('<div />' , {
 														'class' : 'fb-content large-12 medium-12 small-12 columns',
 														'html' : $this.message.substring(0, 300)
 													}).appendTo($(this))
-												} else {
-													$('<div />' , {
-														'class' : 'fb-content large-8 medium-8 small-8 columns',
-														'html' : $this.message.substring(0, 300)
-													}).appendTo($(this))
-												}
+
 											}
 
-											if ($this.picture != undefined) {
-												$('<div />', {
-													'class': 'img-wraper large-4 medium-4 small-4 columns',
-												}).appendTo($(this));
 
-											$('<img />', {
-													'src': $this.picture,
-													'class' : 'fb-img'
-												}).appendTo('#'+$this.id+' .img-wraper');
-											}
 
 											$('<div />', {
 												'class' : 'row fb-footer'
