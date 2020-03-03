@@ -183,10 +183,10 @@ section.post_content {
 #footer-fb-wraper .fb-footer div {
     background: #faf6f2;
     height: 110px;
-    width: 120%;
-    left: -10px;
+    /*width: 120%;
+    left: -10px; */
     margin-top: 10px;
-    border-top: 1px solid #ccc;
+    /*border-top: 1px solid #ccc; */
 }
 
 #footer-news-wraper button.news-btn, #footer-event-wraper button.event-btn{
@@ -199,10 +199,14 @@ section.post_content {
     text-decoration: underline;
 }
 
+div.fb .fb-footer .fb-footer-row {
+    border-top: 1px solid #ccc;
+}
+
 #footer-fb-wraper button.fb-btn {
-    float:none;
+  /*  float:none;
     left: -50px;
-    margin-top: 20px;
+    margin-top: 20px; */
     background: #cf4a46;
     padding:5px;
     border-radius: 5px;

@@ -409,12 +409,13 @@ var millwood;
 					$.each(data.data, function (index, val) {
 
 						if (this.name != undefined) {
-							if (this.name.indexOf('cover photo')>0) {
+							if (this.name.indexOf('cover photo')>0 ) {
 								delete this;
 								return;
 							}
 						}
-						console.log(this);
+
+
 
 						var $this = this;
 
@@ -422,57 +423,58 @@ var millwood;
 
 						$('#footer-fb-wraper .fb').each(function () {
 
+
+							//first check for dups
+						if ($('#id_'+$this.id+'.fb').length===0) {
 							if ($this != undefined) {
 
 								if ($(this).children().length == 0 ) {
-									$(this).attr('id', $this.id);
-											if($this.message != undefined) {
+									$(this).attr('id', 'id_' + $this.id);
 
+										if($this.message != undefined) {
 													$('<div />' , {
 														'class' : 'fb-content large-12 medium-12 small-12 columns',
 														'html' : $this.message.substring(0, 300)
 													}).appendTo($(this))
 
+													if ($this.link != undefined) {
+														var link = 'https://facebook.com/millwoodchurch/posts/' + $this.id
+
+														$('<div />', {
+																'class' : 'row fb-footer'
+														}).appendTo($(this))
+
+														$('<div />' , {
+															'class': 'large-12 medium-12 small-12 columns fb-footer-row',
+														}).appendTo('#id_'+$this.id + ' .fb-footer');
+
+														$('<div />', {
+															'class' :'large-7 medium-7 small-7 columns',
+															'html': 'Posted At : ' + millwood.utils.getreadabledate($this.created_time),
+															'id': 'fb-left-trix'
+														}).appendTo('#id_'+$this.id + ' .fb-footer-row');
+
+														$('<div />', {
+															'class': 'large-4 medium-4 small-4 columns',
+															'id': 'fb-right-trix'
+														}).appendTo('#id_'+$this.id + ' .fb-footer-row');
+														if ($this.link != undefined) {
+															$('<a />', {
+																	'href': $this.link,
+																	'html' : '<button class = "fb-btn">Read More</button>',
+																	'target': '_blank'
+															}).appendTo('#id_'+$this.id + ' .fb-footer-row #fb-right-trix')
+														}
+												}
+											}//end message not undefined
+
+											if ($('#id_'+$this.id).children().length == 0) {
+												$('#id_'+$this.id).remove();
 											}
 
-
-
-											$('<div />', {
-												'class' : 'row fb-footer'
-											}).appendTo($(this))
-
-											$('<div />' , {
-												'class': 'large-12 medium-12 small-12 columns fb-footer-row',
-											}).appendTo('#'+$this.id + ' .fb-footer');
-
-											$('<span />', {
-												'html': 'Posted At : ' + millwood.utils.getreadabledate($this.created_time),
-												'class': 'large-7 medium-7 small-7 columns postdate'
-											}).appendTo('#'+$this.id + ' .fb-footer-row');
-
-											if ($this.story != undefined) {
-												$('<span />', {
-													'html': 'Headline : ' + $this.story,
-													'class': 'large-6 medium-6 small-6 columns'
-												}).appendTo('#'+$this.id + ' .fb-footer-row');
-											}
-
-											var link = 'https://facebook.com/millwoodchurch/posts/' + $this.id
-											var appid = millwood.wp_data.custom_super_options.homepage_fb_app_id;
-
-											link = link.replace(appid + '_', '');
-											$('<a />', {
-												'href' : link,
-												'class': 'large-4 medium-4 small-4 columns',
-												'html' : '<button class = "fb-btn">Read More</button>',
-												'target': '_blank'
-											}).appendTo('#'+$this.id + ' .fb-footer-row')
-
-											$('<div />', {
-												'class': 'large-1 medium-1 small-1 columns'
-											}).appendTo('#'+$this.id + ' .fb-footer-row');
 										}
 									}
+								}
 						});
 					})//end each
 
