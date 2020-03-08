@@ -163,7 +163,7 @@ section.post_content {
 }
 
 #footer-fb-wraper .fb {
-  height:500px;
+  height:515px;
 }
 
 #footer-fb-wraper div.fb-img-wrap {
@@ -186,11 +186,11 @@ section.post_content {
 }
 
 #footer-news-wraper .news-content, #footer-event-wraper .event-content {
-    height:275px;
+    height:265px;
 }
 
 #footer-fb-wraper .fb-content {
-    height:170px;
+    height:160px;
     overflow:hidden;
 }
 
