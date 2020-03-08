@@ -407,12 +407,14 @@ var millwood;
 
 
 					$.each(data.data, function (index, val) {
-
+						console.log(this.picture);
 						if (this.name != undefined) {
 							if (this.name.indexOf('cover photo')>0 ) {
 								delete this;
 								return;
 							}
+
+
 						}
 
 
@@ -436,6 +438,17 @@ var millwood;
 														'class' : 'fb-content large-12 medium-12 small-12 columns',
 														'html' : $this.message.substring(0, 300)
 													}).appendTo($(this))
+
+													if ($this.picture != undefined) {
+														$('<div />', {
+															'class': 'fb-img-wrap large-12 medium-12 small-12 columns',
+														}).appendTo($(this))
+
+														$('<img />', {
+															'class': 'fb-img',
+															'src': $this.picture
+														}).appendTo($('#id_'+$this.id + ' .fb-img-wrap'))
+													}
 
 													if ($this.link != undefined) {
 														var link = 'https://facebook.com/millwoodchurch/posts/' + $this.id

@@ -162,6 +162,19 @@ section.post_content {
     background:white;
 }
 
+#footer-fb-wraper .fb {
+  height:500px;
+}
+
+#footer-fb-wraper div.fb-img-wrap {
+  padding:5% 20%;
+}
+
+#footer-fb-wraper div.fb-img-wrap img {
+  opacity:0.5;
+  border-radius:5px;
+}
+
 #footer-news-wraper .news-title, #footer-event-wraper .event-title, #footer-fb-wraper .fb-title {
     font-size: 1.8em;
     font-weight: bold;
@@ -177,7 +190,8 @@ section.post_content {
 }
 
 #footer-fb-wraper .fb-content {
-    height:280px;
+    height:170px;
+    overflow:hidden;
 }
 
 #footer-fb-wraper .fb-footer div {
