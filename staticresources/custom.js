@@ -663,7 +663,7 @@ var millwood;
 				var settings = {
   					'async': true,
   					'crossDomain': true,
-  					'url': 'https://graph.facebook.com/v3.0/'+ appid + '/feed?since='+monthsago+'&limit='+limit+'&access_token='+apptoken,
+  					'url': 'https://graph.facebook.com/v4.0/'+ appid + '/feed?since='+monthsago+'&limit='+limit+'&access_token='+apptoken,
   					//'url' :  'https://graph.facebook.com/v4.0/'+ appid + '/feed?fields=id,from,name,message,created_time,story,description,link,picture&limit=5&access_token='+apptoken,
   					'method': 'GET',
   					'headers': {
