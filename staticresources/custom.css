@@ -254,6 +254,10 @@ div.fb .fb-footer .fb-footer-row {
     margin: 0 10px 10px;
 }
 
+#footer-news-wraper .news-content a.wp-block-button__link {
+    display: none;
+}
+
 .news img, .event img, .fb img {
     height: 200px;
     width: 200px;
