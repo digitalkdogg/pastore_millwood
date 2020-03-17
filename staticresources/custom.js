@@ -351,6 +351,7 @@ var millwood;
 
 					$.each(data, function (index, val) {
 						var $this = this;
+					
 						$('#footer-news-wraper').append(millwood.templates.news_single);
 
 						$('#footer-news-wraper .news').each(function () {
@@ -364,12 +365,16 @@ var millwood;
 
 									$('<div />' , {
 										'class' : 'news-content',
-										'html' : $this.post_content
+										'html' : $this.post_excerpt
 									}).appendTo($(this))
 
+									var link = $this.guid;
+									if ($this['meta']['facebook_link'] != undefined) {
+										link = $this['meta']['facebook_link'];
+									}
 									$('<div />' , {
 										'class' : 'news-footer',
-										'html' : '<a href = "' + $this.guid + '" target= "_blank"><button class = "news-btn">Read More</button></a>'
+										'html' : '<a href = "' + link + '" target= "_blank"><button class = "news-btn">Read More</button></a>'
 									}).appendTo($(this))
 
 								}

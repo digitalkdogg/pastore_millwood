@@ -5,20 +5,20 @@
 
 add_action( 'wp_footer', 'my_footer_scripts' );
 function my_footer_scripts(){
-    wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/custom.css' ); 
+    wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/custom.css' );
 	   wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom.js' );
-      wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' ); 
+      wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' );
      wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
       wp_enqueue_style( 'slickcss',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.min.css' );
       wp_enqueue_script( 'slickjs',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.js' );
       wp_enqueue_script('fbjs', 'https://connect.facebook.net/en_US/all.js');
- 
 
 
- /** 
+
+ /**
   Global vars to be passed to custom javascript
   **/
-  
+
   global $template;
   $dataToBePassed = array(
         'template'              => basename($template),
@@ -63,7 +63,7 @@ function get_custom_template_file($fileName){
 }
 
 function get_theme_super_customizations() {
-  $options = array('homepage_show_events', 
+  $options = array('homepage_show_events',
                   'homepage_show_events_page',
                   'homepage_show_news',
                   'homepage_show_news_page',
@@ -80,7 +80,7 @@ function get_theme_super_customizations() {
                   'menu_mobile',
                   'api_show_cc_news',
                   'api_news_page'
-                ); 
+                );
   $returnarray = array();
 
   foreach ($options as &$value) {
@@ -94,7 +94,7 @@ function get_theme_super_customizations() {
  *
  * @param array $data Options for the function.
  * @return $object, or null if none.  */
- 
+
    function get_latest_events ( $params ){
 
     if ($params['post_type']=='') {
@@ -111,7 +111,7 @@ function get_theme_super_customizations() {
    // var_dump($date);
 
    // $date = trim($date, "/t");
-    
+
 
     $post = get_posts( array(
           'post_type' => $params['post_type'],
@@ -124,7 +124,7 @@ function get_theme_super_customizations() {
      ) );
 
 
- 
+
       if( empty( $post ) ){
         return null;
       }
@@ -139,13 +139,13 @@ function get_theme_super_customizations() {
  *
  * @param array $data Options for the function.
  * @return $object, or null if none.  */
- 
+
 	 function get_latest_news ( $params ){
 
     if ($params['category']=='') {
       $params['category'] = 'homepagenews';
     }
-    
+
 
     $category = get_term_by('name', $params['category'], 'category');
 
@@ -155,14 +155,24 @@ function get_theme_super_customizations() {
             'cat' => $category->term_id,
             'posts_per_page' => 10,
             'orderby' => 'date',
-            'order' => 'ASC' 
+            'order' => 'ASC'
        ) );
+
+       //var_dump($post[0]);
+       $postmeta = null;
+       foreach ($post as $postitem) {
+
+          $postmeta = get_post_meta( $postitem->ID, FALSE, TRUE );
+          $postitem->meta = $postmeta;
+
+        }
+
     }
 
   	 	if( empty( $post ) ){
   	 		return null;
   	 	}
- 		   
+
        return $post;
   	 	//return $post[0]->post_title;
   	 }
@@ -171,7 +181,7 @@ function get_theme_super_customizations() {
  * Grab latest event posts
  * @param array $data Options for the function.
  * @return $object, or null if none.  */
- 
+
    function get_latest_cc ( $params ){
      global $wpdb;
      $result = $wpdb->get_results('SELECT * FROM wp_campaigns where status = "Done" order by created_at desc');
@@ -181,13 +191,13 @@ function get_theme_super_customizations() {
 
 
 	 // Register the rest route here.
-  	 add_action( 'rest_api_init', function () {     
-            register_rest_route( 'calendar/v1', 'latest-events',array( 
+  	 add_action( 'rest_api_init', function () {
+            register_rest_route( 'calendar/v1', 'latest-events',array(
                 'methods'  => 'GET',
                 'callback' => 'get_latest_events'
             ) );
 
-            register_rest_route( 'news/v1', 'latest-news',array( 
+            register_rest_route( 'news/v1', 'latest-news',array(
                 'methods'  => 'GET',
                 'callback' => 'get_latest_news'
             ) );
@@ -196,5 +206,5 @@ function get_theme_super_customizations() {
               'methods' => 'GET',
               'callback' => 'get_latest_cc'
             ));
-     } );  
+     } );
 ?>
