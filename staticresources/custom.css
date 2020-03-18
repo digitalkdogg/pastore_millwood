@@ -605,3 +605,44 @@ div#heart-wrapper {
     /* font-weight: 100; */
     font-family: inherit;
 }
+
+
+.ds-element.in-form {
+    background: #2c2524;
+}
+
+.ds-element.in-form button {
+  color:#333;
+}
+
+.ds-element.in-form button:hover {
+  background-color:red;
+}
+
+.ds-element.in-form fieldset legend {
+  background: red;
+}
+
+form.ElementsApp span.InputContainer {
+    border: 1px solid #999;
+    border-radius: 5px;
+    background: #333;
+}
+
+form.ElementsApp span.CardField-expiry.CardField-child {
+    position: relative;
+    left: -4em;
+}
+
+form.ElementsApp span.CardField-cvc.CardField-child {
+    position: relative;
+    left: -2em;
+}
+
+.ds-element fieldset input {
+    background: #333 !important;
+    border: 1px solid #999 !important;
+    border-radius: 5px !important;
+    top: 10px;
+    position: relative;
+}
