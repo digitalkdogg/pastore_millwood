@@ -351,7 +351,7 @@ var millwood;
 
 					$.each(data, function (index, val) {
 						var $this = this;
-					
+
 						$('#footer-news-wraper').append(millwood.templates.news_single);
 
 						$('#footer-news-wraper .news').each(function () {
@@ -365,7 +365,7 @@ var millwood;
 
 									$('<div />' , {
 										'class' : 'news-content',
-										'html' : $this.post_excerpt
+										'html' : $this.post_excerpt.substring(0, 235)
 									}).appendTo($(this))
 
 									var link = $this.guid;

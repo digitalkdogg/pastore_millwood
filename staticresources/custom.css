@@ -179,6 +179,7 @@ section.post_content {
     font-size: 1.8em;
     font-weight: bold;
     border-bottom: 1px solid #ccc;
+    height:85px;
 }
 
 #footer-fb-wraper .fb-footer .postdate {
@@ -245,6 +246,7 @@ div.fb .fb-footer .fb-footer-row {
     margin-bottom:10px;
     padding: 0 5%;
     font-size:20px;
+    height: 250px;
 }
 
 #footer-event-wraper .cat-title, #footer-news-wraper .cat-title, #footer-fb-wraper .cat-title {
