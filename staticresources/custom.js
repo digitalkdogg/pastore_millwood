@@ -833,12 +833,12 @@ var millwood;
 				$('body').click(function (event) {
 					if ($(event.target).hasClass('mill_menu_button')==false) {
 						if ($(event.target).is('a') == false) {
-						if ($(event.target).is('button') == false) {
+
 							 	$('.side_wrap').each(function () {
 									$(this).removeClass('open');
 								})
 							}
-						}
+						
 				}
 
 				})
