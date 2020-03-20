@@ -792,6 +792,8 @@ var millwood;
 				})
 
 			})
+
+
 		}
 
 		if (millwood.wp_data.responsive.ismobile == false && millwood.wp_data.responsive.issuperdesktop == false) {
@@ -800,6 +802,29 @@ var millwood;
 				html: logotext
 			}).prependTo('.top_panel_middle .logo')
 		}
+
 	}
+
+
+			if (millwood.wp_data.responsive.ismobile == true) {
+				$(window).scroll(function () {
+					let toppos = $(document).scrollTop();
+					if (toppos > 150) {
+						$('body.page').addClass('top_panel_fixed');
+					} else {
+						$('body.page').removeClass('top_panel_fixed');
+					}
+				})
+
+			///	$('.menu_button.icon-menu').addClass('mill_menu_button');
+		//		$('.menu_button.icon-menu').removeClass('menu_button')
+		//		$('.mill_menu_button.icon-menu').click(function (event) {
+				//	$(this).unbind()
+				//	$('.menu_button.icon-menu').click(function (event) {
+	//					console.log('hi')
+			//			$('.header_mobile div.slide_wrap').addClass('open');
+			//		})
+	//			})
+			}
 
 }(jQuery));

@@ -594,6 +594,16 @@ div#heart-wrapper {
     margin: 0 15%;
 }
 
+.top_panel_fixed .header_mobile {
+    position: fixed;
+    background: white;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+    z-index: 100000;
+}
+
 @media only screen and (max-width: 1024px) {
 .page_content_wrap section.post_content {
     margin: initial;
