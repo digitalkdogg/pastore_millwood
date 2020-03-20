@@ -155,7 +155,7 @@ function get_theme_super_customizations() {
             'cat' => $category->term_id,
             'posts_per_page' => 10,
             'orderby' => 'date',
-            'order' => 'ASC'
+            'order' => 'DESC'
        ) );
 
        //var_dump($post[0]);
