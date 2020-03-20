@@ -604,6 +604,24 @@ div#heart-wrapper {
     z-index: 100000;
 }
 
+.header_mobile .mill_menu_button {
+    background-color: transparent !important;
+    height: auto;
+    width: auto;
+    font-size: 36px;
+    line-height: 36px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    top:40px;
+    float:left;
+    position:relative;
+    left:3%;
+}
+
 @media only screen and (max-width: 1024px) {
 .page_content_wrap section.post_content {
     margin: initial;
