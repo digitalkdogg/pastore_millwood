@@ -7,7 +7,7 @@
 // Framework settings
 
 pastore_church_storage_set('settings', array(
-	
+
 	'less_compiler'		=> 'lessc',								// no|lessc|less - Compiler for the .less
 																// lessc - fast & low memory required, but .less-map, shadows & gradients not supprted
 																// less  - slow, but support all features
@@ -15,9 +15,9 @@ pastore_church_storage_set('settings', array(
 	'less_prefix'		=> '',									// any string - Use prefix before each selector when compile less. For example: 'html '
 	'less_separator'	=> '/*---LESS_SEPARATOR---*/',			// string - separator inside .less file to split it when compiling to reduce memory usage
 																// (compilation speed gets a bit slow)
-	'less_map'			=> 'no',								// no|internal|external - Generate map for .less files. 
+	'less_map'			=> 'no',								// no|internal|external - Generate map for .less files.
 																// Warning! You need more then 128Mb for PHP scripts on your server! Supported only if less_compiler=less (see above)
-	
+
 	'customizer_demo'	=> true,								// Show color customizer demo (if many color settings) or not (if only accent colors used)
 
 	'allow_fullscreen'	=> false,								// Allow fullscreen and fullwide body styles
@@ -25,7 +25,7 @@ pastore_church_storage_set('settings', array(
 	'socials_type'		=> 'icons',								// images|icons - Use this kind of pictograms for all socials: share, social profiles, team members socials, etc.
 	'slides_type'		=> 'bg',								// images|bg - Use image as slide's content or as slide's background
 
-	'add_image_size'	=> false,								// Add theme's thumb sizes into WP list sizes. 
+	'add_image_size'	=> false,								// Add theme's thumb sizes into WP list sizes.
 																// If false - new image thumb will be generated on demand,
 																// otherwise - all thumb sizes will be generated when image is loaded
 
@@ -44,14 +44,14 @@ pastore_church_storage_set('settings', array(
 if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 	add_action( 'pastore_church_action_before_init_theme', 'pastore_church_options_settings_theme_setup', 2 );	// Priority 1 for add pastore_church_filter handlers
 	function pastore_church_options_settings_theme_setup() {
-		
+
 		// Clear all saved Theme Options on first theme run
 		add_action('after_switch_theme', 'pastore_church_options_reset');
 
-		// Settings 
+		// Settings
 		$socials_type = pastore_church_get_theme_setting('socials_type');
-				
-		// Prepare arrays 
+
+		// Prepare arrays
 		pastore_church_storage_set('options_params', apply_filters('pastore_church_filter_theme_options_params', array(
 			'list_fonts'				=> array('$pastore_church_get_list_fonts' => ''),
 			'list_fonts_styles'			=> array('$pastore_church_get_list_fonts_styles' => ''),
@@ -94,9 +94,9 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 		// Theme options array
 		pastore_church_storage_set('options', array(
 
-		
+
 		//###############################
-		//#### Customization         #### 
+		//#### Customization         ####
 		//###############################
 		'partition_customization' => array(
 					"title" => esc_html__('Customization', 'pastore-church'),
@@ -105,11 +105,11 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"icon" => "iconadmin-cog-alt",
 					"type" => "partition"
 					),
-		
-		
+
+
 		// Customization -> Body Style
 		//-------------------------------------------------
-		
+
 		'customization_body' => array(
 					"title" => esc_html__('Body style', 'pastore-church'),
 					"override" => "category,services_group,post,page,custom",
@@ -117,7 +117,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"start" => "customization_tabs",
 					"type" => "tab"
 					),
-		
+
 		'info_body_1' => array(
 					"title" => esc_html__('Body parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select body style, skin and color scheme for entire site. You can override this parameters on any page, post or category', 'pastore-church') ),
@@ -128,14 +128,14 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 		'body_style' => array(
 					"title" => esc_html__('Body style', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select body style:', 'pastore-church') )
-								. ' <br>' 
+								. ' <br>'
 								. wp_kses_data( __('<b>boxed</b> - if you want use background color and/or image', 'pastore-church') )
 								. ',<br>'
 								. wp_kses_data( __('<b>wide</b> - page fill whole window with centered content', 'pastore-church') )
-								. (pastore_church_get_theme_setting('allow_fullscreen') 
+								. (pastore_church_get_theme_setting('allow_fullscreen')
 									? ',<br>' . wp_kses_data( __('<b>fullwide</b> - page content stretched on the full width of the window (with few left and right paddings)', 'pastore-church') )
 									: '')
-								. (pastore_church_get_theme_setting('allow_fullscreen') 
+								. (pastore_church_get_theme_setting('allow_fullscreen')
 									? ',<br>' . wp_kses_data( __('<b>fullscreen</b> - page content fill whole window without any paddings', 'pastore-church') )
 									: ''),
 					"info" => true,
@@ -146,7 +146,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "radio"
 					),
 
-		
+
 		'body_paddings' => array(
 					"title" => esc_html__('Page paddings', 'pastore-church'),
 					"desc" => wp_kses_data( __('Add paddings above and below the page content', 'pastore-church') ),
@@ -172,7 +172,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "horizontal",
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
-		
+
 		'body_filled' => array(
 					"title" => esc_html__('Fill body', 'pastore-church'),
 					"desc" => wp_kses_data( __('Fill the page background with the solid color or leave it transparend to show background image (or video background)', 'pastore-church') ),
@@ -182,12 +182,52 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "switch"
 					),
 
+
+
+		'info_body_banner' => array(
+					"title" => esc_html__('Homepage Alert Banner', 'pastore-church'),
+					"desc" => wp_kses_data( __('Turn on or off the alert banner and set the alert banner message ') ),
+					"override" => "custom",
+					"type" => "info"
+					),
+
+			'banner_on_off' => array(
+						"title" => esc_html__('Activate Alert Banner',  'pastore-church'),
+						"desc" => wp_kses_data( __("Show or hide the alert banner on the homepage", 'pastore-church') ),
+						"override" => "custom",
+						"std" => "no",
+						"options" => pastore_church_get_options_param('list_yes_no'),
+						"type" => "switch"
+						),
+
+		"banner_area" => array(
+								"title" => esc_html__('Banner area',  'pastore-church'),
+								"desc" => wp_kses_data( __("Banner Area", 'pastore-church') ),
+								"override" => "custom",
+								"dependency" => array(
+									'banner_on_off' => array('yes')
+								),
+								"allow_html" => true,
+								"std" => "",
+								"type" => "editor"),
+		"banner_more_area" => array(
+														"title" => esc_html__('Banner More area',  'pastore-church'),
+														"desc" => wp_kses_data( __("Banner More Area", 'pastore-church') ),
+														"override" => "custom",
+														"dependency" => array(
+															'banner_on_off' => array('yes')
+														),
+														"allow_html" => true,
+														"std" => "",
+														"type" => "editor"),
+
 		'info_body_2' => array(
 					"title" => esc_html__('Background color and image', 'pastore-church'),
 					"desc" => wp_kses_data( __('Color and image for the site background', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"
 					),
+
 
 		'bg_custom' => array(
 					"title" => esc_html__('Use custom background',  'pastore-church'),
@@ -197,7 +237,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
 					),
-		
+
 		'bg_color' => array(
 					"title" => esc_html__('Background color',  'pastore-church'),
 					"desc" => wp_kses_data( __('Body background color',  'pastore-church') ),
@@ -228,7 +268,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"style" => "list",
 					"type" => "images"
 					),
-		
+
 		'bg_pattern_custom' => array(
 					"title" => esc_html__('Background custom pattern',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select or upload background custom pattern. If selected - use it instead the theme predefined pattern (selected in the field above)',  'pastore-church') ),
@@ -239,7 +279,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "",
 					"type" => "media"
 					),
-		
+
 		'bg_image' => array(
 					"title" => esc_html__('Background predefined image',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select theme background image (first case - without image)',  'pastore-church') ),
@@ -257,7 +297,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"style" => "list",
 					"type" => "images"
 					),
-		
+
 		'bg_image_custom' => array(
 					"title" => esc_html__('Background custom image',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select or upload background custom image. If selected - use it instead the theme predefined image (selected in the field above)',  'pastore-church') ),
@@ -268,8 +308,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "",
 					"type" => "media"
 					),
-		
-		'bg_image_custom_position' => array( 
+
+		'bg_image_custom_position' => array(
 					"title" => esc_html__('Background custom image position',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select custom image position',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -290,7 +330,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"type" => "select"
 					),
-		
+
 		'bg_image_load' => array(
 					"title" => esc_html__('Load background image', 'pastore-church'),
 					"desc" => wp_kses_data( __('Always load background images or only for boxed body style', 'pastore-church') ),
@@ -307,7 +347,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "switch"
 					),
 
-		
+
 		'info_body_3' => array(
 					"title" => esc_html__('Video background', 'pastore-church'),
 					"desc" => wp_kses_data( __('Parameters of the video, used as site background', 'pastore-church') ),
@@ -367,11 +407,11 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
 					),
-		
-		
+
+
 			// Customization -> homepage
 		//-------------------------------------------------
-		
+
 		'customization_homepage' => array(
 					"title" => esc_html__("API Feeds", 'pastore-church'),
 					"icon" => 'iconadmin-window',
@@ -397,7 +437,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 
 
-		'homepage_events_arrow_position' => array( 
+		'homepage_events_arrow_position' => array(
 					"title" => esc_html__('Events Widget Arrow Position',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select arrow position',  'pastore-church') ),
 					"std" => "normal",
@@ -407,7 +447,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => array(
 						'normal' => "Normal",
 						'fullwidth' => "Full Width",
-						
+
 					),
 					"type" => "select"
 					),
@@ -442,7 +482,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "text"
 					),
 
-		'homepage_news_arrow_position' => array( 
+		'homepage_news_arrow_position' => array(
 					"title" => esc_html__('News Widget Arrow Position',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select arrow position',  'pastore-church') ),
 					"std" => "normal",
@@ -452,7 +492,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => array(
 						'normal' => "Normal",
 						'fullwidth' => "Full Width",
-						
+
 					),
 					"type" => "select"
 					),
@@ -486,7 +526,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "access token",
 					"type" => "text"
 					),
-		
+
 		'homepage_fb_app_id' => array(
 					"title" => esc_html__('FB App ID',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter the app id for developer.facebook.com", 'pastore-church') ),
@@ -548,22 +588,22 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "news",
 					"type" => "text"
 					),
-		
+
 		// Customization -> Header
 		//-------------------------------------------------
-		
+
 		'customization_header' => array(
 					"title" => esc_html__("Header", 'pastore-church'),
 					"override" => "category,services_group,post,page,custom",
 					"icon" => 'iconadmin-window',
 					"type" => "tab"),
-		
+
 		"info_header_1" => array(
 					"title" => esc_html__('Top panel', 'pastore-church'),
 					"desc" => wp_kses_data( __('Top panel settings. It include user menu area (with contact info, cart button, language selector, login/logout menu and user menu) and main menu area (with logo and main menu).', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
+
 		"top_panel_style" => array(
 					"title" => esc_html__('Top panel style', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select desired style of the page header', 'pastore-church') ),
@@ -626,10 +666,10 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 				),
 				"std" => "",
 				"type" => "media"),
-			
-			
-			
-			
+
+
+
+
 		"show_page_title" => array(
 					"title" => esc_html__('Show Page title', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show post/page/category title', 'pastore-church') ),
@@ -637,7 +677,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_breadcrumbs" => array(
 					"title" => esc_html__('Show Breadcrumbs', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show path to current category (post, page)', 'pastore-church') ),
@@ -645,7 +685,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"breadcrumbs_max_level" => array(
 					"title" => esc_html__('Breadcrumbs max nesting', 'pastore-church'),
 					"desc" => wp_kses_data( __("Max number of the nested categories in the breadcrumbs (0 - unlimited)", 'pastore-church') ),
@@ -658,64 +698,64 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"step" => 1,
 					"type" => "spinner"),
 
-		
-		
-		
-		"info_header_2" => array( 
+
+
+
+		"info_header_2" => array(
 					"title" => esc_html__('Main menu style and position', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the Main menu style and position', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
-		"menu_main" => array( 
+
+		"menu_main" => array(
 					"title" => esc_html__('Select main menu',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select main menu for the current page',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"std" => "default",
 					"options" => pastore_church_get_options_param('list_menus'),
 					"type" => "select"),
-		
-		"menu_attachment" => array( 
+
+		"menu_attachment" => array(
 					"title" => esc_html__('Main menu attachment', 'pastore-church'),
 					"desc" => wp_kses_data( __('Attach main menu to top of window then page scroll down', 'pastore-church') ),
 					"std" => "fixed",
 					"options" => array(
-						"fixed"=>esc_html__("Fix menu position", 'pastore-church'), 
+						"fixed"=>esc_html__("Fix menu position", 'pastore-church'),
 						"none"=>esc_html__("Don't fix menu position", 'pastore-church')
 					),
 					"dir" => "vertical",
 					"type" => "radio"),
 
-		"menu_slider" => array( 
+		"menu_slider" => array(
 					"title" => esc_html__('Main menu slider', 'pastore-church'),
 					"desc" => wp_kses_data( __('Use slider background for main menu items', 'pastore-church') ),
 					"std" => "yes",
 					"type" => "switch",
 					"options" => pastore_church_get_options_param('list_yes_no')),
 
-		"menu_animation_in" => array( 
+		"menu_animation_in" => array(
 					"title" => esc_html__('Submenu show animation', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select animation to show submenu ', 'pastore-church') ),
 					"std" => "fadeIn",
 					"type" => "select",
 					"options" => pastore_church_get_options_param('list_animations_in')),
 
-		"menu_animation_out" => array( 
+		"menu_animation_out" => array(
 					"title" => esc_html__('Submenu hide animation', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select animation to hide submenu ', 'pastore-church') ),
 					"std" => "fadeOutDown",
 					"type" => "select",
 					"options" => pastore_church_get_options_param('list_animations_out')),
-		
-		"menu_mobile" => array( 
+
+		"menu_mobile" => array(
 					"title" => esc_html__('Main menu responsive', 'pastore-church'),
 					"desc" => wp_kses_data( __('Allow responsive version for the main menu if window width less then this value', 'pastore-church') ),
 					"std" => 1024,
 					"min" => 320,
 					"max" => 1024,
 					"type" => "spinner"),
-		
-		"menu_width" => array( 
+
+		"menu_width" => array(
 					"title" => esc_html__('Submenu width', 'pastore-church'),
 					"desc" => wp_kses_data( __('Width for dropdown menus in main menu', 'pastore-church') ),
 					"step" => 5,
@@ -724,15 +764,15 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 300,
 					"mask" => "?999",
 					"type" => "spinner"),
-		
-		
-		
+
+
+
 		"info_header_3" => array(
 					"title" => esc_html__("User's menu area components", 'pastore-church'),
 					"desc" => wp_kses_data( __("Select parts for the user's menu area", 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
+
 		"show_top_panel_top" => array(
 					"title" => esc_html__('Show user menu area', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show user menu area on top of page', 'pastore-church') ),
@@ -740,7 +780,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_languages" => array(
 					"title" => esc_html__('Show language selector', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show language selector in the user menu (if WPML plugin installed and current page/post has multilanguage version)', 'pastore-church') ),
@@ -750,8 +790,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
-		"show_login" => array( 
+
+		"show_login" => array(
 					"title" => esc_html__('Show Login/Logout buttons', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show Login and Logout buttons in the user menu area', 'pastore-church') ),
 					"dependency" => array(
@@ -760,7 +800,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_bookmarks" => array(
 					"title" => esc_html__('Show bookmarks', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show bookmarks selector in the user menu', 'pastore-church') ),
@@ -809,13 +849,13 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 
 
 
-		"info_header_4" => array( 
+		"info_header_4" => array(
 					"title" => esc_html__("Table of Contents (TOC)", 'pastore-church'),
 					"desc" => wp_kses_data( __("Table of Contents for the current page. Automatically created if the page contains objects with id starting with 'toc_'", 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
-		"menu_toc" => array( 
+
+		"menu_toc" => array(
 					"title" => esc_html__('TOC position', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show TOC for the current page', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -826,7 +866,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						'float' => esc_html__('Float', 'pastore-church')
 					),
 					"type" => "checklist"),
-		
+
 		"menu_toc_home" => array(
 					"title" => esc_html__('Add "Home" into TOC', 'pastore-church'),
 					"desc" => wp_kses_data( __('Automatically add "Home" item into table of contents - return to home page of the site', 'pastore-church') ),
@@ -837,8 +877,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
-		"menu_toc_top" => array( 
+
+		"menu_toc_top" => array(
 					"title" => esc_html__('Add "To Top" into TOC', 'pastore-church'),
 					"desc" => wp_kses_data( __('Automatically add "To Top" item into table of contents - scroll to top of the page', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -849,9 +889,9 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
 
-		
-		
-		
+
+
+
 		'info_header_5' => array(
 					"title" => esc_html__('Main logo', 'pastore-church'),
 					"desc" => wp_kses_data( __("Select or upload logos for the site's header and select it position", 'pastore-church') ),
@@ -922,28 +962,28 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"mask" => "?99",
 					"type" => "spinner"
 					),
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		// Customization -> Slider
 		//-------------------------------------------------
-		
-		"customization_slider" => array( 
+
+		"customization_slider" => array(
 					"title" => esc_html__('Slider', 'pastore-church'),
 					"icon" => "iconadmin-picture",
 					"override" => "category,services_group,page,custom",
 					"type" => "tab"),
-		
+
 		"info_slider_1" => array(
 					"title" => esc_html__('Main slider parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select parameters for main slider (you can override it in each category and page)', 'pastore-church') ),
 					"override" => "category,services_group,page,custom",
 					"type" => "info"),
-					
+
 		"show_slider" => array(
 					"title" => esc_html__('Show Slider', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want to show slider on each page (post)', 'pastore-church') ),
@@ -951,7 +991,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-					
+
 		"slider_display" => array(
 					"title" => esc_html__('Slider display', 'pastore-church'),
 					"desc" => wp_kses_data( __('How display slider: boxed (fixed width and height), fullwide (fixed height) or fullscreen', 'pastore-church') ),
@@ -966,7 +1006,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						"fullscreen"=>esc_html__("Fullscreen", 'pastore-church')
 					),
 					"type" => "checklist"),
-		
+
 		"slider_height" => array(
 					"title" => esc_html__("Height (in pixels)", 'pastore-church'),
 					"desc" => wp_kses_data( __("Slider height (in pixels) - only if slider display with fixed height.", 'pastore-church') ),
@@ -978,7 +1018,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 100,
 					"step" => 10,
 					"type" => "spinner"),
-		
+
 		"slider_engine" => array(
 					"title" => esc_html__('Slider engine', 'pastore-church'),
 					"desc" => wp_kses_data( __('What engine use to show slider?', 'pastore-church') ),
@@ -1012,7 +1052,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "horizontal",
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
-		
+
 		"slider_category" => array(
 					"title" => esc_html__('Posts Slider: Category to show', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select category to show in Flexslider (ignored for Revolution and Royal sliders)', 'pastore-church') ),
@@ -1026,7 +1066,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "select",
 					"multiple" => true,
 					"style" => "list"),
-		
+
 		"slider_posts" => array(
 					"title" => esc_html__('Posts Slider: Number posts or comma separated posts list',  'pastore-church'),
 					"desc" => wp_kses_data( __("How many recent posts display in slider or comma separated list of posts ID (in this case selected category ignored)", 'pastore-church') ),
@@ -1037,7 +1077,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => "5",
 					"type" => "text"),
-		
+
 		"slider_orderby" => array(
 					"title" => esc_html__("Posts Slider: Posts order by",  'pastore-church'),
 					"desc" => wp_kses_data( __("Posts in slider ordered by date (default), comments, views, author rating, users rating, random or alphabetically", 'pastore-church') ),
@@ -1049,7 +1089,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "date",
 					"options" => pastore_church_get_options_param('list_sorting'),
 					"type" => "select"),
-		
+
 		"slider_order" => array(
 					"title" => esc_html__("Posts Slider: Posts order", 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the desired ordering method for posts', 'pastore-church') ),
@@ -1062,7 +1102,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_ordering'),
 					"size" => "big",
 					"type" => "switch"),
-					
+
 		"slider_interval" => array(
 					"title" => esc_html__("Posts Slider: Slide change interval", 'pastore-church'),
 					"desc" => wp_kses_data( __("Interval (in ms) for slides change in slider", 'pastore-church') ),
@@ -1075,7 +1115,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 100,
 					"step" => 100,
 					"type" => "spinner"),
-		
+
 		"slider_pagination" => array(
 					"title" => esc_html__("Posts Slider: Pagination", 'pastore-church'),
 					"desc" => wp_kses_data( __("Choose pagination style for the slider", 'pastore-church') ),
@@ -1087,11 +1127,11 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => array(
 						'no'   => esc_html__('None', 'pastore-church'),
-						'yes'  => esc_html__('Dots', 'pastore-church'), 
+						'yes'  => esc_html__('Dots', 'pastore-church'),
 						'over' => esc_html__('Titles', 'pastore-church')
 					),
 					"type" => "checklist"),
-		
+
 		"slider_infobox" => array(
 					"title" => esc_html__("Posts Slider: Show infobox", 'pastore-church'),
 					"desc" => wp_kses_data( __("Do you want to show post's title, reviews rating and description on slides in slider", 'pastore-church') ),
@@ -1103,11 +1143,11 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "slide",
 					"options" => array(
 						'no'    => esc_html__('None',  'pastore-church'),
-						'slide' => esc_html__('Slide', 'pastore-church'), 
+						'slide' => esc_html__('Slide', 'pastore-church'),
 						'fixed' => esc_html__('Fixed', 'pastore-church')
 					),
 					"type" => "checklist"),
-					
+
 		"slider_info_category" => array(
 					"title" => esc_html__("Posts Slider: Show post's category", 'pastore-church'),
 					"desc" => wp_kses_data( __("Do you want to show post's category on slides in slider", 'pastore-church') ),
@@ -1119,7 +1159,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-					
+
 		"slider_info_reviews" => array(
 					"title" => esc_html__("Posts Slider: Show post's reviews rating", 'pastore-church'),
 					"desc" => wp_kses_data( __("Do you want to show post's reviews rating on slides in slider", 'pastore-church') ),
@@ -1131,7 +1171,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-					
+
 		"slider_info_descriptions" => array(
 					"title" => esc_html__("Posts Slider: Show post's descriptions", 'pastore-church'),
 					"desc" => wp_kses_data( __("How many characters show in the post's description in slider. 0 - no descriptions", 'pastore-church') ),
@@ -1144,39 +1184,39 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 0,
 					"step" => 10,
 					"type" => "spinner"),
-		
-		
-		
-		
-		
+
+
+
+
+
 		// Customization -> Sidebars
 		//-------------------------------------------------
-		
-		"customization_sidebars" => array( 
+
+		"customization_sidebars" => array(
 					"title" => esc_html__('Sidebars', 'pastore-church'),
 					"icon" => "iconadmin-indent-right",
 					"override" => "category,services_group,post,page,custom",
 					"type" => "tab"),
-		
-		"info_sidebars_1" => array( 
+
+		"info_sidebars_1" => array(
 					"title" => esc_html__('Custom sidebars', 'pastore-church'),
 					"desc" => wp_kses_data( __('In this section you can create unlimited sidebars. You can fill them with widgets in the menu Appearance - Widgets', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"custom_sidebars" => array(
 					"title" => esc_html__('Custom sidebars',  'pastore-church'),
 					"desc" => wp_kses_data( __('Manage custom sidebars. You can use it with each category (page, post) independently',  'pastore-church') ),
 					"std" => "",
 					"cloneable" => true,
 					"type" => "text"),
-		
+
 		"info_sidebars_2" => array(
 					"title" => esc_html__('Main sidebar', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show / Hide and select main sidebar', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
-		'show_sidebar_main' => array( 
+
+		'show_sidebar_main' => array(
 					"title" => esc_html__('Show main sidebar',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select position for the main sidebar or hide it',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1196,8 +1236,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "horizontal",
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
-		
-		"sidebar_main" => array( 
+
+		"sidebar_main" => array(
 					"title" => esc_html__('Select main sidebar',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select main sidebar content',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1207,20 +1247,20 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "sidebar_main",
 					"options" => pastore_church_get_options_param('list_sidebars'),
 					"type" => "select"),
-		
 
-		
-		
+
+
+
 		// Customization -> Footer
 		//-------------------------------------------------
-		
+
 		'customization_footer' => array(
 					"title" => esc_html__("Footer", 'pastore-church'),
 					"override" => "category,services_group,post,page,custom",
 					"icon" => 'iconadmin-window',
 					"type" => "tab"),
-		
-		
+
+
 		"info_footer_1" => array(
 					"title" => esc_html__("Footer components", 'pastore-church'),
 					"desc" => wp_kses_data( __("Select components of the footer, set style and put the content for the user's footer area", 'pastore-church') ),
@@ -1265,8 +1305,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "horizontal",
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
-		
-		"sidebar_footer" => array( 
+
+		"sidebar_footer" => array(
 					"title" => esc_html__('Select footer sidebar',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select footer sidebar for the blog page',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1276,8 +1316,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "sidebar_footer",
 					"options" => pastore_church_get_options_param('list_sidebars'),
 					"type" => "select"),
-		
-		"sidebar_footer_columns" => array( 
+
+		"sidebar_footer_columns" => array(
 					"title" => esc_html__('Footer sidebar columns',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select columns number for the footer sidebar',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1288,8 +1328,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 1,
 					"max" => 6,
 					"type" => "spinner"),
-		
-		
+
+
 		"info_footer_2" => array(
 					"title" => esc_html__('Testimonials in Footer', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select parameters for Testimonials in the Footer', 'pastore-church') ),
@@ -1316,7 +1356,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
 
-		"testimonials_count" => array( 
+		"testimonials_count" => array(
 					"title" => esc_html__('Testimonials count', 'pastore-church'),
 					"desc" => wp_kses_data( __('Number testimonials to show', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1328,8 +1368,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 1,
 					"max" => 10,
 					"type" => "spinner"),
-		
-		
+
+
 		"info_footer_3" => array(
 					"title" => esc_html__('Twitter in Footer', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select parameters for Twitter stream in the Footer (you can override it in each category and page)', 'pastore-church') ),
@@ -1356,7 +1396,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
 
-		"twitter_count" => array( 
+		"twitter_count" => array(
 					"title" => esc_html__('Twitter count', 'pastore-church'),
 					"desc" => wp_kses_data( __('Number twitter to show', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1375,7 +1415,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"desc" => wp_kses_data( __('Select parameters for Google map (you can override it in each category and page)', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-					
+
 		"show_googlemap" => array(
 					"title" => esc_html__('Show Google Map', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want to show Google map on each page (post)', 'pastore-church') ),
@@ -1383,7 +1423,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"googlemap_height" => array(
 					"title" => esc_html__("Map height", 'pastore-church'),
 					"desc" => wp_kses_data( __("Map height (default - in pixels, allows any CSS units of measure)", 'pastore-church') ),
@@ -1395,7 +1435,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 100,
 					"step" => 10,
 					"type" => "spinner"),
-		
+
 		"googlemap_address" => array(
 					"title" => esc_html__('Address to show on map',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter address to show on map center", 'pastore-church') ),
@@ -1405,7 +1445,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => "",
 					"type" => "text"),
-		
+
 		"googlemap_latlng" => array(
 					"title" => esc_html__('Latitude and Longitude to show on map',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter coordinates (separated by comma) to show on map center (instead of address)", 'pastore-church') ),
@@ -1415,7 +1455,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => "",
 					"type" => "text"),
-		
+
 		"googlemap_title" => array(
 					"title" => esc_html__('Title to show on map',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter title to show on map center", 'pastore-church') ),
@@ -1425,7 +1465,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => "",
 					"type" => "text"),
-		
+
 		"googlemap_description" => array(
 					"title" => esc_html__('Description to show on map',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter description to show on map center", 'pastore-church') ),
@@ -1436,7 +1476,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"allow_html" => true,
 					"std" => "",
 					"type" => "textarea"),
-		
+
 		"googlemap_zoom" => array(
 					"title" => esc_html__('Google map initial zoom',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter desired initial zoom for Google map", 'pastore-church') ),
@@ -1449,7 +1489,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 20,
 					"step" => 1,
 					"type" => "spinner"),
-		
+
 		"googlemap_style" => array(
 					"title" => esc_html__('Google map style',  'pastore-church'),
 					"desc" => wp_kses_data( __("Select style to show Google map", 'pastore-church') ),
@@ -1460,7 +1500,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => 'dark',
 					"options" => pastore_church_get_options_param('list_gmap_styles'),
 					"type" => "select"),
-		
+
 		"googlemap_marker" => array(
 					"title" => esc_html__('Google map marker',  'pastore-church'),
 					"desc" => wp_kses_data( __("Select or upload png-image with Google map marker", 'pastore-church') ),
@@ -1469,15 +1509,15 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => '',
 					"type" => "media"),
-		
-		
-		
+
+
+
 		"info_footer_5" => array(
 					"title" => esc_html__("Contacts area", 'pastore-church'),
 					"desc" => wp_kses_data( __("Show/Hide contacts area in the footer", 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
+
 		"show_contacts_in_footer" => array(
 					"title" => esc_html__('Show Contacts in footer', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show contact information area in footer: site logo, contact info and large social icons', 'pastore-church') ),
@@ -1519,7 +1559,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "",
 					"type" => "media"
 					),
-		
+
 		'logo_footer_height' => array(
 					"title" => esc_html__('Logo height', 'pastore-church'),
 					"desc" => wp_kses_data( __('Height for the logo in the footer area (in the contacts area)', 'pastore-church') ),
@@ -1534,9 +1574,9 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"mask" => "?999",
 					"type" => "spinner"
 					),
-		
-		
-		
+
+
+
 		"info_footer_6" => array(
 					"title" => esc_html__("Copyright and footer menu", 'pastore-church'),
 					"desc" => wp_kses_data( __("Show/Hide copyright area in the footer", 'pastore-church') ),
@@ -1567,8 +1607,8 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "horizontal",
 					"options" => pastore_church_get_options_param('list_color_schemes'),
 					"type" => "checklist"),
-		
-		"menu_footer" => array( 
+
+		"menu_footer" => array(
 					"title" => esc_html__('Select footer menu',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select footer menu for the current page',  'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
@@ -1596,7 +1636,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 
 		// Customization -> Other
 		//-------------------------------------------------
-		
+
 		'customization_other' => array(
 					"title" => esc_html__('Other', 'pastore-church'),
 					"override" => "category,services_group,post,page,custom",
@@ -1629,7 +1669,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 10000,
 					"step" => 500,
 					"type" => "spinner"),
-		
+
 		'css_animation' => array(
 					"title" => esc_html__('Extended CSS animations', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want use extended animations effects on your site?', 'pastore-church') ),
@@ -1637,7 +1677,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
 					),
-		
+
 		'animation_on_mobile' => array(
 					"title" => esc_html__('Allow CSS animations on mobile', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you allow extended animations effects on mobile devices?', 'pastore-church') ),
@@ -1653,7 +1693,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
 					),
-					
+
 		'responsive_layouts' => array(
 					"title" => esc_html__('Responsive Layouts', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want use responsive layouts on small screen or still use main layout?', 'pastore-church') ),
@@ -1668,7 +1708,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"desc" => wp_kses_data( __('Specify additional parameters, used to load Google fonts', 'pastore-church') ),
 					"type" => "info"
 					),
-		
+
 		"fonts_subset" => array(
 					"title" => esc_html__('Characters subset', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select subset, included into used Google fonts', 'pastore-church') ),
@@ -1694,7 +1734,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"
 					),
-					
+
 		'custom_css_html' => array(
 					"title" => esc_html__('Use custom CSS/HTML/JS', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want use custom HTML/CSS/JS code in your site? For example: custom styles, Google Analitics code, etc.', 'pastore-church') ),
@@ -1702,7 +1742,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"
 					),
-		
+
 		"gtm_code" => array(
 					"title" => esc_html__('Google tags manager or Google analitics code',  'pastore-church'),
 					"desc" => wp_kses_data( __('Put here Google Tags Manager (GTM) code from your account: Google analitics, remarketing, etc. This code will be placed after open body tag.',  'pastore-church') ),
@@ -1715,7 +1755,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"allow_html" => true,
 					"allow_js" => true,
 					"type" => "textarea"),
-		
+
 		"gtm_code2" => array(
 					"title" => esc_html__('Google remarketing code',  'pastore-church'),
 					"desc" => wp_kses_data( __('Put here Google Remarketing code from your account. This code will be placed before close body tag.',  'pastore-church') ),
@@ -1729,7 +1769,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"allow_html" => true,
 					"allow_js" => true,
 					"type" => "textarea"),
-		
+
 		'custom_code' => array(
 					"title" => esc_html__('Your custom HTML/JS code',  'pastore-church'),
 					"desc" => wp_kses_data( __('Put here your invisible html/js code: Google analitics, counters, etc',  'pastore-church') ),
@@ -1744,7 +1784,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"allow_js" => true,
 					"type" => "textarea"
 					),
-		
+
 		'custom_css' => array(
 					"title" => esc_html__('Your custom CSS code',  'pastore-church'),
 					"desc" => wp_kses_data( __('Put here your css code to correct main theme styles',  'pastore-church') ),
@@ -1758,42 +1798,42 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "",
 					"type" => "textarea"
 					),
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
 		//###############################
-		//#### Blog and Single pages #### 
+		//#### Blog and Single pages ####
 		//###############################
 		"partition_blog" => array(
 					"title" => esc_html__('Blog &amp; Single', 'pastore-church'),
 					"icon" => "iconadmin-docs",
 					"override" => "category,services_group,post,page,custom",
 					"type" => "partition"),
-		
-		
-		
+
+
+
 		// Blog -> Stream page
 		//-------------------------------------------------
-		
+
 		'blog_tab_stream' => array(
 					"title" => esc_html__('Stream page', 'pastore-church'),
 					"start" => 'blog_tabs',
 					"icon" => "iconadmin-docs",
 					"override" => "category,services_group,post,page,custom",
 					"type" => "tab"),
-		
+
 		"info_blog_1" => array(
 					"title" => esc_html__('Blog streampage parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select desired blog streampage parameters (you can override it in each category)', 'pastore-church') ),
 					"override" => "category,services_group,post,page,custom",
 					"type" => "info"),
-		
+
 		"blog_style" => array(
 					"title" => esc_html__('Blog style', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select desired blog style', 'pastore-church') ),
@@ -1801,7 +1841,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "excerpt",
 					"options" => pastore_church_get_options_param('list_blog_styles'),
 					"type" => "select"),
-		
+
 		"hover_style" => array(
 					"title" => esc_html__('Hover style', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select desired hover style (only for Blog style = Portfolio)', 'pastore-church') ),
@@ -1812,7 +1852,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "square effect_shift",
 					"options" => pastore_church_get_options_param('list_hovers'),
 					"type" => "select"),
-		
+
 		"hover_dir" => array(
 					"title" => esc_html__('Hover dir', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select hover direction (only for Blog style = Portfolio and Hover style = Circle or Square)', 'pastore-church') ),
@@ -1824,7 +1864,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "left_to_right",
 					"options" => pastore_church_get_options_param('list_hovers_dir'),
 					"type" => "select"),
-		
+
 		"article_style" => array(
 					"title" => esc_html__('Article style', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select article display method: boxed or stretch', 'pastore-church') ),
@@ -1833,7 +1873,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_article_styles'),
 					"size" => "medium",
 					"type" => "switch"),
-		
+
 		"dedicated_location" => array(
 					"title" => esc_html__('Dedicated location', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select location for the dedicated content or featured image in the "excerpt" blog style', 'pastore-church') ),
@@ -1844,7 +1884,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "default",
 					"options" => pastore_church_get_options_param('list_locations'),
 					"type" => "select"),
-		
+
 		"show_filters" => array(
 					"title" => esc_html__('Show filters', 'pastore-church'),
 					"desc" => wp_kses_data( __('What taxonomy use for filter buttons', 'pastore-church') ),
@@ -1855,7 +1895,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "hide",
 					"options" => pastore_church_get_options_param('list_filters'),
 					"type" => "checklist"),
-		
+
 		"blog_sort" => array(
 					"title" => esc_html__('Blog posts sorted by', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the desired sorting method for posts', 'pastore-church') ),
@@ -1864,7 +1904,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_sorting'),
 					"dir" => "vertical",
 					"type" => "radio"),
-		
+
 		"blog_order" => array(
 					"title" => esc_html__('Blog posts order', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the desired ordering method for posts', 'pastore-church') ),
@@ -1873,7 +1913,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_ordering'),
 					"size" => "big",
 					"type" => "switch"),
-		
+
 		"posts_per_page" => array(
 					"title" => esc_html__('Blog posts per page',  'pastore-church'),
 					"desc" => wp_kses_data( __('How many posts display on blog pages for selected style. If empty or 0 - inherit system wordpress settings',  'pastore-church') ),
@@ -1881,7 +1921,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "12",
 					"mask" => "?99",
 					"type" => "text"),
-		
+
 		"post_excerpt_maxlength" => array(
 					"title" => esc_html__('Excerpt maxlength for streampage',  'pastore-church'),
 					"desc" => wp_kses_data( __('How many characters from post excerpt are display in blog streampage (only for Blog style = Excerpt). 0 - do not trim excerpt.',  'pastore-church') ),
@@ -1892,7 +1932,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "250",
 					"mask" => "?9999",
 					"type" => "text"),
-		
+
 		"post_excerpt_maxlength_masonry" => array(
 					"title" => esc_html__('Excerpt maxlength for classic and masonry',  'pastore-church'),
 					"desc" => wp_kses_data( __('How many characters from post excerpt are display in blog streampage (only for Blog style = Classic or Masonry). 0 - do not trim excerpt.',  'pastore-church') ),
@@ -1903,20 +1943,20 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "150",
 					"mask" => "?9999",
 					"type" => "text"),
-		
-		
-		
-		
+
+
+
+
 		// Blog -> Single page
 		//-------------------------------------------------
-		
+
 		'blog_tab_single' => array(
 					"title" => esc_html__('Single page', 'pastore-church'),
 					"icon" => "iconadmin-doc",
 					"override" => "category,services_group,post,page,custom",
 					"type" => "tab"),
-		
-		
+
+
 		"info_single_1" => array(
 					"title" => esc_html__('Single (detail) pages parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select desired parameters for single (detail) pages (you can override it in each category and single post (page))', 'pastore-church') ),
@@ -1951,7 +1991,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "radio",
 					"options" => pastore_church_get_options_param('list_alter_sizes')
 					),
-		
+
 		"show_featured_image" => array(
 					"title" => esc_html__('Show featured image before post',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show featured image (if selected) before post content on single pages", 'pastore-church') ),
@@ -1959,7 +1999,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_post_title" => array(
 					"title" => esc_html__('Show post title', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show area with post title on single pages', 'pastore-church') ),
@@ -1967,7 +2007,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_post_title_on_quotes" => array(
 					"title" => esc_html__('Show post title on links, chat, quote, status', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show area with post title on single and blog pages in specific post formats: links, chat, quote, status', 'pastore-church') ),
@@ -1975,7 +2015,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_post_info" => array(
 					"title" => esc_html__('Show post info', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show area with post info on single pages', 'pastore-church') ),
@@ -1983,14 +2023,14 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_text_before_readmore" => array(
 					"title" => esc_html__('Show text before "Read more" tag', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show text before "Read more" tag on single pages', 'pastore-church') ),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-					
+
 		"show_post_author" => array(
 					"title" => esc_html__('Show post author details',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show post author information block on single post page", 'pastore-church') ),
@@ -1998,7 +2038,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_post_tags" => array(
 					"title" => esc_html__('Show post tags',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show tags block on single post page", 'pastore-church') ),
@@ -2006,7 +2046,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"show_post_related" => array(
 					"title" => esc_html__('Show related posts',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show related posts block on single post page", 'pastore-church') ),
@@ -2040,7 +2080,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 1,
 					"max" => 4,
 					"type" => "spinner"),
-		
+
 		"post_related_sort" => array(
 					"title" => esc_html__('Related posts sorted by', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the desired sorting method for related posts', 'pastore-church') ),
@@ -2051,7 +2091,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "date",
 					"options" => pastore_church_get_options_param('list_sorting'),
 					"type" => "select"),
-		
+
 		"post_related_order" => array(
 					"title" => esc_html__('Related posts order', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select the desired ordering method for related posts', 'pastore-church') ),
@@ -2063,7 +2103,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_ordering'),
 					"size" => "big",
 					"type" => "switch"),
-		
+
 		"show_post_comments" => array(
 					"title" => esc_html__('Show comments',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show comments block on single post page", 'pastore-church') ),
@@ -2071,23 +2111,23 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
-		
-		
+
+
+
 		// Blog -> Other parameters
 		//-------------------------------------------------
-		
+
 		'blog_tab_other' => array(
 					"title" => esc_html__('Other parameters', 'pastore-church'),
 					"icon" => "iconadmin-newspaper",
 					"override" => "category,services_group,page,custom",
 					"type" => "tab"),
-		
+
 		"info_blog_other_1" => array(
 					"title" => esc_html__('Other Blog parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select excluded categories, substitute parameters, etc.', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"exclude_cats" => array(
 					"title" => esc_html__('Exclude categories', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select categories, which posts are exclude from blog page', 'pastore-church') ),
@@ -2096,7 +2136,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"multiple" => true,
 					"style" => "list",
 					"type" => "select"),
-		
+
 		"blog_pagination" => array(
 					"title" => esc_html__('Blog pagination', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select type of the pagination on blog streampages', 'pastore-church') ),
@@ -2110,7 +2150,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"dir" => "vertical",
 					"type" => "radio"),
-		
+
 		"blog_counters" => array(
 					"title" => esc_html__('Blog counters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select counters, displayed near the post title', 'pastore-church') ),
@@ -2120,7 +2160,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"dir" => "vertical",
 					"multiple" => true,
 					"type" => "checklist"),
-		
+
 		"close_category" => array(
 					"title" => esc_html__("Post's category announce", 'pastore-church'),
 					"desc" => wp_kses_data( __('What category display in announce block (over posts thumb) - original or nearest parental', 'pastore-church') ),
@@ -2132,7 +2172,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"dir" => "vertical",
 					"type" => "radio"),
-		
+
 		"show_date_after" => array(
 					"title" => esc_html__('Show post date after', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show post date after N days (before - show post age)', 'pastore-church') ),
@@ -2140,26 +2180,26 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "30",
 					"mask" => "?99",
 					"type" => "text"),
-		
-		
-		
-		
-		
+
+
+
+
+
 		//###############################
-		//#### Reviews               #### 
+		//#### Reviews               ####
 		//###############################
 		"partition_reviews" => array(
 					"title" => esc_html__('Reviews', 'pastore-church'),
 					"icon" => "iconadmin-newspaper",
 					"override" => "category,services_group,services_group",
 					"type" => "partition"),
-		
+
 		"info_reviews_1" => array(
 					"title" => esc_html__('Reviews criterias', 'pastore-church'),
 					"desc" => wp_kses_data( __('Set up list of reviews criterias. You can override it in any category.', 'pastore-church') ),
 					"override" => "category,services_group,services_group",
 					"type" => "info"),
-		
+
 		"show_reviews" => array(
 					"title" => esc_html__('Show reviews block',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show reviews block on single post page and average reviews rating after post's title in stream pages", 'pastore-church') ),
@@ -2167,36 +2207,36 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"reviews_max_level" => array(
 					"title" => esc_html__('Max reviews level',  'pastore-church'),
 					"desc" => wp_kses_data( __("Maximum level for reviews marks", 'pastore-church') ),
 					"std" => "5",
 					"options" => array(
-						'5'=>esc_html__('5 stars', 'pastore-church'), 
-						'10'=>esc_html__('10 stars', 'pastore-church'), 
+						'5'=>esc_html__('5 stars', 'pastore-church'),
+						'10'=>esc_html__('10 stars', 'pastore-church'),
 						'100'=>esc_html__('100%', 'pastore-church')
 					),
 					"type" => "radio",
 					),
-		
+
 		"reviews_style" => array(
 					"title" => esc_html__('Show rating as',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show rating marks as text or as stars/progress bars.", 'pastore-church') ),
 					"std" => "stars",
 					"options" => array(
-						'text' => esc_html__('As text (for example: 7.5 / 10)', 'pastore-church'), 
+						'text' => esc_html__('As text (for example: 7.5 / 10)', 'pastore-church'),
 						'stars' => esc_html__('As stars or bars', 'pastore-church')
 					),
 					"dir" => "vertical",
 					"type" => "radio"),
-		
+
 		"reviews_criterias_levels" => array(
 					"title" => esc_html__('Reviews Criterias Levels', 'pastore-church'),
 					"desc" => wp_kses_data( __('Words to mark criterials levels. Just write the word and press "Enter". Also you can arrange words.', 'pastore-church') ),
 					"std" => esc_html__("bad,poor,normal,good,great", 'pastore-church'),
 					"type" => "tags"),
-		
+
 		"reviews_first" => array(
 					"title" => esc_html__('Show first reviews',  'pastore-church'),
 					"desc" => wp_kses_data( __("What reviews will be displayed first: by author or by visitors. Also this type of reviews will display under post's title.", 'pastore-church') ),
@@ -2207,7 +2247,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						),
 					"dir" => "horizontal",
 					"type" => "radio"),
-		
+
 		"reviews_second" => array(
 					"title" => esc_html__('Hide second reviews',  'pastore-church'),
 					"desc" => wp_kses_data( __("Do you want hide second reviews tab in widgets and single posts?", 'pastore-church') ),
@@ -2215,18 +2255,18 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"options" => pastore_church_get_options_param('list_show_hide'),
 					"size" => "medium",
 					"type" => "switch"),
-		
+
 		"reviews_can_vote" => array(
 					"title" => esc_html__('What visitors can vote',  'pastore-church'),
 					"desc" => wp_kses_data( __("What visitors can vote: all or only registered", 'pastore-church') ),
 					"std" => "all",
 					"options" => array(
-						'all'=>esc_html__('All visitors', 'pastore-church'), 
+						'all'=>esc_html__('All visitors', 'pastore-church'),
 						'registered'=>esc_html__('Only registered', 'pastore-church')
 					),
 					"dir" => "horizontal",
 					"type" => "radio"),
-		
+
 		"reviews_criterias" => array(
 					"title" => esc_html__('Reviews criterias',  'pastore-church'),
 					"desc" => wp_kses_data( __('Add default reviews criterias.',  'pastore-church') ),
@@ -2239,38 +2279,38 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 		"reviews_marks" => array(
 					"std" => "",
 					"type" => "hidden"),
-		
+
 
 
 
 
 
 		//###############################
-		//#### Media                #### 
+		//#### Media                ####
 		//###############################
 		"partition_media" => array(
 					"title" => esc_html__('Media', 'pastore-church'),
 					"icon" => "iconadmin-picture",
 					"override" => "category,services_group,post,page,custom",
 					"type" => "partition"),
-		
+
 		"info_media_1" => array(
 					"title" => esc_html__('Media settings', 'pastore-church'),
 					"desc" => wp_kses_data( __('Set up parameters to show images, galleries, audio and video posts', 'pastore-church') ),
 					"override" => "category,services_group,services_group",
 					"type" => "info"),
-					
+
 		"retina_ready" => array(
 					"title" => esc_html__('Image dimensions', 'pastore-church'),
 					"desc" => wp_kses_data( __('What dimensions use for uploaded image: Original or "Retina ready" (twice enlarged)', 'pastore-church') ),
 					"std" => "1",
 					"size" => "medium",
 					"options" => array(
-						"1" => esc_html__("Original", 'pastore-church'), 
+						"1" => esc_html__("Original", 'pastore-church'),
 						"2" => esc_html__("Retina", 'pastore-church')
 					),
 					"type" => "switch"),
-		
+
 		"images_quality" => array(
 					"title" => esc_html__('Quality for cropped images', 'pastore-church'),
 					"desc" => wp_kses_data( __('Quality (1-100) to save cropped images', 'pastore-church') ),
@@ -2278,7 +2318,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 1,
 					"max" => 100,
 					"type" => "spinner"),
-		
+
 		"substitute_gallery" => array(
 					"title" => esc_html__('Substitute standard Wordpress gallery', 'pastore-church'),
 					"desc" => wp_kses_data( __('Substitute standard Wordpress gallery with our slider on the single pages', 'pastore-church') ),
@@ -2286,7 +2326,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"gallery_instead_image" => array(
 					"title" => esc_html__('Show gallery instead featured image', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show slider with gallery instead featured image on blog streampage and in the related posts section for the gallery posts', 'pastore-church') ),
@@ -2294,7 +2334,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"gallery_max_slides" => array(
 					"title" => esc_html__('Max images number in the slider', 'pastore-church'),
 					"desc" => wp_kses_data( __('Maximum images number from gallery into slider', 'pastore-church') ),
@@ -2306,14 +2346,14 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 2,
 					"max" => 10,
 					"type" => "spinner"),
-		
+
 		"popup_engine" => array(
 					"title" => esc_html__('Popup engine to zoom images', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select engine to show popup windows with images and galleries', 'pastore-church') ),
 					"std" => "magnific",
 					"options" => pastore_church_get_options_param('list_popups'),
 					"type" => "select"),
-		
+
 		"substitute_audio" => array(
 					"title" => esc_html__('Substitute audio tags', 'pastore-church'),
 					"desc" => wp_kses_data( __('Substitute audio tag with source from soundcloud to embed player', 'pastore-church') ),
@@ -2321,7 +2361,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"substitute_video" => array(
 					"title" => esc_html__('Substitute video tags', 'pastore-church'),
 					"desc" => wp_kses_data( __('Substitute video tags with embed players or leave video tags unchanged (if you use third party plugins for the video tags)', 'pastore-church') ),
@@ -2329,31 +2369,31 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"use_mediaelement" => array(
 					"title" => esc_html__('Use Media Element script for audio and video tags', 'pastore-church'),
 					"desc" => wp_kses_data( __('Do you want use the Media Element script for all audio and video tags on your site or leave standard HTML5 behaviour?', 'pastore-church') ),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
-		
-		
-		
+
+
+
+
 		//###############################
-		//#### Socials               #### 
+		//#### Socials               ####
 		//###############################
 		"partition_socials" => array(
 					"title" => esc_html__('Socials', 'pastore-church'),
 					"icon" => "iconadmin-users",
 					"override" => "category,services_group,page,post,custom",
 					"type" => "partition"),
-		
+
 		"info_socials_1" => array(
 					"title" => esc_html__('Social networks', 'pastore-church'),
 					"desc" => wp_kses_data( __("Social networks list for site footer and Social widget", 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"social_icons" => array(
 					"title" => esc_html__('Social networks',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select icon and write URL to your profile in desired social networks.',  'pastore-church') ),
@@ -2363,7 +2403,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"style" => $socials_type,
 					"options" => $socials_type=='images' ? pastore_church_get_options_param('list_socials') : pastore_church_get_options_param('list_icons'),
 					"type" => "socials"),
-		
+
 		"info_socials_2" => array(
 					"title" => esc_html__('Share buttons', 'pastore-church'),
 					"desc" => wp_kses_data( __("Add button's code for each social share network.<br>
@@ -2377,7 +2417,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					<b>Delicious</b> share string: <em>http://delicious.com/save?url={link}&amp;title={title}&amp;note={descr}</em>", 'pastore-church') ),
 					"override" => "category,services_group,page,custom",
 					"type" => "info"),
-		
+
 		"show_share" => array(
 					"title" => esc_html__('Show social share buttons',  'pastore-church'),
 					"desc" => wp_kses_data( __("Show social share buttons block", 'pastore-church') ),
@@ -2410,7 +2450,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					),
 					"std" => esc_html__('Share:', 'pastore-church'),
 					"type" => "text"),
-		
+
 		"share_buttons" => array(
 					"title" => esc_html__('Share buttons',  'pastore-church'),
 					"desc" => wp_kses_data( __('Select icon and write share URL for desired social networks.<br><b>Important!</b> If you leave text field empty - internal theme link will be used (if present).',  'pastore-church') ),
@@ -2423,41 +2463,41 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"style" => $socials_type,
 					"options" => $socials_type=='images' ? pastore_church_get_options_param('list_socials') : pastore_church_get_options_param('list_icons'),
 					"type" => "socials"),
-		
-		
+
+
 		"info_socials_3" => array(
 					"title" => esc_html__('Twitter API keys', 'pastore-church'),
 					"desc" => wp_kses_data( __("Put to this section Twitter API 1.1 keys.<br>You can take them after registration your application in <strong>https://apps.twitter.com/</strong>", 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"twitter_username" => array(
 					"title" => esc_html__('Twitter username',  'pastore-church'),
 					"desc" => wp_kses_data( __('Your login (username) in Twitter',  'pastore-church') ),
 					"divider" => false,
 					"std" => "",
 					"type" => "text"),
-		
+
 		"twitter_consumer_key" => array(
 					"title" => esc_html__('Consumer Key',  'pastore-church'),
 					"desc" => wp_kses_data( __('Twitter API Consumer key',  'pastore-church') ),
 					"divider" => false,
 					"std" => "",
 					"type" => "text"),
-		
+
 		"twitter_consumer_secret" => array(
 					"title" => esc_html__('Consumer Secret',  'pastore-church'),
 					"desc" => wp_kses_data( __('Twitter API Consumer secret',  'pastore-church') ),
 					"divider" => false,
 					"std" => "",
 					"type" => "text"),
-		
+
 		"twitter_token_key" => array(
 					"title" => esc_html__('Token Key',  'pastore-church'),
 					"desc" => wp_kses_data( __('Twitter API Token key',  'pastore-church') ),
 					"divider" => false,
 					"std" => "",
 					"type" => "text"),
-		
+
 		"twitter_token_secret" => array(
 					"title" => esc_html__('Token Secret',  'pastore-church'),
 					"desc" => wp_kses_data( __('Twitter API Token secret',  'pastore-church') ),
@@ -2476,23 +2516,23 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"divider" => false,
 					"std" => "",
 					"type" => "text"),
-		
-		
-		
-		
+
+
+
+
 		//###############################
-		//#### Contact info          #### 
+		//#### Contact info          ####
 		//###############################
 		"partition_contacts" => array(
 					"title" => esc_html__('Contact info', 'pastore-church'),
 					"icon" => "iconadmin-mail",
 					"type" => "partition"),
-		
+
 		"info_contact_1" => array(
 					"title" => esc_html__('Contact information', 'pastore-church'),
 					"desc" => wp_kses_data( __('Company address, phones and e-mail', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"contact_info" => array(
 					"title" => esc_html__('Address in the header', 'pastore-church'),
 					"desc" => wp_kses_data( __('String with contact info in the left side of the site header', 'pastore-church') ),
@@ -2500,7 +2540,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"before" => array('icon'=>'iconadmin-home'),
 					"allow_html" => true,
 					"type" => "text"),
-		
+
 		"contact_open_hours" => array(
 					"title" => esc_html__('Open hours in the header', 'pastore-church'),
 					"desc" => wp_kses_data( __('String with open hours in form contact', 'pastore-church') ),
@@ -2508,28 +2548,28 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"before" => array('icon'=>'iconadmin-clock'),
 					"allow_html" => true,
 					"type" => "text"),
-		
+
 		"contact_email" => array(
 					"title" => esc_html__('Contact form email', 'pastore-church'),
 					"desc" => wp_kses_data( __('E-mail for send contact form and user registration data', 'pastore-church') ),
 					"std" => "",
 					"before" => array('icon'=>'iconadmin-mail'),
 					"type" => "text"),
-		
+
 		"contact_address_1" => array(
 					"title" => esc_html__('Company address (part 1)', 'pastore-church'),
 					"desc" => wp_kses_data( __('Company country, post code and city', 'pastore-church') ),
 					"std" => "",
 					"before" => array('icon'=>'iconadmin-home'),
 					"type" => "text"),
-		
+
 		"contact_address_2" => array(
 					"title" => esc_html__('Company address (part 2)', 'pastore-church'),
 					"desc" => wp_kses_data( __('Street and house number', 'pastore-church') ),
 					"std" => "",
 					"before" => array('icon'=>'iconadmin-home'),
 					"type" => "text"),
-		
+
 		"contact_phone" => array(
 					"title" => esc_html__('Phone', 'pastore-church'),
 					"desc" => wp_kses_data( __('Phone number', 'pastore-church') ),
@@ -2537,7 +2577,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"before" => array('icon'=>'iconadmin-phone'),
 					"allow_html" => true,
 					"type" => "text"),
-		
+
 		"contact_fax" => array(
 					"title" => esc_html__('Fax', 'pastore-church'),
 					"desc" => wp_kses_data( __('Fax number', 'pastore-church') ),
@@ -2545,12 +2585,12 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"before" => array('icon'=>'iconadmin-phone'),
 					"allow_html" => true,
 					"type" => "text"),
-		
+
 		"info_contact_2" => array(
 					"title" => esc_html__('Contact and Comments form', 'pastore-church'),
 					"desc" => wp_kses_data( __('Maximum length of the messages in the contact form shortcode and in the comments form', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"message_maxlength_contacts" => array(
 					"title" => esc_html__('Contact form message', 'pastore-church'),
 					"desc" => wp_kses_data( __("Message's maxlength in the contact form shortcode", 'pastore-church') ),
@@ -2559,7 +2599,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 10000,
 					"step" => 100,
 					"type" => "spinner"),
-		
+
 		"message_maxlength_comments" => array(
 					"title" => esc_html__('Comments form message', 'pastore-church'),
 					"desc" => wp_kses_data( __("Message's maxlength in the comments form", 'pastore-church') ),
@@ -2568,12 +2608,12 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 10000,
 					"step" => 100,
 					"type" => "spinner"),
-		
+
 		"info_contact_3" => array(
 					"title" => esc_html__('Default mail function', 'pastore-church'),
 					"desc" => wp_kses_data( __('What function use to send mail: the built-in Wordpress wp_mail() or standard PHP mail() function? Attention! Some plugins may not work with one of them and you always have the ability to switch to alternative.', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"mail_function" => array(
 					"title" => esc_html__("Mail function", 'pastore-church'),
 					"desc" => wp_kses_data( __("What function use to send mail? Attention! Only wp_mail support attachment in the mail!", 'pastore-church') ),
@@ -2584,33 +2624,33 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						'mail' => esc_html__('PHP mail', 'pastore-church')
 					),
 					"type" => "switch"),
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		//###############################
-		//#### Search parameters     #### 
+		//#### Search parameters     ####
 		//###############################
 		"partition_search" => array(
 					"title" => esc_html__('Search', 'pastore-church'),
 					"icon" => "iconadmin-search",
 					"type" => "partition"),
-		
+
 		"info_search_1" => array(
 					"title" => esc_html__('Search parameters', 'pastore-church'),
 					"desc" => wp_kses_data( __('Enable/disable AJAX search and output settings for it', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"show_search" => array(
 					"title" => esc_html__('Show search field', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show search field in the top area and side menus', 'pastore-church') ),
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"use_ajax_search" => array(
 					"title" => esc_html__('Enable AJAX search', 'pastore-church'),
 					"desc" => wp_kses_data( __('Use incremental AJAX search for the search field in top of page', 'pastore-church') ),
@@ -2620,7 +2660,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"ajax_search_min_length" => array(
 					"title" => esc_html__('Min search string length',  'pastore-church'),
 					"desc" => wp_kses_data( __('The minimum length of the search string',  'pastore-church') ),
@@ -2631,7 +2671,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => 4,
 					"min" => 3,
 					"type" => "spinner"),
-		
+
 		"ajax_search_delay" => array(
 					"title" => esc_html__('Delay before search (in ms)',  'pastore-church'),
 					"desc" => wp_kses_data( __('How much time (in milliseconds, 1000 ms = 1 second) must pass after the last character before the start search',  'pastore-church') ),
@@ -2644,7 +2684,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"max" => 1000,
 					"step" => 100,
 					"type" => "spinner"),
-		
+
 		"ajax_search_types" => array(
 					"title" => esc_html__('Search area', 'pastore-church'),
 					"desc" => wp_kses_data( __('Select post types, what will be include in search results. If not selected - use all types.', 'pastore-church') ),
@@ -2657,7 +2697,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"multiple" => true,
 					"style" => "list",
 					"type" => "select"),
-		
+
 		"ajax_search_posts_count" => array(
 					"title" => esc_html__('Posts number in output',  'pastore-church'),
 					"dependency" => array(
@@ -2669,7 +2709,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 1,
 					"max" => 10,
 					"type" => "spinner"),
-		
+
 		"ajax_search_posts_image" => array(
 					"title" => esc_html__("Show post's image", 'pastore-church'),
 					"dependency" => array(
@@ -2680,7 +2720,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"ajax_search_posts_date" => array(
 					"title" => esc_html__("Show post's date", 'pastore-church'),
 					"dependency" => array(
@@ -2691,7 +2731,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"ajax_search_posts_author" => array(
 					"title" => esc_html__("Show post's author", 'pastore-church'),
 					"dependency" => array(
@@ -2702,7 +2742,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"ajax_search_posts_counters" => array(
 					"title" => esc_html__("Show post's counters", 'pastore-church'),
 					"dependency" => array(
@@ -2713,32 +2753,32 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
-		
-		
-		
-		
+
+
+
+
+
 		//###############################
-		//#### Service               #### 
+		//#### Service               ####
 		//###############################
-		
+
 		"partition_service" => array(
 					"title" => esc_html__('Service', 'pastore-church'),
 					"icon" => "iconadmin-wrench",
 					"type" => "partition"),
-		
+
 		"info_service_1" => array(
 					"title" => esc_html__('Theme functionality', 'pastore-church'),
 					"desc" => wp_kses_data( __('Basic theme functionality settings', 'pastore-church') ),
 					"type" => "info"),
-		
+
 		"use_ajax_views_counter" => array(
 					"title" => esc_html__('Use AJAX post views counter', 'pastore-church'),
 					"desc" => wp_kses_data( __('Use javascript for post views count (if site work under the caching plugin) or increment views count in single page template', 'pastore-church') ),
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"allow_editor" => array(
 					"title" => esc_html__('Frontend editor',  'pastore-church'),
 					"desc" => wp_kses_data( __("Allow authors to edit their posts in frontend area", 'pastore-church') ),
@@ -2766,7 +2806,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "yes",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"admin_dummy_data" => array(
 					"title" => esc_html__('Enable Dummy Data Installer', 'pastore-church'),
 					"desc" => wp_kses_data( __('Show "Install Dummy Data" in the menu "Appearance". <b>Attention!</b> When you install dummy data all content of your site will be replaced!', 'pastore-church') ),
@@ -2781,14 +2821,14 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"min" => 30,
 					"max" => 1800,
 					"type" => "spinner"),
-		
+
 		"admin_emailer" => array(
 					"title" => esc_html__('Enable Emailer in the admin panel', 'pastore-church'),
 					"desc" => wp_kses_data( __('Allow to use ThemeREX Emailer for mass-volume e-mail distribution and management of mailing lists in "Appearance - Emailer"', 'pastore-church') ),
 					"std" => "no",
 					"options" => pastore_church_get_options_param('list_yes_no'),
 					"type" => "switch"),
-		
+
 		"debug_mode" => array(
 					"title" => esc_html__('Debug mode', 'pastore-church'),
 					"desc" => wp_kses_data( __('In debug mode we are using unpacked scripts and styles, else - using minified scripts and styles (if present). <b>Attention!</b> If you have modified the source code in the js or css files, regardless of this option will be used latest (modified) version stylesheets and scripts. You can re-create minified versions of files using on-line services or utilities', 'pastore-church') ),
@@ -2810,11 +2850,11 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 
 
 
-		
-		
-		
+
+
+
 		//###############################################
-		//#### Hidden fields (for internal use only) #### 
+		//#### Hidden fields (for internal use only) ####
 		//###############################################
 		/*
 		pastore_church_storage_set_array('options', "custom_stylesheet_file", array(
@@ -2824,7 +2864,7 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 			"type" => "hidden"
 			)
 		);
-		
+
 		pastore_church_storage_set_array('options', "custom_stylesheet_url", array(
 			"title" => esc_html__('Custom stylesheet url', 'pastore-church'),
 			"desc" => wp_kses_data( __('URL to the custom stylesheet (stored in the uploads folder)', 'pastore-church') ),

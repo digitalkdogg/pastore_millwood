@@ -808,7 +808,6 @@ var millwood;
 
 			if (millwood.wp_data.responsive.ismobile == true) {
 					let toppos = $(document).scrollTop();
-					console.log(toppos)
 					if (toppos > 150) {
 							$('body.page').addClass('top_panel_fixed');
 					}
@@ -822,9 +821,6 @@ var millwood;
 						$('body.page').removeClass('top_panel_fixed');
 					}
 				})
-
-
-
 
 				$('.menu_button.icon-menu').addClass('mill_menu_button');
 	  		$('.menu_button.icon-menu').removeClass('menu_button')
@@ -848,4 +844,47 @@ var millwood;
 				})
 			}
 
+			if (millwood.wp_data.homeurl.replace('/index.php', '') == href) {
+				if (millwood.wp_data.custom_super_options.banner_on_off == 'yes') {
+						$('<div />', {
+								'id': 'banner-area-wrap'
+						}).insertAfter('.page_wrap .top_panel_title')
+
+						var banner = $('#banner-area-wrap')
+						if (millwood.wp_data.custom_super_options.banner_area != null) {
+							$('<div />', {
+								'id':'banner-area',
+								'html': millwood.wp_data.custom_super_options.banner_area
+							}).appendTo(banner);
+
+							if (millwood.wp_data.custom_super_options.banner_more_area != null) {
+								$('<div />', {
+									'id':'banner-area-show-more',
+									'html': '<span class = "open_child_menu close"></span>'
+								}).appendTo(banner);
+
+								$('<div />', {
+									'id':'banner-more-area',
+									'class':'hidden',
+									'html': millwood.wp_data.custom_super_options.banner_more_area
+								}).appendTo(banner);
+
+								$(banner).find('#banner-area').click(function () {
+									 $(this).parent().toggleClass('active');
+									 $(banner).find('#banner-more-area').toggleClass('hidden')
+									 $(banner).find('#banner-more-area').addClass('show animate')
+									 $(banner).find('.open_child_menu').toggleClass('open')
+								})
+
+								$(banner).find('#banner-area-show-more').click(function () {
+									$(this).parent().toggleClass('active');
+									 $(banner).find('#banner-more-area').toggleClass('hidden')
+									 $(banner).find('#banner-more-area').addClass('show animate')
+									 $(banner).find('.open_child_menu').toggleClass('open')
+								})
+
+							}
+						}
+					}
+			}
 }(jQuery));
