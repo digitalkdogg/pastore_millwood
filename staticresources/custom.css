@@ -619,7 +619,6 @@ div#heart-wrapper {
     top:40px;
     float:left;
     position:relative;
-    left:3%;
 }
 
 div#banner-area-wrap {
@@ -674,7 +673,7 @@ div#banner-area-wrap div#banner-more-area {
   height: 0;
   transition: height 2s ease-in-out;
   border-top: 1px solid #ccc;
-  padding: 15px 0;
+  padding: 15px 10%;
 }
 
 div#banner-area-wrap div#banner-more-area.animate {
@@ -746,4 +745,22 @@ form.ElementsApp span.CardField-cvc.CardField-child {
     border-radius: 5px !important;
     top: 10px;
     position: relative;
+}
+
+div.header_mobile .content_wrap {
+  display:flex;
+  flex-direction: row;
+  margin-left:15px;
+}
+
+div.header_mobile div.content_wrap div.logo {
+    width: 10000%;
+    margin:10px 20px;
+    padding-top:0;
+    padding-bottom:0;
+    line-height: 1;
+}
+
+div.header_mobile div.content_wrap div.logo div.logo_text {
+    line-height: 1;
 }
