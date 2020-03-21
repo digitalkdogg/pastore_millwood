@@ -652,7 +652,7 @@ div#banner-area-wrap div#banner-area-show-more {
 }
 
 div#banner-area-wrap span.open_child_menu {
-  top: -5vh;
+  top: -3vh;
   transform:rotate(-90deg);
 }
 
@@ -664,18 +664,7 @@ div#banner-area-wrap span.open_child_menu.open {
 
 div#banner-area-wrap div#banner-area div#banner-text {
   width:80%;
-}
-
-
-@media only screen and (max-width: 1024px) {
-
-/*  div#banner-area-wrap div#banner-area-show-more {
-    top: -2em;
-  }
-
-  div#banner-area-wrap span.open_child_menu {
-    transform: rotate(-90deg);
-  } */
+  padding:10px 0;
 }
 
 div#banner-area-wrap div#banner-area {
