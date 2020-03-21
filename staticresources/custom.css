@@ -628,8 +628,6 @@ div#heart-wrapper {
 div#banner-area-wrap {
     background: rgba(207, 74, 70, .9);
     color: white;
-    padding: 10px;
-    max-height:50px;
     overflow:hidden;
 }
 
@@ -644,26 +642,40 @@ div#banner-area-wrap:hover {
 }
 
 div#banner-area-wrap div#banner-area-show-more {
-    float: right;
+  /*  float: right;
     top: -2.4em;
-    position: relative;
+    position: relative; */
     font-size: 2em;
+    width:20%;
+    position: absolute;
+    right:0;
+}
+
+div#banner-area-wrap span.open_child_menu {
+  top: -5vh;
+  transform:rotate(-90deg);
 }
 
 div#banner-area-wrap span.open_child_menu.open {
+/*    position:relative; */
     transform: rotate(0deg);
     transition: transform .3s;
 }
 
+div#banner-area-wrap div#banner-area div#banner-text {
+  width:80%;
+}
+
+
 @media only screen and (max-width: 1024px) {
 
-  div#banner-area-wrap div#banner-area-show-more {
+/*  div#banner-area-wrap div#banner-area-show-more {
     top: -2em;
   }
 
   div#banner-area-wrap span.open_child_menu {
     transform: rotate(-90deg);
-  }
+  } */
 }
 
 div#banner-area-wrap div#banner-area {
@@ -671,6 +683,10 @@ div#banner-area-wrap div#banner-area {
   font-weight: bold;
   font-size: 1.5em;
   cursor : pointer;
+  display:flex;
+  flex-direction: row;
+  max-height:100px;
+  min-height: 80px;
 }
 
 div#banner-area-wrap div#banner-more-area {

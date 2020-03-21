@@ -843,7 +843,7 @@ var millwood;
 
 				})
 
-			  $('.top_panel_wrap').hide();	
+			  $('.top_panel_wrap').hide();
 				$('.header_mobile').show();
 			}
 
@@ -857,14 +857,19 @@ var millwood;
 						if (millwood.wp_data.custom_super_options.banner_area != null) {
 							$('<div />', {
 								'id':'banner-area',
-								'html': millwood.wp_data.custom_super_options.banner_area
+								///'html': millwood.wp_data.custom_super_options.banner_area
 							}).appendTo(banner);
+
+							$('<div />', {
+								'id':'banner-text',
+								'html': millwood.wp_data.custom_super_options.banner_area
+							}).appendTo($(banner).find('#banner-area'))
 
 							if (millwood.wp_data.custom_super_options.banner_more_area != null) {
 								$('<div />', {
 									'id':'banner-area-show-more',
 									'html': '<span class = "open_child_menu close"></span>'
-								}).appendTo(banner);
+								}).appendTo($(banner).find('#banner-area'));
 
 								$('<div />', {
 									'id':'banner-more-area',
@@ -874,13 +879,6 @@ var millwood;
 
 								$(banner).find('#banner-area').click(function () {
 									 $(this).parent().toggleClass('active');
-									 $(banner).find('#banner-more-area').toggleClass('hidden')
-									 $(banner).find('#banner-more-area').addClass('show animate')
-									 $(banner).find('.open_child_menu').toggleClass('open')
-								})
-
-								$(banner).find('#banner-area-show-more').click(function () {
-									$(this).parent().toggleClass('active');
 									 $(banner).find('#banner-more-area').toggleClass('hidden')
 									 $(banner).find('#banner-more-area').addClass('show animate')
 									 $(banner).find('.open_child_menu').toggleClass('open')
