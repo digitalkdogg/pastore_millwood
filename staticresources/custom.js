@@ -838,10 +838,13 @@ var millwood;
 									$(this).removeClass('open');
 								})
 							}
-						
+
 				}
 
 				})
+
+			  $('.top_panel_wrap').hide();	
+				$('.header_mobile').show();
 			}
 
 			if (millwood.wp_data.homeurl.replace('/index.php', '') == href) {

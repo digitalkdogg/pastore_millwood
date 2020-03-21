@@ -13,6 +13,10 @@ header.top_panel_wrap {
     font-family: Raleway;
 }
 
+div#wpadminbar {
+    display: none;
+}
+
 .content input {
     font-family: inherit;
 }
