@@ -849,12 +849,19 @@ var millwood;
 
 			if (millwood.wp_data.homeurl.replace('/index.php', '') == href) {
 				if (millwood.wp_data.custom_super_options.banner_on_off == 'yes') {
+						var bg_image = '';
+						if (millwood.wp_data.custom_super_options.banner_custom_image != null) {
+							bg_image = millwood.wp_data.custom_super_options.banner_custom_image
+						}
+
 						$('<div />', {
-								'id': 'banner-area-wrap'
+								'id': 'banner-area-wrap',
+								'style': 'background:url('+ bg_image +'); background-size:cover;'
 						}).insertAfter('.page_wrap .top_panel_title')
 
 						var banner = $('#banner-area-wrap')
 						if (millwood.wp_data.custom_super_options.banner_area != null) {
+
 							$('<div />', {
 								'id':'banner-area',
 								///'html': millwood.wp_data.custom_super_options.banner_area

@@ -81,6 +81,7 @@ function get_theme_super_customizations() {
                   'api_show_cc_news',
                   'api_news_page',
                   'banner_on_off',
+                  'banner_custom_image',
                   'banner_area',
                   'banner_more_area'
                 );

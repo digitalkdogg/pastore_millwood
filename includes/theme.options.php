@@ -200,6 +200,15 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 						"type" => "switch"
 						),
 
+		'banner_custom_image' => array(
+									"title" => esc_html__('Banner Background Image',  'pastore-church'),
+									"desc" => wp_kses_data( __('Select or upload background custom pattern. )',  'pastore-church') ),
+									"override" => "custom",
+									"std" => "",
+									"type" => "media"
+									),
+
+
 		"banner_area" => array(
 								"title" => esc_html__('Banner area',  'pastore-church'),
 								"desc" => wp_kses_data( __("Banner Area", 'pastore-church') ),

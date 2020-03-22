@@ -637,10 +637,6 @@ div#banner-area-wrap.active {
   z-index: 1000;
 }
 
-div#banner-area-wrap:hover {
-  background: rgba(207, 74, 70, 1);
-}
-
 div#banner-area-wrap div#banner-area-show-more {
   /*  float: right;
     top: -2.4em;
@@ -676,6 +672,7 @@ div#banner-area-wrap div#banner-area {
   flex-direction: row;
   max-height:100px;
   min-height: 80px;
+  background: rgba(207, 74, 70, .9);
 }
 
 div#banner-area-wrap div#banner-more-area {
@@ -683,6 +680,7 @@ div#banner-area-wrap div#banner-more-area {
   transition: height 2s ease-in-out;
   border-top: 1px solid #ccc;
   padding: 15px 10%;
+  background: rgba(207, 74, 70, .9);
 }
 
 div#banner-area-wrap div#banner-more-area.animate {
