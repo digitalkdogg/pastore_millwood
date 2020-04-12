@@ -670,7 +670,7 @@ div#banner-area-wrap div#banner-area {
   cursor : pointer;
   display:flex;
   flex-direction: row;
-  max-height:100px;
+  max-height:auto;
   min-height: 80px;
   background: rgba(207, 74, 70, .9);
 }
