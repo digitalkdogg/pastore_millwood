@@ -168,6 +168,7 @@ function get_theme_super_customizations() {
 
           $postmeta = get_post_meta( $postitem->ID, FALSE, TRUE );
           $postitem->meta = $postmeta;
+          $postitem->thumbnail = wp_get_attachment_image_url( get_post_thumbnail_id( $postitem ), 'post-thumbnail' );
 
         }
 

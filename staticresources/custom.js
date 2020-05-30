@@ -351,22 +351,33 @@ var millwood;
 
 					$.each(data, function (index, val) {
 						var $this = this;
-
+					
 						$('#footer-news-wraper').append(millwood.templates.news_single);
 
 						$('#footer-news-wraper .news').each(function () {
 
 							if ($this != undefined) {
+							
 								if ($(this).children().length == 0 ) {
 									$('<div />' , {
 										'class' : 'news-title',
 										'text' : $this.post_title
 									}).appendTo($(this))
 
-									$('<div />' , {
-										'class' : 'news-content',
-										'html' : $this.post_excerpt.substring(0, 235)
-									}).appendTo($(this))
+									if($this.thumbnail == false) {
+										$('<div />' , {
+											'class' : 'news-content',
+											'html' : $this.post_excerpt.substring(0, 235)
+										}).appendTo($(this))
+									}
+
+
+									if($this.thumbnail != undefined && $this.thumbnail != false) {
+										$('<img />', {
+											'class': 'post-thumb',
+											'src': $this.thumbnail
+										}).appendTo($(this))
+									}
 
 									var link = $this.guid;
 									if ($this['meta']['facebook_link'] != undefined) {
