@@ -186,6 +186,12 @@ section.post_content {
     height:85px;
 }
 
+#footer-news-wraper img.post-thumb {
+    width: 100%;
+    margin: 5px 0;
+    min-height: 250px;
+}
+
 #footer-fb-wraper .fb-footer .postdate {
   padding-top:20px
 }
