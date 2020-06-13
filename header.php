@@ -25,7 +25,8 @@ $video_bg_show  = pastore_church_get_custom_option('show_video_bg')=='yes' && (p
     <meta name="format-detection" content="telephone=yes">
     <meta name=”description” content=”Christian church serving the north west arkansas community.  We offer a welcoming atmosphere where people from all walks of life and all stages can fellowship along with us” />
     <meta name=”keywords” content=”preschool” />
-    <meta name=”keywords” content=”daycare” />
+	<meta name=”keywords” content=”daycare” />
+	<meta name="keywords" content="after school care" />
     <meta name=”keywords” content=”christian academy” />
     <meta name=”keywords” content=”fellowship” />
     <meta name=”keywords” content=”community” />
