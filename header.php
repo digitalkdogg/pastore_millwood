@@ -23,13 +23,13 @@ $video_bg_show  = pastore_church_get_custom_option('show_video_bg')=='yes' && (p
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<meta name="viewport" content="width=device-width, initial-scale=1<?php if (pastore_church_get_theme_option('responsive_layouts')=='yes') echo ', maximum-scale=1'; ?>">
     <meta name="format-detection" content="telephone=yes">
-    <meta name=”description” content=”Christian church serving the north west arkansas community.  We offer a welcoming atmosphere where people from all walks of life and all stages can fellowship along with us” />
-    <meta name=”keywords” content=”preschool” />
-	<meta name=”keywords” content=”daycare” />
+    <meta name="description" content="Christian church serving the north west arkansas community.  We offer a welcoming atmosphere where people from all walks of life and all stages can fellowship along with us" />
+    <meta name="keywords" content="preschool" />
+	<meta name="keywords" content="daycare" />
 	<meta name="keywords" content="after school care" />
-    <meta name=”keywords” content=”christian academy” />
-    <meta name=”keywords” content=”fellowship” />
-    <meta name=”keywords” content=”community” />
+    <meta name="keywords" content="christian academy" />
+    <meta name="keywords" content="fellowship" />
+    <meta name="keywords" content="community" />
     
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
