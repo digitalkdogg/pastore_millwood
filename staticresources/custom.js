@@ -613,6 +613,13 @@ var millwood;
 		$('.top_panel_title_inner .logo_slogan').addClass('mobile-tablet-hidden');
 	}
 
+	if($('#banner-area #banner-text').length>0) {
+		let toppos = $('#banner-area #banner-text').position().top
+		if (toppos != undefined) {
+			$('#banner-area #banner-area-show-more').css({'top': toppos + 'px'})
+		}
+	}
+
 	if ($('.page_content_wrap .content_wrap').length > 0) {
 		var href = location.href;
 		if (location.href.slice('-1') == '/') {
