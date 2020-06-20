@@ -616,7 +616,7 @@ var millwood;
 	if($('#banner-area #banner-text').length>0) {
 		let toppos = $('#banner-area #banner-text').position().top
 		if (toppos != undefined) {
-			$('#banner-area #banner-area-show-more').css({'top': toppos + 'px'})
+			$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
 		}
 	}
 
