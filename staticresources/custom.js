@@ -614,8 +614,10 @@ var millwood;
 	}
 
 	if($('#banner-area #banner-text').length>0) {
+		console.log('i am over 0')
 		let toppos = $('#banner-area #banner-text').position().top
 		if (toppos != undefined) {
+			console.log('i am not defined')
 			$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
 		}
 	}
