@@ -613,15 +613,6 @@ var millwood;
 		$('.top_panel_title_inner .logo_slogan').addClass('mobile-tablet-hidden');
 	}
 
-	if($('#banner-area #banner-text').length>0) {
-		console.log('i am over 0')
-		let toppos = $('#banner-area #banner-text').position().top
-		if (toppos != undefined) {
-			console.log('i am not defined')
-			$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
-		}
-	}
-
 	if ($('.page_content_wrap .content_wrap').length > 0) {
 		var href = location.href;
 		if (location.href.slice('-1') == '/') {
@@ -910,6 +901,16 @@ var millwood;
 									 $(banner).find('#banner-more-area').addClass('show animate')
 									 $(banner).find('.open_child_menu').toggleClass('open')
 								})
+								
+								if($('#banner-area #banner-text').length>0) {
+		
+									let toppos = $('#banner-area #banner-text').position().top
+									if (toppos != undefined) {
+									
+										$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
+									}
+								}
+
 
 							}
 						}
