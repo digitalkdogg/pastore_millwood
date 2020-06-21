@@ -902,12 +902,14 @@ var millwood;
 									 $(banner).find('.open_child_menu').toggleClass('open')
 								})
 								
-								if($('#banner-area #banner-text').length>0) {
-		
-									let toppos = $('#banner-area #banner-text').position().top
-									if (toppos != undefined) {
-									
-										$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
+								if (millwood.wp_data.responsive.isdesktop == true) {
+									if($('#banner-area #banner-text').length>0) {
+			
+										let toppos = $('#banner-area #banner-text').position().top
+										if (toppos != undefined) {
+										
+											$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
+										}
 									}
 								}
 
