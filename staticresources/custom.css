@@ -781,3 +781,39 @@ div.header_mobile div.content_wrap div.logo {
 div.header_mobile div.content_wrap div.logo div.logo_text {
     line-height: 1;
 }
+
+section.post_content figcaption {
+    display: none;
+}
+section.post_content .padding-20 {
+  padding:20px;
+}
+
+section.post_content .border-radius-5 {
+  border-radius: 5px;
+}
+
+section.post_content figure img {
+    border-radius: 5px;
+}
+
+section.post_content p.caption-title {
+    top: -10px;
+    position: relative;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+section.post_content p.caption-sub {
+    position: relative;
+    top: -25px;
+}
+section.post_content a {
+  color:#563e3c;
+}
+
+section.post_content a:hover {
+  color: #cf4a46;
+  text-decoration: underline;
+}
