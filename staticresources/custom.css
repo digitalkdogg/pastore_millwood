@@ -9,6 +9,10 @@ body {
     font-size: 16px;
 }
 
+div.page_content_wrap section.post_content {
+  margin:5%;
+}
+
 header.top_panel_wrap {
     font-family: Raleway;
 }
