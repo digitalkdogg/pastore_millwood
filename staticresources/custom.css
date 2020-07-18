@@ -800,7 +800,7 @@ section.post_content figure img {
 section.post_content p.caption-title {
     top: -10px;
     position: relative;
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     font-weight: bold;
 }
