@@ -812,6 +812,10 @@ section.post_content .cover {
     background: rgba(0,0,0,0.3);
 }
 
+section.post_content a.zoom:hover {
+  color:initial;
+}
+
 section.post_content a.zoom .wp-block-cover.has-background-dim:hover {
     transform: scale(1.1);
     transition: transform 1s;
