@@ -351,13 +351,13 @@ var millwood;
 
 					$.each(data, function (index, val) {
 						var $this = this;
-					
+
 						$('#footer-news-wraper').append(millwood.templates.news_single);
 
 						$('#footer-news-wraper .news').each(function () {
 
 							if ($this != undefined) {
-							
+
 								if ($(this).children().length == 0 ) {
 									$('<div />' , {
 										'class' : 'news-title',
@@ -886,8 +886,12 @@ var millwood;
 							if (millwood.wp_data.custom_super_options.banner_more_area != null) {
 								$('<div />', {
 									'id':'banner-area-show-more',
-									'html': '<span class = "open_child_menu close"></span>'
+								//	'html': '<span class = "open_child_menu close"></span>'
 								}).appendTo($(banner).find('#banner-area'));
+
+								$('<span />', {
+									class : 'open_child_menu close'
+								}).appendTo($(banner).find('#banner-area'))
 
 								$('<div />', {
 									'id':'banner-more-area',
@@ -903,22 +907,22 @@ var millwood;
 
 									 if (millwood.wp_data.responsive.isdesktop == true) {
 										if($('#banner-area #banner-text').length>0) {
-				
+
 											let toppos = $('#banner-area #banner-text').position().top
 											if (toppos != undefined) {
-											
+
 												$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
 											}
 										}
 									}
 								})
-								
+
 								if (millwood.wp_data.responsive.isdesktop == true) {
 									if($('#banner-area #banner-text').length>0) {
-			
+
 										let toppos = $('#banner-area #banner-text').position().top
 										if (toppos != undefined) {
-										
+
 											$('#banner-area #banner-area-show-more').css({'top': toppos-20 + 'px'})
 										}
 									}

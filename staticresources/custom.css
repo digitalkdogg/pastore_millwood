@@ -645,6 +645,7 @@ div#banner-area-wrap.active {
   max-height:100%;
   position: absolute;
   z-index: 1000;
+  width:100%;
 }
 
 div#banner-area-wrap div#banner-area-show-more {
@@ -658,7 +659,10 @@ div#banner-area-wrap div#banner-area-show-more {
 }
 
 div#banner-area-wrap span.open_child_menu {
-  top: -3vh;
+  top:unset;
+  line-height:unset;
+  height:unset;
+  right:0;
   transform:rotate(-90deg);
 }
 
@@ -668,9 +672,19 @@ div#banner-area-wrap span.open_child_menu.open {
     transition: transform .3s;
 }
 
+@media only screen and (max-width: 1024px) {
+  div#banner-area-wrap span.open_child_menu {
+    font-size:2em;
+  }
+}
+
 div#banner-area-wrap div#banner-area div#banner-text {
   width:80%;
   padding:10px 0;
+}
+
+div#banner-area-wrap div#banner-area div#banner-text p {
+  font-size: 1.5rem;
 }
 
 div#banner-area-wrap div#banner-area {
