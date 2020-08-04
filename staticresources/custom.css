@@ -564,6 +564,10 @@ button#ds-donate-btn:hover {
     margin-bottom: 0;
 }
 
+.ds-modal-content .ds-element form {
+  max-width:600px;
+}
+
 button.Button-animationWrapper-child--primary.Button {
     background: #cf4a46 !important;
 }
