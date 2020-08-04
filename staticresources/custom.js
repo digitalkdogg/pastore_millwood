@@ -753,6 +753,13 @@ var millwood;
 
 		$(directbtn).click(function () {
 			var donateval = $('input.donationvalue').val();
+
+			$('.ds_form_title').each(function () {
+				if ($(this).text().trim()=='Billing information') {
+					  $(this).text('Contact Information');
+				}
+			})
+
 			if (donateval.length > 0  && donateval > 0) {
 				$('i.icon-heart-light').animate({
 					'font-size': '1.6em',
