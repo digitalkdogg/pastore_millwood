@@ -760,6 +760,16 @@ var millwood;
 				}
 			})
 
+
+			$('fieldset input.input').each(function () {
+					if($(this).attr('id').indexOf('-phone')>0) {
+						$(this).closest('div.row').remove()
+					}
+					if($(this).attr('id').indexOf('-country')>0) {
+						$(this).closest('div.row').remove()
+					}
+			})
+
 			if (donateval.length > 0  && donateval > 0) {
 				$('i.icon-heart-light').animate({
 					'font-size': '1.6em',
