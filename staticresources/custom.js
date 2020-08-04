@@ -770,6 +770,13 @@ var millwood;
 					}
 			})
 
+			$('fieldset input.shippingData').prev('hr').remove()
+			$('fieldset input.shippingData').next('hr').remove()
+			$('fieldset input.shippingData').next('.dsShippingDetails').hide();
+			$('fieldset input.shippingData').next('label').remove();
+			$('fieldset input.shippingData').css({'visibility':'hidden', 'height':'0px', 'margin-top':'0px', 'margin-bottom':'0px'})
+
+
 			if (donateval.length > 0  && donateval > 0) {
 				$('i.icon-heart-light').animate({
 					'font-size': '1.6em',
