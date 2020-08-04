@@ -560,6 +560,10 @@ button#ds-donate-btn:hover {
     margin: 30px 0;
 }
 
+.ds-modal-content .ds-element.in-form .field {
+    margin-bottom: 0;
+}
+
 button.Button-animationWrapper-child--primary.Button {
     background: #cf4a46 !important;
 }
