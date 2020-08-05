@@ -765,8 +765,11 @@ var millwood;
 					if($(this).attr('id').indexOf('-phone')>0) {
 						$(this).closest('div.row').remove()
 					}
+			})
+
+			$('fieldset select.input').each(function () {
 					if($(this).attr('id').indexOf('-country')>0) {
-						$(this).closest('div.row').remove()
+						$(this).closest('div.field').remove()
 					}
 			})
 
