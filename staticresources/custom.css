@@ -568,6 +568,10 @@ button#ds-donate-btn:hover {
   max-width:600px;
 }
 
+.ds-modal-content .field.dsCardField {
+    min-width: 400px;
+}
+
 button.Button-animationWrapper-child--primary.Button {
     background: #cf4a46 !important;
 }
