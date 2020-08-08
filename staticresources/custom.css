@@ -4,18 +4,8 @@
 
 /************************************************/
 
-body {
-    font-family:Raleway !important;
-    font-size: 16px;
-}
 
-header.top_panel_wrap {
-    font-family: Raleway;
-}
 
-div#wpadminbar {
-    display: none;
-}
 
 .content input {
     font-family: inherit;
@@ -811,13 +801,6 @@ div.header_mobile div.content_wrap div.logo div.logo_text {
 section.post_content figcaption {
     display: none;
 }
-section.post_content .padding-20 {
-  padding:20px;
-}
-
-section.post_content .border-radius-5 {
-  border-radius: 5px;
-}
 
 section.post_content figure img {
     border-radius: 5px;
@@ -845,10 +828,6 @@ section.post_content a.zoom:hover {
 section.post_content a.zoom .wp-block-cover.has-background-dim:hover {
     transform: scale(1.1);
     transition: transform 1s;
-}
-
-section.post_content .z-index-10 {
-    z-index: 10;
 }
 
 section.post_content p.caption-sub {

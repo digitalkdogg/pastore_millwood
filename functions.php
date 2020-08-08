@@ -6,13 +6,12 @@
 add_action( 'wp_footer', 'my_footer_scripts' );
 function my_footer_scripts(){
     wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/custom.css' );
-	   wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom.js' );
-      wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' );
-     wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
-      wp_enqueue_style( 'slickcss',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.min.css' );
-      wp_enqueue_script( 'slickjs',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.js' );
-      wp_enqueue_script('fbjs', 'https://connect.facebook.net/en_US/all.js');
-
+	  wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom.js' );
+    wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' );
+    wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
+    wp_enqueue_style( 'slickcss',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.min.css' );
+    wp_enqueue_script( 'slickjs',  get_stylesheet_directory_uri() . '/staticresources/slick/slick.js' );
+    wp_enqueue_style( 'base_styles', get_stylesheet_directory_uri() . '/staticresources/base_styles.css' );
 
 
  /**
@@ -33,6 +32,7 @@ function my_footer_scripts(){
         'template_events_single'=> get_custom_template_file('Templates/Events_single.html'),
         'template_news_single'  => get_custom_template_file('Templates/News_single.html'),
         'template_fb_single'    => get_custom_template_file('Templates/fb_single.html'),
+        'template_stripe_form' => get_custom_template_file('Templates/stripe_form.html')
     );
     wp_localize_script( 'customjs', 'php_vars', $dataToBePassed );
 
@@ -83,7 +83,10 @@ function get_theme_super_customizations() {
                   'banner_on_off',
                   'banner_custom_image',
                   'banner_area',
-                  'banner_more_area'
+                  'banner_more_area',
+                  'api_stripe_payment_id',
+                  'api_stripe_payment_test_key',
+                  'api_stripe_payment_live_key'
                 );
   $returnarray = array();
 
