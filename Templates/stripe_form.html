@@ -1,0 +1,83 @@
+<form method="post" id="payment-form" >
+  <div class = "form-wrapper">
+    <div class = "form-row">
+      <label for ="names">Name</label>
+      <input id = "names" name="names" type = "text" />
+    </div>
+    <div class = "form-row">
+        <label for ="addresss">Address</label>
+        <input id = "addresss" name="addresss" type = "text" />
+    </div>
+    <div class = "form-row">
+        <label for ="citys">City</label>
+        <input id = "citys" name="citys" type = "text" />
+        <label for "zip">zip</label>
+        <input id = "zips" name="zips" type = "text" />
+    </div>
+    <div class = "form-row">
+          <label for ="emails">Email</label>
+          <input id = "emails" name="emails" type = "text" />
+    </div>
+      <hr />
+      <label for="card-element">
+        Credit or debit card
+      </label>
+      <div id="card-element">
+        <!-- a Stripe Element will be inserted here. -->
+      </div>
+
+      <!-- Used to display form errors -->
+      <div id="card-errors" role="alert"></div>
+      <p /><br />
+      <button id = "init" class="submit btn">Submit Donation</button>
+  </div>
+
+  <div class = "confirm-wrapper hide min-height-400">
+      <div class = "results min-height-400">
+        <div class = "form-row row">
+            <div class="small-12 large-3 columns"><b>Name :</b> </div>
+          <div id ="name" class="small-12 large-9 columns"></div>
+      </div>
+      <div class = "form-row row">
+          <div class="small-12 large-3 columns"><b>Address</b></div>
+          <div class="small-12 large-9 columns" id = "address"></div>
+      </div>
+        <div class = "form-row row">
+            <div class="small-12 large-3 columns"><b>City :</b> </div>
+            <div id = "city" class = "small-12 large-9 columns"></div>
+            <div class="small-12 large-3 columns"><b>Zip :</b> </div>
+            <div id = "zip" class="small-12 large-9 columns"></div>
+          </div>
+        <div class = "form-row row">
+            <div class="small-12 large-3 columns"><b>Email :</b> </div>
+            <div class="small-12 large-9 columns" id = "email"></div>
+          </div>
+          </div>
+      <input type = "submit" id = "confirm" class = "btn" value = "Confirm Donation">
+    </div>
+  <div class = "success-wrapper hide min-height-400 text-align-center">
+    <div id = "success" style="margin:5px 45%; border-radius: 100%;border: 3px solid green;width: 50px;height: 50px;font-size: 2em;text-align: center;color: green;">
+        <div class = "icon-check" />
+      </div>
+    <p>Thank you for your support in our community</p><br /><br />
+
+    </div>
+
+
+</form>
+
+<style>
+  #stripe-api input[type="text"] {
+    background: #f7f7f7;
+    color: white;
+    font-weight: bold;
+}
+
+#stripe-api div#card-element {
+    background: #f7f7f7;
+    height: 40px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+</style>

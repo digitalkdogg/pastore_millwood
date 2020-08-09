@@ -11,6 +11,22 @@ div#wpadminbar {
     display: none;
 }
 
+button.btn {
+    background: #cf4a46;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.bg-millwood-tan {
+  background-color: #faf7f2;
+}
+
+.text-align-center {
+  text-align:center;
+}
+
 .inline-block {
 	display:inline-block;
 }
@@ -32,4 +48,49 @@ div#wpadminbar {
     position: relative;
     left: -25%;
     padding: 0 25%;
+    min-height:100vh;
+}
+
+.offset-50 {
+  position: relative;
+  top:50px;
+}
+
+.offset-minus-50 {
+  position: relative;
+  top:-50px;
+}
+
+.offset-left-minus-25 {
+  position:relative;
+  left: -25%;
+}
+
+.offset-left-25 {
+  position:relative;
+  left: 25%;
+}
+
+@media only screen and (max-width: 600px) {
+  .offset-mobile-left-5 {
+    position:relative;
+    left:5%;
+  }
+}
+
+.width-50 {
+  width:50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .mobile-width-95 {
+    width:95%;
+  }
+}
+.border-1-ccc {
+  border: 1px solid #ccc;
+}
+
+.min-height-400 {
+  min-height: 400px;
 }
