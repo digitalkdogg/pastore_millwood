@@ -598,6 +598,27 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"type" => "text"
 					),
 
+			'api_stripe_payment_id' => array(
+					"title" => esc_html__('Stripe Payment ID',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter html id of the trigger element (EX: div#stripe-api)", 'pastore-church') ),
+					"std" => "div#stripe-api",
+					"type" => "text"
+			),
+
+			'api_stripe_payment_test_key' => array(
+					"title" => esc_html__('Stripe Payment Test Key ',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter Test Key from stripe dashboard", 'pastore-church') ),
+					"std" => "",
+					"type" => "text"
+			),
+
+			'api_stripe_payment_live_key' => array(
+					"title" => esc_html__('Stripe Payment Live Key ',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter Live Key from stripe dashboard", 'pastore-church') ),
+					"std" => "",
+					"type" => "text"
+			),
+
 		// Customization -> Header
 		//-------------------------------------------------
 
