@@ -18,6 +18,17 @@
           <label for ="emails">Email</label>
           <input id = "emails" name="emails" type = "text" />
     </div>
+    <div class="form-row row">
+        <label for="amount">Amount (whole dollar)</label>
+        <div class="row">
+          <div class="columns small-1 dollar-label">$</div>
+            <div class="columns small-4">
+              <input id="amount" name="amount" type="number">
+            </div>
+            <div class="columns small-2 decimal-label">.00</div>
+            <div class="columns small-4"></div>
+          </div>
+      </div>
       <hr />
       <label for="card-element">
         Credit or debit card
@@ -52,6 +63,10 @@
             <div class="small-12 large-3 columns"><b>Email :</b> </div>
             <div class="small-12 large-9 columns" id = "email"></div>
           </div>
+          <div class = "form-row row">
+              <div class="small-12 large-3 columns"><b>Amount :</b> </div>
+              <div class="small-12 large-9 columns" id = "amount"></div>
+          </div>
           </div>
       <input type = "submit" id = "confirm" class = "btn" value = "Confirm Donation">
     </div>
@@ -67,9 +82,8 @@
 </form>
 
 <style>
-  #stripe-api input[type="text"] {
+  #stripe-api input[type="text"], #stripe-api input[type="number"] {
     background: #f7f7f7;
-    color: white;
     font-weight: bold;
 }
 
@@ -79,5 +93,17 @@
     margin-bottom: 10px;
     padding: 5px;
     border: 1px solid #ccc;
+}
+
+#stripe-api div.dollar-label {
+    position: relative;
+    top: 15px;
+    left: 10px;
+}
+
+#stripe-api div.decimal-label {
+    position: relative;
+    left: -10px;
+    top: 15px;
 }
 </style>

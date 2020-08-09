@@ -747,12 +747,8 @@ var millwood;
 							},
 						};
 
-					//	var jsonstr = {
-					//		"status": "confirm",
-					//		"owner": ownerInfo,
-					//		"card": card
-					//	};
-				//		Cookies.set('stripe', JSON.stringify(jsonstr), { sameSite: 'none' })
+
+
 						$('.form-wrapper').addClass('hide');
 						$('.confirm-wrapper').removeClass('hide');
 						$(stripeWrapper).find('div#name').text(ownerInfo.owner.name)
@@ -760,6 +756,7 @@ var millwood;
 						$(stripeWrapper).find('div#city').text(ownerInfo.owner.address.city)
 						$(stripeWrapper).find('div#zip').text(ownerInfo.owner.address.postal_code)
 						$(stripeWrapper).find('div#email').text(ownerInfo.owner.email)
+						$(stripeWrapper).find('div#amount').text($('input#amount').val())
 
 					//	form.submit();
 					})//end click
