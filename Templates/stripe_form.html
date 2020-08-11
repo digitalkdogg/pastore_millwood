@@ -1,33 +1,56 @@
 <form method="post" id="payment-form" >
   <div class = "form-wrapper">
-    <div class = "form-row">
-      <label for ="names">Name</label>
-      <input id = "names" name="names" type = "text" />
+    <div class = "form-row row">
+      <label for ="names" class = "columns small-4 large-3">Name</label>
+      <div class = "columns small-8 large-9">
+        <input id = "names" name="names" type = "text" />
+        </div>
     </div>
-    <div class = "form-row">
-        <label for ="addresss">Address</label>
-        <input id = "addresss" name="addresss" type = "text" />
-    </div>
-    <div class = "form-row">
-        <label for ="citys">City</label>
-        <input id = "citys" name="citys" type = "text" />
-        <label for "zip">zip</label>
-        <input id = "zips" name="zips" type = "text" />
-    </div>
-    <div class = "form-row">
-          <label for ="emails">Email</label>
-          <input id = "emails" name="emails" type = "text" />
-    </div>
-    <div class="form-row row">
-        <label for="amount">Amount (whole dollar)</label>
-        <div class="row">
-          <div class="columns small-1 dollar-label">$</div>
-            <div class="columns small-4">
-              <input id="amount" name="amount" type="number">
+    <div class = "form-row row">
+          <label for ="emails" class = "columns small-4 large-3">Email</label>
+          <div class = "columns small-8 large-9">
+            <input id = "emails" name="emails" type = "text" />
             </div>
-            <div class="columns small-2 decimal-label">.00</div>
-            <div class="columns small-4"></div>
+    </div>
+    <div class = "form-row row">
+        <label for ="addresss" class = "columns small-4 large-3">Address</label>
+        <div class = "columns small-8 large-9">
+          <input id = "addresss" name="addresss" type = "text" />
           </div>
+    </div>
+    <div class = "form-row row">
+        <label for ="citys" class = "columns small-4 large-3">City</label>
+        <div class = "columns small-8 large-9">
+          <input id = "citys" name="citys" type = "text" />
+          </div>
+    </div>
+    <div class = "form-row row">
+        <label for = "state" class = "columns small-4 large-3">State</label>
+        <div class = "columns small-8 large-5">
+          <input id = "states" name = "states" type = "text" />
+        </div>
+        <label for = "zip" class = "columns small-4 large-1 ">zip</label>
+        <div class = "columns small-8 large-3">
+          <input id = "zips"  name="zips" type = "text" />
+        </div>
+    </div>
+
+    <div class="form-row row">
+        <div class = "columns small-4 large-2">
+         <label for="amount" >Amount</label>
+
+
+         </div>
+         <div class = "columns small-1 text-align-right dollar-sign">$</div>
+          <div class="columns small-5 large-7 amount-wrap">
+              <input id="amount" name="amount" type="number" min="1" max="10000" step="1" />
+
+          </div>
+          <div class = "columns small-2 text-align-left">.00</div>
+
+        <!---  <div class = "columns small-2">.00</div> -->
+
+
       </div>
       <hr />
       <label for="card-element">
@@ -46,26 +69,25 @@
   <div class = "confirm-wrapper hide min-height-400">
       <div class = "results min-height-400">
         <div class = "form-row row">
-            <div class="small-12 large-3 columns"><b>Name :</b> </div>
-          <div id ="name" class="small-12 large-9 columns"></div>
+            <div class="small-3 large-3 columns"><b>Name :</b> </div>
+          <div id ="name" class="small-9 large-9 columns"></div>
       </div>
       <div class = "form-row row">
-          <div class="small-12 large-3 columns"><b>Address</b></div>
-          <div class="small-12 large-9 columns" id = "address"></div>
+          <div class="small-3 large-3 columns"><b>Address</b></div>
+          <div class="small-9 large-9 columns" id = "address"></div>
       </div>
         <div class = "form-row row">
-            <div class="small-12 large-3 columns"><b>City :</b> </div>
-            <div id = "city" class = "small-12 large-9 columns"></div>
-            <div class="small-12 large-3 columns"><b>Zip :</b> </div>
-            <div id = "zip" class="small-12 large-9 columns"></div>
+            <div class="small-3 large-3 columns"><b>City :</b> </div>
+            <div id = "city" class = "small-9 large-9 columns"></div>
+            <div class="small-3 large-3 columns"><b>Zip :</b> </div>
+            <div id = "zip" class="small-9 large-9 columns"></div>
           </div>
         <div class = "form-row row">
-            <div class="small-12 large-3 columns"><b>Email :</b> </div>
-            <div class="small-12 large-9 columns" id = "email"></div>
+            <div class="small-3 large-3 columns"><b>Email :</b> </div>
+            <div class="small-9 large-9 columns" id = "email"></div>
           </div>
-          <div class = "form-row row">
-              <div class="small-12 large-3 columns"><b>Amount :</b> </div>
-              <div class="small-12 large-9 columns" id = "amount"></div>
+          <div class = "form-row row amount">
+              <div class="small-12 large-12 columns text-align-center padding-20" id = "amount"></div>
           </div>
           </div>
       <input type = "submit" id = "confirm" class = "btn" value = "Confirm Donation">
@@ -105,5 +127,15 @@
     position: relative;
     left: -10px;
     top: 15px;
+}
+
+#stripe-api div.amount {
+    font-size: 4em;
+    color: green;
+}
+
+#stripe-api div.dollar-sign {
+    position: relative;
+    left: 20px;
 }
 </style>

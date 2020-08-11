@@ -756,10 +756,20 @@ var millwood;
 						$(stripeWrapper).find('div#city').text(ownerInfo.owner.address.city)
 						$(stripeWrapper).find('div#zip').text(ownerInfo.owner.address.postal_code)
 						$(stripeWrapper).find('div#email').text(ownerInfo.owner.email)
-						$(stripeWrapper).find('div#amount').text($('input#amount').val())
+						$(stripeWrapper).find('div#amount').text('$' + $('input#amount').val()+'.00')
+
 
 					//	form.submit();
 					})//end click
+
+					$('input#amount').on('focusout', function () {
+						 var amount = $(this).val();
+						 $(this).val(parseInt(amount));
+
+					});
+
+
+
 
 					// Create a token when the form is submitted.
 

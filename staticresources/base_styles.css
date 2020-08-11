@@ -24,7 +24,24 @@ button.btn {
 }
 
 .text-align-center {
-  text-align:center;
+  text-align:center !important;
+}
+
+.text-align-left {
+  text-align:left !important;
+}
+
+.text-align-right {
+  text-align:right !important;
+}
+
+.float-right {
+  float:right;
+}
+
+.float-left {
+  float:left;
+
 }
 
 .inline-block {
