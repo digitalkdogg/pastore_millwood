@@ -197,6 +197,37 @@ function get_theme_super_customizations() {
 
    }
 
+   /**
+* Generates new stripe intent
+* @param array $data Options for the function.
+* @return $object, or null if none.  */
+
+ function get_stripe_intent ( $params ){
+   $curl = curl_init();
+
+   curl_setopt_array($curl, array(
+     CURLOPT_URL => "https://api.stripe.com/v1/payment_intents",
+     CURLOPT_RETURNTRANSFER => true,
+     CURLOPT_ENCODING => "",
+     CURLOPT_MAXREDIRS => 10,
+     CURLOPT_TIMEOUT => 0,
+     CURLOPT_FOLLOWLOCATION => true,
+     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+     CURLOPT_CUSTOMREQUEST => "POST",
+     CURLOPT_POSTFIELDS => "amount=".$params['amount']."&currency=usd",
+     CURLOPT_HTTPHEADER => array(
+       "Authorization: Basic c2tfdGVzdF80ZlVJNDE2ZUNhazNVeW1wSTlNQUROQ00wMGw3UU9WbkRnOg==",
+       "Content-Type: application/x-www-form-urlencoded"
+     ),
+   ));
+
+   $response = curl_exec($curl);
+
+   curl_close($curl);
+   return $response;
+
+ }
+
 
 	 // Register the rest route here.
   	 add_action( 'rest_api_init', function () {
@@ -213,6 +244,11 @@ function get_theme_super_customizations() {
             register_rest_route('cc/v1', 'latest-cc',array(
               'methods' => 'GET',
               'callback' => 'get_latest_cc'
+            ));
+
+            register_rest_route('stripe/v1', 'create_intent', array(
+              'methods' => 'POST',
+              'callback' => 'get_stripe_intent'
             ));
      } );
 ?>

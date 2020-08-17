@@ -1,58 +1,104 @@
 <form method="post" id="payment-form" >
-  <div class = "form-wrapper">
+  <div id = "tabwrapper">
+      <div class = "tab active text-align-center" id = "amounttab" data-active="amount-section">Amount</div>
+      <div class = "tab text-align-center" id = "infotab" data-active = "form-wrapper">Info</div>
+      <div class = "tab text-align-center" id = "paymenttab" data-active = "payment-section">Payment</div>
+      <div class = "tab text-align-center disabled" id = "confirmtab" data-active = "confirm-section">Confirm</div>
+
+    </div>
+<br /><br />
+  <div id = "amount-section" class ="tab-section">
+    <div class = "form-row row">
+      <div class = "columns small-12">Chose An Amount Or Enter Your Own Amount :</div>
+      </div>
+      <hr />
+      <div class = "form-row row">
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "5">$5</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "25">$25</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "50">$50</div>
+        <div class = "columns small-3"></div>
+      </div>
+      <div class = "form-row row">
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "100">$100</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "250">$250</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "500">$500</div>
+        <div class = "columns small-3"></div>
+      </div>
+      <br />
+      <div class = "form-row row">
+        <div class = "columns small-4">Amount:</div>
+        <div class = "columns small-4 custom-amount-cell text-align-center" data-amount = "">
+              <input type = "number" id="amount" name = "amount" step = "1" min="1" class = "text-align-right"/>
+
+        </div>
+        <div class = "columns small-4"></div>
+      </div><br /><br />
+      <div class = "form-row row text-align-right">
+        <button data-next="form-wrapper" data-tab="infotab" class = "btn continue">
+          Continue
+          </button>
+      </div>
+  </div>
+  <div class = "form-wrapper hide tab-section" id = "form-wrapper">
     <div class = "form-row row">
       <label for ="names" class = "columns small-4 large-3">Name</label>
       <div class = "columns small-8 large-9">
-        <input id = "names" name="names" type = "text" />
+        <input id = "names" name="names" type = "text" class="required info"
+            data-msg = "Please enter a name" data-result="name" />
         </div>
     </div>
     <div class = "form-row row">
           <label for ="emails" class = "columns small-4 large-3">Email</label>
           <div class = "columns small-8 large-9">
-            <input id = "emails" name="emails" type = "text" />
+            <input id = "emails" name="emails" type = "text" class = "required info"
+            data-msg = "Please enter an email" data-result="email" />
             </div>
     </div>
     <div class = "form-row row">
         <label for ="addresss" class = "columns small-4 large-3">Address</label>
         <div class = "columns small-8 large-9">
-          <input id = "addresss" name="addresss" type = "text" />
+          <input id = "addresss" name="addresss" type = "text" class = "info"
+          data-result="address" />
           </div>
     </div>
     <div class = "form-row row">
         <label for ="citys" class = "columns small-4 large-3">City</label>
         <div class = "columns small-8 large-9">
-          <input id = "citys" name="citys" type = "text" />
+          <input id = "citys" name="citys" type = "text" class="info"
+          data-result="city" />
           </div>
     </div>
     <div class = "form-row row">
         <label for = "state" class = "columns small-4 large-3">State</label>
-        <div class = "columns small-8 large-5">
-          <input id = "states" name = "states" type = "text" />
+        <div class = "columns small-8 large-9">
+          <input id = "states" name = "states" type = "text" class="info"
+          data-result="notyet" />
         </div>
-        <label for = "zip" class = "columns small-4 large-1 ">zip</label>
-        <div class = "columns small-8 large-3">
-          <input id = "zips"  name="zips" type = "text" />
+      </div>
+      <div class = "form-row row">
+        <label for = "zip" class = "columns small-4 large-3">zip</label>
+        <div class = "columns small-4  large-5">
+          <input id = "zips"  name="zips" type = "text" class="info"
+          data-result="zip" />
         </div>
+        <div class="columns small-4 large-4"></div>
+    </div>
+    <br />
+    <div class="card-errors" role="alert"></div>
+    <br />
+    <div class = "form-row row text-align-right">
+      <button data-next="payment-section" data-tab="paymenttab" class = "btn continue">
+        <div class="spinner">
+          <div class="double-bounce1"></div>
+          <div class="double-bounce2"></div>
+        </div>
+        Continue
+        </button>
     </div>
 
-    <div class="form-row row">
-        <div class = "columns small-4 large-2">
-         <label for="amount" >Amount</label>
+  </div>
 
-
-         </div>
-         <div class = "columns small-1 text-align-right dollar-sign">$</div>
-          <div class="columns small-5 large-7 amount-wrap">
-              <input id="amount" name="amount" type="number" min="1" max="10000" step="1" />
-
-          </div>
-          <div class = "columns small-2 text-align-left">.00</div>
-
-        <!---  <div class = "columns small-2">.00</div> -->
-
-
-      </div>
-      <hr />
+    <div class = "payment-wrapper hide min-height-400 tab-section" id = "payment-section">
       <label for="card-element">
         Credit or debit card
       </label>
@@ -61,45 +107,74 @@
       </div>
 
       <!-- Used to display form errors -->
-      <div id="card-errors" role="alert"></div>
-      <p /><br />
-      <button id = "init" class="submit btn">Submit Donation</button>
-  </div>
+      <div class="card-errors" role="alert"></div>
 
-  <div class = "confirm-wrapper hide min-height-400">
-      <div class = "results min-height-400">
-        <div class = "form-row row">
-            <div class="small-3 large-3 columns"><b>Name :</b> </div>
-          <div id ="name" class="small-9 large-9 columns"></div>
+
+      <div id = "blank" class = "min-height-200"></div>
+      <div class = "form-row row text-align-right">
+        <button data-next="confirm-section" data-tab="confirmtab" class = "btn continue disabled" id = "payment">
+          Continue
+          </button>
       </div>
-      <div class = "form-row row">
-          <div class="small-3 large-3 columns"><b>Address</b></div>
-          <div class="small-9 large-9 columns" id = "address"></div>
-      </div>
-        <div class = "form-row row">
-            <div class="small-3 large-3 columns"><b>City :</b> </div>
-            <div id = "city" class = "small-9 large-9 columns"></div>
-            <div class="small-3 large-3 columns"><b>Zip :</b> </div>
-            <div id = "zip" class="small-9 large-9 columns"></div>
-          </div>
-        <div class = "form-row row">
-            <div class="small-3 large-3 columns"><b>Email :</b> </div>
-            <div class="small-9 large-9 columns" id = "email"></div>
-          </div>
-          <div class = "form-row row amount">
-              <div class="small-12 large-12 columns text-align-center padding-20" id = "amount"></div>
-          </div>
-          </div>
-      <input type = "submit" id = "confirm" class = "btn" value = "Confirm Donation">
-    </div>
-  <div class = "success-wrapper hide min-height-400 text-align-center">
-    <div id = "success" style="margin:5px 45%; border-radius: 100%;border: 3px solid green;width: 50px;height: 50px;font-size: 2em;text-align: center;color: green;">
-        <div class = "icon-check" />
-      </div>
-    <p>Thank you for your support in our community</p><br /><br />
 
     </div>
 
+
+
+    <div class = "confirm-wrapper hide min-height-400 tab-section" id = "confirm-section">
+        <div class = "results min-height-400">
+          <div class = "form-row row">
+              <div class="small-4 large-3 columns"><b>Name:</b> </div>
+            <div id ="name" class="small-8 large-9 columns"></div>
+        </div>
+        <div class = "form-row row">
+            <div class="small-4 large-3 columns"><b>Address:</b></div>
+            <div class="small-8 large-9 columns" id = "address"></div>
+        </div>
+          <div class = "form-row row">
+              <div class="small-4 large-3 columns"><b>City:</b> </div>
+              <div id = "city" class = "small-8 large-9 columns"></div>
+          </div>
+          <div class = "form-row row">
+              <div class="small-4 large-3 columns"><b>Zip:</b> </div>
+              <div id = "zip" class="small-8 large-9 columns"></div>
+            </div>
+          <div class = "form-row row">
+              <div class="small-4 large-3 columns"><b>Email:</b> </div>
+              <div class="small-8 large-9 columns" id = "email"></div>
+            </div>
+            <div class = "form-row row">
+                <div class="small-4 large-3 columns"><b>Card No:</b> </div>
+                <div class="small-8 large-9 columns" id = "cardno"></div>
+              </div>
+            <div class = "form-row row amount">
+                <div class="small-12 large-12 columns text-align-center padding-20" id = "amount-result">$0</div>
+            </div>
+            </div>
+            <br />
+            <div class="card-errors" role="alert"></div>
+            <br />
+        <div class = "row">
+          <div class = "columns small-12 text-align-right">
+            <button id = "submit" class = "btn disabled">
+              <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+              </div>
+              Confirm Donation
+            </button>
+            </div>
+
+          </div>
+      </div>
+      <div class = "success-wrapper hide min-height-400 text-align-center tab-section" id = "success-wrapper">
+        <div id = "success" style="margin:5px 45%; border-radius: 100%;border: 3px solid green;width: 50px;height: 50px;font-size: 2em;text-align: center;color: green;">
+            <div class = "icon-check" />
+          </div>
+          <br /><br />
+        <p>Thank you for your support in our community</p><br /><br />
+
+        </div>
 
 </form>
 
@@ -123,6 +198,10 @@
     left: 10px;
 }
 
+#stripe-api div#confirm-section .form-row.row {
+    padding: 5px 0;
+}
+
 #stripe-api div.decimal-label {
     position: relative;
     left: -10px;
@@ -138,4 +217,119 @@
     position: relative;
     left: 20px;
 }
+
+#stripe-api button.disabled:hover {
+  cursor: not-allowed;
+}
+
+#stripe-api div.card-errors {
+    color: #cf4a46;
+    font-weight: bold;
+}
+
+#stripe-api .error, #stripe-api #card-element.error {
+    margin-bottom: 15px;
+    border: 3px solid #cf4a46;
+  }
+
+#stripe-api  div#tabwrapper {
+    display: flex;
+    padding: 10px 0;
+    margin: 0 0 10px 0;
+}
+
+#stripe-api div.tab.active {
+    border-bottom: 1px solid black;
+    transform: scale(1.1);
+    font-weight:bold;
+}
+
+#stripe-api div.tab.disabled {
+    color: #aaa;
+}
+
+#stripe-api div.tab.disabled:hover {
+    cursor: not-allowed;
+}
+
+#stripe-api  div.tab {
+    flex-direction: row;
+    padding: 0 10px;
+    flex-grow: 1;
+}
+
+#stripe-api div.tab:hover {
+  font-weight:bold;
+  cursor: pointer;
+}
+
+#stripe-api div.amount-cell {
+  background: #cf4a46;
+  color:white;
+  margin:10px;
+  letter-spacing: 3px;
+  padding:0;
+}
+
+#stripe-api div.amount-cell.active {
+  background: #faf6f2;
+  color:black;
+  border:1px solid #cf4a46;
+}
+
+#stripe-api div.amount-cell:hover {
+  cursor:pointer;
+  opacity:.8;
+}
+
+#stripe-api input#amount.active {
+  background:white;
+}
+
+#stripe-api .spinner {
+  visibility:hidden;
+}
+
+#stripe-api .spinner.spin {
+  visibility:visible;
+  width: 15px;
+  height: 15px;
+  display:inline-block;
+  position: relative;
+}
+
+#stripe-api .double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 0.4;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+#stripe-api .double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
+}
+
 </style>

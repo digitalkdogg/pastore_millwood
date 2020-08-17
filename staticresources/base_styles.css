@@ -15,6 +15,19 @@ button.btn {
     background: #cf4a46;
 }
 
+button.btn.disabled {
+  background:#999;
+}
+
+button.btn.disabled:hover {
+  background:#999;
+}
+
+button.btn:hover {
+    background: rgba(207, 74, 70, 0.7);
+    cursor:pointer;
+}
+
 .bg-white {
   background-color: white;
 }
@@ -60,14 +73,6 @@ button.btn {
     z-index: 10;
 }
 
-.full-screen-width {
-    width: 150%;
-    position: relative;
-    left: -25%;
-    padding: 0 25%;
-    min-height:100vh;
-}
-
 .offset-50 {
   position: relative;
   top:50px;
@@ -93,19 +98,28 @@ button.btn {
     position:relative;
     left:5%;
   }
+
+  .offset-mobile-left-0 {
+    position:relative;
+    left:0;
+  }
 }
 
 .width-50 {
   width:50%;
 }
 
-@media only screen and (max-width: 600px) {
-  .mobile-width-95 {
-    width:95%;
+@media only screen and (max-width: 800px) {
+  .mobile-width-100 {
+    width:100%;
   }
 }
 .border-1-ccc {
   border: 1px solid #ccc;
+}
+
+.min-height-200 {
+  min-height: 200px;
 }
 
 .min-height-400 {

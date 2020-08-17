@@ -610,72 +610,222 @@ var millwood;
 				})
 			},
 			'setup_stripe_api': function () {
+				var stripe_utils = {
+					  'do_something_with_cookie': function () {
+						//	$.getScript("https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js", function (data, textStatus, jqxhr) {
+						//			if (Cookies.get('stripe') != undefined) {
+						//					var cookie = JSON.parse(Cookies.get('stripe'));
+						//					millwood.wp_data.cookie = cookie;
+						//					if (cookie.status == 'confirm') {
+						//						$('.form-wrapper').addClass('hide');
+						//						$('.confirm-wrapper').removeClass('hide');
+						//						$(stripeWrapper).find('div#name').text(cookie.owner.owner.name)
+						//						$(stripeWrapper).find('div#address').text(cookie.owner.owner.address.line1)
+						//						$(stripeWrapper).find('div#city').text(cookie.owner.owner.address.city)
+						//						$(stripeWrapper).find('div#zip').text(cookie.owner.owner.address.postal_code)
+						//						$(stripeWrapper).find('div#email').text(cookie.owner.owner.email)
+						//						Cookies.remove('stripe');
+						//					}
+						//				}
+					//			})
+						},
+						'clear_error': function () {
+								$(this.wrapperele).find('.card-errors').html('');
+								$(this.wrapperele).find('.error').each(function () {
+									$(this).removeClass('error');
+								})
+						},
+						'get_payment_intents' : function (amount) {
+							$.ajax({
+								'url': 'http://yoda/millwood_wp/index.php/wp-json/stripe/v1/create_intent',
+								'type': 'POST',
+								'data': {'amount': parseInt(amount+'00')},
+								'success': function (data) {
+									let parsedata = JSON.parse(data);
+									if (data.error) {
+										stripe_utils['valid'] == false;
+									} else {
 
+										stripe_utils['payment_intent'] =  parsedata
+										stripe_utils['valid'] = true;
+										$('button#payment').removeClass('disabled');
+									}
+							}
+						})
+					}, //end get_payment_intents
+					'confirm_card_payment' : function () {
+							var client_secret = this.payment_intent.client_secret;
+							this.stripe.confirmCardPayment(
+								 client_secret, {
+									payment_method: {card: this.card},
+									shipping: {
+														'name': stripe_utils.ownerInfo.owner.name,
+														'address': {'line1': stripe_utils.ownerInfo.owner.address.line1,
+																				'city': stripe_utils.ownerInfo.owner.address.city,
+																				'postal_code': stripe_utils.ownerInfo.owner.address.postal_code
+																				}
+														}
+								}
+							).then(function(result) {
+								$('#confirm-section button#submit .spinner').removeClass('spin');
+								if (result.error) {
+									$(this.wrapperele).find('#confirm-section .card-errors').html('opps there was an error with your transaction');
+							// Display error.message in your UI.
+								} else {
+									$('#confirm-section').addClass('hide');
+									$('#success-wrapper').removeClass('hide');
+								// The payment has succeeded
+								// Display a success message
+								}
+						});
+					},
+					'create_stripe_source': function () {
+
+						this.stripe.createSource(this.card, this.ownerInfo).then(function(result) {
+
+							if (result.error) {
+								// Inform the user if there was an error
+								stripe_utils.valid = false;
+								var errorElement = document.getElementById('card-errors');
+								errorElement.textContent = result.error.message;
+							} else {
+								// Send the source to your server
+								stripe_utils.valid = true;
+								// Insert the source ID into the form so it gets submitted to the server
+								var form = document.getElementById('payment-form');
+								var hiddenInput = document.createElement('input');
+								hiddenInput.setAttribute('type', 'hidden');
+								hiddenInput.setAttribute('name', 'stripeSource');
+								hiddenInput.setAttribute('value', result.source.id);
+								form.appendChild(hiddenInput);
+								if (result.source.status == 'chargeable') {
+
+									if (stripe_utils.check_goodtogo() == true) {
+
+										stripe_utils.valid = true;
+										stripe_utils.chargable = true;
+										$('#confirm-section button#submit').removeClass('disabled');
+									}
+								} else {
+									stripe_utils.valid = false;
+								}
+							//	$('.confirm-wrapper').addClass('hide');
+							//	$('.success-wrapper').removeClass('hide');
+
+								//stripe_utils.confirm_card_payment();
+
+							}
+						}); //end stripe create source
+					},
+					'generate_stripe_data': function () {
+						stripe_utils['ownerInfo'] = {};
+						stripe_utils.ownerInfo['owner'] = {};
+						stripe_utils.ownerInfo.owner['address'] = {};
+						stripe_utils.ownerInfo.owner['name'] = $(this.wrapperele).find('input#names').val();
+						stripe_utils.ownerInfo.owner.address['line1'] = $(this.wrapperele).find('input#addresss').val()
+						stripe_utils.ownerInfo.owner.address['city'] = $(this.wrapperele).find('input#citys').val()
+						stripe_utils.ownerInfo.owner.address['postal_code'] = $(this.wrapperele).find('input#zips').val()
+						stripe_utils.ownerInfo.owner['email'] = $(this.wrapperele).find('input#emails').val()
+
+
+					},
+					'generate_init_data': function () {
+							this.wrapperele =  millwood.wp_data.custom_super_options.api_stripe_payment_id,
+							this.stripe_live_key = millwood.wp_data.custom_super_options.api_stripe_payment_live_key,
+							this.stripe_test_key = millwood.wp_data.custom_super_options.api_stripe_payment_test_key
+							this.amount = 0;
+							this.unlockconfirm = false;
+					},
+					'check_goodtogo': function () {
+						if (stripe_utils.ownerInfo != undefined) {
+								if(stripe_utils.ownerInfo.owner.name.length <= 0) {
+									stripe_utils.valid=false;
+									$('#confirm-section .card-errors').html('Please Enter a name on the info section before confirming your donation')
+									return false;
+								}
+								if(stripe_utils.ownerInfo.owner.email.length <= 0) {
+									stripe_utils.valid=false;
+									$('#confirm-section .card-errors').html('Please Enter an email on the info section before confirming your donation')
+									return false;
+								}
+						} else {
+							stripe_utils.valid=false;
+							$('#confirm-section .card-errors').html('Please go to the info section and enter your info before confirming your donation')
+							return false;
+						}
+
+						if (stripe_utils.amount == 0 || stripe_utils.amount == '0') {
+
+							stripe_utils.valid=false;
+							$('#confirm-section .card-errors').html('Please Enter an amount on the amount section')
+							return false;
+						}
+						return true;
+					},
+
+				} //end stripe utils
 				$.getScript( "https://js.stripe.com/v3/", function( data, textStatus, jqxhr ) {
-					var stripe = '';
+					//var stripe = '';
+
+					stripe_utils.generate_init_data();
 
 					if (millwood.wp_data.location.host == 'yoda' || millwood.wp_data.location.host == 'localhost') {
-						stripe = Stripe(millwood.wp_data.custom_super_options.api_stripe_payment_test_key);
+						stripe_utils['stripe'] = Stripe(stripe_utils.stripe_test_key);
+						stripe_utils['key'] = stripe_utils.stripe_test_key;
+						stripe_utils['mode'] = 'test';
 					} else if (millwood.wp_data.location.host == 'millwoodchurchnwa.com' || millwood.wp_data.location.host == 'millwoodchurch.com' ) {
-							stripe = Stripe(millwood.wp_data.custom_super_options.api_stripe_payment_live_key);
+							stripe_utils['stripe'] = Stripe(stripe_utils.stripe_live_key);
+							stripe_utils['key'] = stripe_utils.stripe_test_key;
+							stripe_utils['mode'] = 'live';api_stripe_payment_id
 					}
 
-					var stripeWrapper = $(millwood.wp_data.custom_super_options.api_stripe_payment_id);
+					var stripeWrapper = $(stripe_utils.wrapperele);
 					if (stripeWrapper.length > 0 ) {
 						$(stripeWrapper).html(millwood.templates.stripe_form)
 					}
 
-			//		$.getScript("https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js", function (data, textStatus, jqxhr) {
-			//			if (Cookies.get('stripe') != undefined) {
-			//					var cookie = JSON.parse(Cookies.get('stripe'));
-			//					millwood.wp_data.cookie = cookie;
-			//					if (cookie.status == 'confirm') {
-			//						$('.form-wrapper').addClass('hide');
-			//						$('.confirm-wrapper').removeClass('hide');
-			//						$(stripeWrapper).find('div#name').text(cookie.owner.owner.name)
-			//						$(stripeWrapper).find('div#address').text(cookie.owner.owner.address.line1)
-			//						$(stripeWrapper).find('div#city').text(cookie.owner.owner.address.city)
-			//						$(stripeWrapper).find('div#zip').text(cookie.owner.owner.address.postal_code)
-			//						$(stripeWrapper).find('div#email').text(cookie.owner.owner.email)
-			//						Cookies.remove('stripe');
-			//					}
-			//				}
-		//			})
+					stripe_utils['element_obj'] = stripe_utils.stripe.elements();
 
-
-					var elements = stripe.elements();
-					var card = elements.create('card', {
+					stripe_utils['card'] = stripe_utils.element_obj.create('card', {
 						'hidePostalCode': true,
-					  'style': {
-					    'base': {
+						'style': {
+							'base': {
 								'iconColor': '#000',
-					      'fontSize': '16px',
-					      'color': '#000',
+								'font-size': '16px',
+								'color': '#000',
 								'backgroundColor': '#f7f7f7',
 								'::placeholder': {
-        					'color': '#555',
-      					}
-					    },
-					    'invalid': {
+									'color': '#555',
+								}
+							},
+							'invalid': {
 								'iconColor': '#ff4f4f',
-					      'color': '#ff4f4f',
-					    },
-					  }
-					});
+								'color': '#ff4f4f',
+							}
+						}
+					})
 
-					card.mount('#card-element');
-					stripe['eleobj'] = elements;
-					stripe['cardobj'] = card;
+					stripe_utils.card.mount('#card-element');
+					setTimeout(function () {
+
+						$(stripe_utils.wrapperele).find('input#names').focus()
+					},1000)
+
 
 					function createToken() {
-					  stripe.createToken(card).then(function(result) {
-							console.log(result);
+					  stripe_utils.stripe.createToken(stripe_utils.card).then(function(result) {
+							console.log(result.token.card);
+							stripe_utils['token'] = result;
+						//	stripe_utils.get_payment_intents();
 					    if (result.error) {
 					      // Inform the user if there was an error
-					      var errorElement = document.getElementById('card-errors');
-					      errorElement.textContent = result.error.message;
+								stripe_utils['valid'] = false;
+								$('.card-errors').each(function () {
+									$(this).html(result.error.message);
+								})
 					    } else {
-								console.log(result.token);
+
+								stripe_utils['valid'] = true;
 								// Insert the token ID into the form so it gets submitted to the server
 								if (result.token != undefined || result.token != '') {
 									var form = document.getElementById('payment-form');
@@ -684,126 +834,159 @@ var millwood;
 									hiddenInput.setAttribute('name', 'stripeToken');
 									hiddenInput.setAttribute('value', result.token.id);
 									form.appendChild(hiddenInput);
+									$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
+
 								//	form.submit();
+
+								//console.log(stripe_utils);
+								stripe_utils.create_stripe_source();
 
 								}
 
 					    }
-					  });
-					};
+					  }); //end stripe create token
+					}; // end createToken
 
-					$('input#confirm').click(function () {
-							var form = document.getElementById('payment-form');
-							form.addEventListener('submit', function(e) {
-									e.preventDefault();
-								  createToken();
+					$('button#submit').click(function (e) {
+						e.preventDefault();
 
-
-
-
-									stripe.createSource(card, millwood.wp_data.cookie.owner).then(function(result) {
-
-								    if (result.error) {
-											// Inform the user if there was an error
-								      var errorElement = document.getElementById('card-errors');
-								      errorElement.textContent = result.error.message;
-								    } else {
-											// Send the source to your server
-											console.log(result.source)
-											// Insert the source ID into the form so it gets submitted to the server
-				 						  var form = document.getElementById('payment-form');
-				 						  var hiddenInput = document.createElement('input');
-				 						  hiddenInput.setAttribute('type', 'hidden');
-				 						  hiddenInput.setAttribute('name', 'stripeSource');
-				 						  hiddenInput.setAttribute('value', result.source.id);
-				 						  form.appendChild(hiddenInput);
-											$('.confirm-wrapper').addClass('hide');
-											$('.success-wrapper').removeClass('hide');
-
-								    }
-							  	}); //end stripe create source
-
-
-								}); //end add submit handler
 					})
 
-					$('button#init').click(function(e) {
-						e.preventDefault();
-						console.log(stripe);
-						var form = document.getElementById('payment-form');
 
-						let baseele = millwood.wp_data.custom_super_options.api_stripe_payment_id
-
-						var ownerInfo = {
-							'owner': {
-								'name': $(baseele).find('input#names').val(),
-								'address': {
-									'line1': $(baseele).find('input#addresss').val(),
-									'city': $(baseele).find('input#citys').val(),
-									'postal_code': $(baseele).find('input#zips').val(),
-									'country': 'US',
-								},
-								'email': $(baseele).find('input#emails').val()
-							},
-						};
-
-
-
-						$('.form-wrapper').addClass('hide');
-						$('.confirm-wrapper').removeClass('hide');
-						$(stripeWrapper).find('div#name').text(ownerInfo.owner.name)
-					  $(stripeWrapper).find('div#address').text(ownerInfo.owner.address.line1)
-						$(stripeWrapper).find('div#city').text(ownerInfo.owner.address.city)
-						$(stripeWrapper).find('div#zip').text(ownerInfo.owner.address.postal_code)
-						$(stripeWrapper).find('div#email').text(ownerInfo.owner.email)
-						$(stripeWrapper).find('div#amount').text('$' + $('input#amount').val()+'.00')
-
-
-					//	form.submit();
-					})//end click
 
 					$('input#amount').on('focusout', function () {
-						 var amount = $(this).val();
-						 $(this).val(parseInt(amount));
+
 
 					});
 
+					$('input.required').blur(function () {
+
+					})
 
 
 
-					// Create a token when the form is submitted.
+					stripe_utils.card.on('blur', function () {
 
 
-			//		form.addEventListener('submit', function(e) {
-					//  console.log('hielo');
-			//			e.preventDefault();
-			//		  createToken();
+					})
 
 
+					stripe_utils.card.on('change', function (event) {
+						stripe_utils.clear_error();
+						if (event.error) {
+							$('#payment-section .card-errors').html('Please enter a valid card number')
+							stripe_utils.valid = false;
+							$(stripe_utils.wrapperele).find('button#payment').addClass('disabled')
 
-		//				stripe.createSource(card, ownerInfo).then(function(result) {
+						}
+						if (event.complete) {
+								stripe_utils.get_payment_intents(stripe_utils.amount);
+								stripe_utils['valid'] = true;
+						}
 
-		//			    if (result.error) {
-					      // Inform the user if there was an error
-		//			      var errorElement = document.getElementById('card-errors');
-	//				      errorElement.textContent = result.error.message;
-	//				    } else {
-					      // Send the source to your server
-	//							console.log(result.source)
-	 						  // Insert the source ID into the form so it gets submitted to the server
-	 //						  var form = document.getElementById('payment-form');
-	 //						  var hiddenInput = document.createElement('input');
-	 //						  hiddenInput.setAttribute('type', 'hidden');
-	 //						  hiddenInput.setAttribute('name', 'stripeSource');
-	 //						  hiddenInput.setAttribute('value', result.source.id);
-	// 						  form.appendChild(hiddenInput);
+					})
+
+					$(stripe_utils.wrapperele + ' button#submit').on('click', function (e) {
+						e.preventDefault();
+						if ($(this).hasClass('disabled')!=true) {
+							stripe_utils.confirm_card_payment();
+						}
+						$('#confirm-section button#submit .spinner').addClass('spin');
+					})
+
+					$(stripe_utils.wrapperele + ' button#payment').on('click', function (e) {
+						e.preventDefault();
+						if ($(this).hasClass('disabled')!=true) {
+							if (stripe_utils.valid == true) {
+								createToken();
+							}
+						}
+					})
+
+					$(stripe_utils.wrapperele + ' .amount-cell').on('click', function () {
+						$(stripe_utils.wrapperele + ' .amount-cell').each(function () {
+							$(this).removeClass('active');
+						})
+						let amount = $(this).attr('data-amount');
+
+						$(this).addClass('active');
+						$(stripe_utils.wrapperele).find('input#amount').val(amount)
+						$(stripe_utils.wrapperele).find('div#amount-result').html('$'+amount)
+
+					//	stripe_utils.get_payment_intents(amount);
+						stripe_utils.amount = amount
+						stripe_utils['valid'] = true;
+
+					})
+
+					$(stripe_utils.wrapperele + ' input#amount').on('focus', function () {
+						$(this).addClass('active')
+					})
+
+					$(stripe_utils.wrapperele + ' input#amount').on('focusout', function () {
+						$(this).removeClass('active');
+						var amount = $(this).val();
+						$(this).val(parseInt(amount));
 
 
-			//		    }
-				//  	}); //end stripe create source
+						$('div#amount-result').html('$'+amount)
+						stripe_utils.amount = amount
+					})
+
+					$(stripe_utils.wrapperele + ' input#amount').on('input', function () {
+						$(stripe_utils.wrapperele).find('div#amount-result').html('$'+$(this).val())
+					})
+
+					$(stripe_utils.wrapperele + ' .tab ').on('click', function () {
+						if($(this).hasClass('disabled')!=true) {
+							$(stripe_utils.wrapperele + ' .tab').each(function () {
+								$(this).removeClass('active');
+							})
+							$(this).addClass('active');
+
+							let id = $(this).attr('data-active');
+							$('.tab-section').each(function () {
+								$(this).addClass('hide');
+							})
+							$('#'+id).removeClass('hide');
+						}
+
+					})
+
+					$(stripe_utils.wrapperele + ' button.continue').on('click', function (e) {
+						e.preventDefault();
+						if ($(this).hasClass('disabled')!=true) {
+							$(stripe_utils.wrapperele + ' .tab').each(function () {
+								$(this).removeClass('active');
+							})
 
 
-			//		}); //end add submit handler
+							$('.tab-section').each(function () {
+								$(this).addClass('hide');
+							})
+							let nextele = $(this).attr('data-next');
+							let nexttab = $(this).attr('data-tab');
+
+							$('#'+nextele).removeClass('hide');
+							$('#'+nexttab+'.tab').addClass('active');
+
+							if (nextele == 'confirm-section') {
+								stripe_utils.check_goodtogo();
+								stripe_utils.unlockconfirm = true;
+							}
+
+							if (stripe_utils.unlockconfirm == true) {
+								$('#confirmtab.tab.disabled').removeClass('disabled');
+							}
+						}
+					})
+
+					$(stripe_utils.wrapperele+' input.info').on('change', function () {
+						let resultele = $(this).attr('data-result');
+						$(stripe_utils.wrapperele).find('#confirm-section #'+resultele).text($(this).val())
+
+						stripe_utils.generate_stripe_data();
+					})
 
 				}); //end get script
 
@@ -818,8 +1001,8 @@ var millwood;
 
 	$(window).resize(function () {
 		millwood.utils.checkismobile();
-	})
 
+	})
 
 	if ($('.logo_slogan').length > 0 ) {
 		$( '.logo_slogan' ).clone().appendTo( '.top_panel_title_inner .content_wrap' );
