@@ -13,15 +13,15 @@
       </div>
       <hr />
       <div class = "form-row row">
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "5">$5</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "25">$25</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "50">$50</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "5" data-active="false">$5</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "25" data-active="false">$25</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "50" data-active="false">$50</div>
         <div class = "columns small-3"></div>
       </div>
       <div class = "form-row row">
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "100">$100</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "250">$250</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "500">$500</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "100" data-active="false">$100</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "250" data-active="false">$250</div>
+        <div class = "columns small-3 amount-cell text-align-center" data-amount = "500" data-active="false">$500</div>
         <div class = "columns small-3"></div>
       </div>
       <br />
@@ -40,6 +40,8 @@
       </div>
   </div>
   <div class = "form-wrapper hide tab-section" id = "form-wrapper">
+    <div class = "columns small-12">Please tell us about yourself :</div>
+    <hr />
     <div class = "form-row row">
       <label for ="names" class = "columns small-4 large-3">Name</label>
       <div class = "columns small-8 large-9">
@@ -99,6 +101,9 @@
   </div>
 
     <div class = "payment-wrapper hide min-height-400 tab-section" id = "payment-section">
+      <div class = "columns small-12">The important stuff your payment information :</div>
+
+      <hr />
       <label for="card-element">
         Credit or debit card
       </label>
@@ -122,6 +127,8 @@
 
 
     <div class = "confirm-wrapper hide min-height-400 tab-section" id = "confirm-section">
+      <div class = "columns small-12">Is this information correct :</div>
+      <hr />
         <div class = "results min-height-400">
           <div class = "form-row row">
               <div class="small-4 large-3 columns"><b>Name:</b> </div>
@@ -172,7 +179,8 @@
             <div class = "icon-check" />
           </div>
           <br /><br />
-        <p>Thank you for your support in our community</p><br /><br />
+        <p>Thank you for your support in our community</p><br />
+        <p>Feel free to leave this page at any time.</p>
 
         </div>
 
@@ -269,6 +277,7 @@
   margin:10px;
   letter-spacing: 3px;
   padding:0;
+  border: 1px solid white;
 }
 
 #stripe-api div.amount-cell.active {
