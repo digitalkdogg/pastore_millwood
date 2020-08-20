@@ -8,33 +8,40 @@
     </div>
 <br /><br />
   <div id = "amount-section" class ="tab-section">
-    <div class = "form-row row">
       <div class = "columns small-12">Chose An Amount Or Enter Your Own Amount :</div>
-      </div>
       <hr />
-      <div class = "form-row row">
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "5" data-active="false">$5</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "25" data-active="false">$25</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "50" data-active="false">$50</div>
-        <div class = "columns small-3"></div>
-      </div>
-      <div class = "form-row row">
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "100" data-active="false">$100</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "250" data-active="false">$250</div>
-        <div class = "columns small-3 amount-cell text-align-center" data-amount = "500" data-active="false">$500</div>
-        <div class = "columns small-3"></div>
-      </div>
-      <br />
-      <div class = "form-row row">
-        <div class = "columns small-4">Amount:</div>
-        <div class = "columns small-4 custom-amount-cell text-align-center" data-amount = "">
-              <input type = "number" id="amount" name = "amount" step = "1" min="1" class = "text-align-right"/>
-
+      <div class = "amount-wrap">
+        <div class = "form-row row">
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "5" data-active="false">$5</div>
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "25" data-active="false">$25</div>
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "50" data-active="false">$50</div>
+          <div class = "columns small-3"></div>
         </div>
-        <div class = "columns small-4"></div>
-      </div><br /><br />
+        <div class = "form-row row">
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "100" data-active="false">$100</div>
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "250" data-active="false">$250</div>
+          <div class = "columns small-3 amount-cell text-align-center" data-amount = "500" data-active="false">$500</div>
+          <div class = "columns small-3"></div>
+        </div>
+        <br />
+        <div class = "form-row row">
+          <div class = "columns small-4">Amount:</div>
+          <div class = "columns small-4 custom-amount-cell text-align-center" data-amount = "">
+                <input type = "number" id="amount" name = "amount" step = "1" min="1" class = "text-align-right"/>
+
+          </div>
+          <div class = "columns small-4"></div>
+        </div><br />
+      </div>
+      <div class="card-errors" role="alert"></div>
+      <br />
       <div class = "form-row row text-align-right">
+
         <button data-next="form-wrapper" data-tab="infotab" class = "btn continue">
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
           Continue
           </button>
       </div>
@@ -74,7 +81,7 @@
         <label for = "state" class = "columns small-4 large-3">State</label>
         <div class = "columns small-8 large-9">
           <input id = "states" name = "states" type = "text" class="info"
-          data-result="notyet" />
+          data-result="state" />
         </div>
       </div>
       <div class = "form-row row">
@@ -118,6 +125,10 @@
       <div id = "blank" class = "min-height-200"></div>
       <div class = "form-row row text-align-right">
         <button data-next="confirm-section" data-tab="confirmtab" class = "btn continue disabled" id = "payment">
+          <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+          </div>
           Continue
           </button>
       </div>
@@ -141,6 +152,10 @@
           <div class = "form-row row">
               <div class="small-4 large-3 columns"><b>City:</b> </div>
               <div id = "city" class = "small-8 large-9 columns"></div>
+          </div>
+          <div class = "form-row row">
+              <div class="small-4 large-3 columns"><b>State:</b> </div>
+              <div id = "state" class = "small-8 large-9 columns"></div>
           </div>
           <div class = "form-row row">
               <div class="small-4 large-3 columns"><b>Zip:</b> </div>
@@ -297,14 +312,14 @@
 
 #stripe-api .spinner {
   visibility:hidden;
-}
-
-#stripe-api .spinner.spin {
-  visibility:visible;
   width: 15px;
   height: 15px;
   display:inline-block;
   position: relative;
+}
+
+#stripe-api .spinner.spin {
+  visibility:visible;
 }
 
 #stripe-api .double-bounce1, .double-bounce2 {

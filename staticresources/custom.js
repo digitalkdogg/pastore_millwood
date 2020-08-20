@@ -437,7 +437,7 @@ var millwood;
 
 
 					$.each(data.data, function (index, val) {
-						console.log(this.picture);
+					
 						if (this.name != undefined) {
 							if (this.name.indexOf('cover photo')>0 ) {
 								delete this;
@@ -610,9 +610,22 @@ var millwood;
 				})
 			},
 			'setup_stripe_api': function () {
+
+
+				// TODO:
+				//
+				//  Make validation for email and name on that page
+				//  Add spinners to payment form button
+				//  Make state apear on confirm
+
+
 				var stripe_utils = {
 						'clear_error': function () {
-								$(this.wrapperele).find('.card-errors').html('');
+
+							$(this.wrapperele).find('.card-errors').each(function () {
+								$(this).html('')
+							})
+
 								$(this.wrapperele).find('.error').each(function () {
 									$(this).removeClass('error');
 								})
@@ -644,6 +657,7 @@ var millwood;
 														'name': stripe_utils.ownerInfo.owner.name,
 														'address': {'line1': stripe_utils.ownerInfo.owner.address.line1,
 																				'city': stripe_utils.ownerInfo.owner.address.city,
+																				'state': stripe_utils.ownerInfo.owner.address.state,
 																				'postal_code': stripe_utils.ownerInfo.owner.address.postal_code
 																				}
 														}
@@ -703,6 +717,7 @@ var millwood;
 						stripe_utils.ownerInfo.owner['name'] = $(this.wrapperele).find('input#names').val();
 						stripe_utils.ownerInfo.owner.address['line1'] = $(this.wrapperele).find('input#addresss').val()
 						stripe_utils.ownerInfo.owner.address['city'] = $(this.wrapperele).find('input#citys').val()
+						stripe_utils.ownerInfo.owner.address['state'] = $(this.wrapperele).find('input#states').val()
 						stripe_utils.ownerInfo.owner.address['postal_code'] = $(this.wrapperele).find('input#zips').val()
 						stripe_utils.ownerInfo.owner['email'] = $(this.wrapperele).find('input#emails').val()
 
@@ -714,6 +729,53 @@ var millwood;
 							this.stripe_test_key = millwood.wp_data.custom_super_options.api_stripe_payment_test_key
 							this.amount = 0;
 							this.unlockconfirm = false;
+					},
+					'nav_to_next': function (_this) {
+						$(stripe_utils.wrapperele + ' .tab').each(function () {
+							$(this).removeClass('active');
+						})
+
+						$('.tab-section').each(function () {
+							$(this).addClass('hide');
+						})
+
+						let nextele = $(_this).attr('data-next');
+						let nexttab = $(_this).attr('data-tab');
+
+						$('#'+nextele).removeClass('hide');
+						$('#'+nexttab+'.tab').addClass('active');
+
+
+
+					},
+					'check_amount': function () {
+
+						if (stripe_utils.amount == 0 || stripe_utils.amount == '0') {
+							stripe_utils.valid=false;
+							$('#amount-section .card-errors').html('Please Enter an amount on the amount section')
+							$('#amount-section .amount-wrap').addClass('error');
+							$('#confirm-section .card-errors').html('Please Enter an amount on the amount section')
+
+							return false;
+						}
+						return true;
+					},
+					'check_userinfo': function () {
+						var isvalid = true;
+						this.clear_error();
+						$('input.info.required').each(function () {
+
+							if ($(this).val().length==0) {
+								$(this).addClass('error');
+								$('#form-wrapper .card-errors').append($(this).attr('data-msg')+'<br />');
+								isvalid = false;;
+							}
+						})
+
+						if (isvalid == false) {
+							return false;
+						}
+						return true;
 					},
 					'check_goodtogo': function () {
 						if (stripe_utils.ownerInfo != undefined) {
@@ -809,7 +871,7 @@ var millwood;
 									hiddenInput.setAttribute('value', result.token.id);
 									form.appendChild(hiddenInput);
 									$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
-
+									$('#payment-section button.continue div.spinner.spin').removeClass('spin');
 									stripe_utils.create_stripe_source();
 
 								}
@@ -826,9 +888,10 @@ var millwood;
 					stripe_utils.card.on('change', function (event) {
 						stripe_utils.clear_error();
 						if (event.error) {
-							$('#payment-section .card-errors').html('Please enter a valid card number')
 							stripe_utils.valid = false;
-							$(stripe_utils.wrapperele).find('button#payment').addClass('disabled')
+							$(stripe_utils.wrapperele).find('button#payment').addClass('disabled');
+							$(stripe_utils.wrapperele).find('#confirmtab').addClass('disabled');
+
 
 						}
 						if (event.complete) {
@@ -850,17 +913,19 @@ var millwood;
 						e.preventDefault();
 						if ($(this).hasClass('disabled')!=true) {
 							if (stripe_utils.valid == true) {
+								$('#payment-section button.continue div.spinner').addClass('spin');
 								createToken();
 							}
 						}
 					})
 
-					$(stripe_utils.wrapperele + ' .amount-cell:not(.active)').on('click', function () {
+					$(stripe_utils.wrapperele + ' .amount-cell').on('click', function () {
 						$(stripe_utils.wrapperele + ' .amount-cell').each(function () {
 							$(this).removeClass('active');
 						})
 						let amount = $(this).attr('data-amount');
 
+						stripe_utils.clear_error();
 
 
 						if ($(this).attr('data-active')=='false') {
@@ -885,6 +950,7 @@ var millwood;
 
 					$(stripe_utils.wrapperele + ' input#amount').on('focus', function () {
 						$(this).addClass('active')
+						stripe_utils.clear_error();
 					})
 
 					$(stripe_utils.wrapperele + ' input#amount').on('focusout', function () {
@@ -898,11 +964,16 @@ var millwood;
 					})
 
 					$(stripe_utils.wrapperele + ' input#amount').on('input', function () {
+						stripe_utils.clear_error();
 						$(stripe_utils.wrapperele).find('div#amount-result').html('$'+$(this).val())
+					  if ($(stripe_utils.wrapperele).find('.amount-cell.active').length > 0 ) {
+								$(stripe_utils.wrapperele).find('.amount-cell.active').attr('data-active', false);
+								$(stripe_utils.wrapperele).find('.amount-cell.active').removeClass('active');
+						}
 					})
 
 					$(stripe_utils.wrapperele + ' .tab ').on('click', function () {
-						if($(this).hasClass('disabled')!=true) {
+						if($(this).hasClass('disabled')!=true) {	stripe_utils.clear_error();
 							$(stripe_utils.wrapperele + ' .tab').each(function () {
 								$(this).removeClass('active');
 							})
@@ -920,19 +991,8 @@ var millwood;
 					$(stripe_utils.wrapperele + ' button.continue').on('click', function (e) {
 						e.preventDefault();
 						if ($(this).hasClass('disabled')!=true) {
-							$(stripe_utils.wrapperele + ' .tab').each(function () {
-								$(this).removeClass('active');
-							})
 
-
-							$('.tab-section').each(function () {
-								$(this).addClass('hide');
-							})
 							let nextele = $(this).attr('data-next');
-							let nexttab = $(this).attr('data-tab');
-
-							$('#'+nextele).removeClass('hide');
-							$('#'+nexttab+'.tab').addClass('active');
 
 							if (nextele == 'confirm-section') {
 								stripe_utils.check_goodtogo();
@@ -941,6 +1001,17 @@ var millwood;
 
 							if (stripe_utils.unlockconfirm == true) {
 								$('#confirmtab.tab.disabled').removeClass('disabled');
+							}
+
+
+							if (nextele == 'form-wrapper') {
+								if (stripe_utils.check_amount() != false) {
+									stripe_utils.nav_to_next(this);
+								}
+							} else{
+								if (stripe_utils.check_userinfo() != false) {
+									stripe_utils.nav_to_next(this);
+								}
 							}
 						}
 					})
