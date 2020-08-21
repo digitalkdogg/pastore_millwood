@@ -437,7 +437,7 @@ var millwood;
 
 
 					$.each(data.data, function (index, val) {
-					
+
 						if (this.name != undefined) {
 							if (this.name.indexOf('cover photo')>0 ) {
 								delete this;
@@ -632,18 +632,20 @@ var millwood;
 						},
 						'get_payment_intents' : function (amount) {
 							$.ajax({
-								'url': 'http://yoda/millwood_wp/index.php/wp-json/stripe/v1/create_intent',
+								'url': millwood.wp_data.rest_url + 'stripe/v1/create_intent',
 								'type': 'POST',
 								'data': {'amount': parseInt(amount+'00')},
 								'success': function (data) {
-									let parsedata = JSON.parse(data);
-									if (data.error) {
-										stripe_utils['valid'] == false;
-									} else {
+										let parsedata = JSON.parse(data);
 
-										stripe_utils['payment_intent'] =  parsedata
-										stripe_utils['valid'] = true;
-										$('button#payment').removeClass('disabled');
+										if (data.error) {
+											stripe_utils['valid'] == false;
+										} else {
+
+											stripe_utils['payment_intent'] =  parsedata
+											stripe_utils['valid'] = true;
+											$('button#payment').removeClass('disabled');
+
 									}
 							}
 						})
