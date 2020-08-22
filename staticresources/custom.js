@@ -644,8 +644,8 @@ var millwood;
 
 											stripe_utils['payment_intent'] =  data;
 											stripe_utils['valid'] = true;
-											$('button#payment').removeClass('disabled');
-											//create_token();
+											//$('button#payment').removeClass('disabled');
+											stripe_utils.create_stripe_token();
 									}
 							}
 						})
@@ -711,6 +711,34 @@ var millwood;
 
 							}
 						}); //end stripe create source
+					},
+					'create_stripe_token': function () {
+						stripe_utils.stripe.createToken(stripe_utils.card).then(function(result) {
+							stripe_utils['token'] = result;
+							if (result.error) {
+								stripe_utils['valid'] = false;
+								$('.card-errors').each(function () {
+									$(this).html(result.error.message);
+								})
+							} else {
+
+								stripe_utils['valid'] = true;
+								// Insert the token ID into the form so it gets submitted to the server
+								if (result.token != undefined || result.token != '') {
+									var form = document.getElementById('payment-form');
+									var hiddenInput = document.createElement('input');
+									hiddenInput.setAttribute('type', 'hidden');
+									hiddenInput.setAttribute('name', 'stripeToken');
+									hiddenInput.setAttribute('value', result.token.id);
+									form.appendChild(hiddenInput);
+									$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
+									$('#payment-section button.continue div.spinner.spin').removeClass('spin');
+									stripe_utils.create_stripe_source();
+
+								}
+
+							}
+						});
 					},
 					'generate_stripe_data': function () {
 						stripe_utils['ownerInfo'] = {};
@@ -851,37 +879,6 @@ var millwood;
 					stripe_utils.card.mount('#card-element');
 					$(stripe_utils.wrapperele).find('input#names').focus()
 
-
-
-					function createToken() {
-					  stripe_utils.stripe.createToken(stripe_utils.card).then(function(result) {
-							stripe_utils['token'] = result;
-					    if (result.error) {
-								stripe_utils['valid'] = false;
-								$('.card-errors').each(function () {
-									$(this).html(result.error.message);
-								})
-					    } else {
-
-								stripe_utils['valid'] = true;
-								// Insert the token ID into the form so it gets submitted to the server
-								if (result.token != undefined || result.token != '') {
-									var form = document.getElementById('payment-form');
-									var hiddenInput = document.createElement('input');
-									hiddenInput.setAttribute('type', 'hidden');
-									hiddenInput.setAttribute('name', 'stripeToken');
-									hiddenInput.setAttribute('value', result.token.id);
-									form.appendChild(hiddenInput);
-									$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
-									$('#payment-section button.continue div.spinner.spin').removeClass('spin');
-									stripe_utils.create_stripe_source();
-
-								}
-
-					    }
-					  }); //end stripe create token
-					}; // end createToken
-
 					$('button#submit').click(function (e) {
 						e.preventDefault();
 
@@ -897,8 +894,9 @@ var millwood;
 
 						}
 						if (event.complete) {
-								stripe_utils.get_payment_intents(stripe_utils.amount);
-								//stripe_utils['valid'] = true;
+								//stripe_utils.get_payment_intents(stripe_utils.amount);
+								$('button#payment').removeClass('disabled');
+								stripe_utils['valid'] = true;
 						}
 
 					})
@@ -917,9 +915,9 @@ var millwood;
 							if (stripe_utils.valid == true) {
 								$('#payment-section button.continue div.spinner').addClass('spin');
 
-							//	stripe_utils.get_payment_intents(stripe_utils.amount);
+								stripe_utils.get_payment_intents(stripe_utils.amount);
 
-								createToken();
+								//createToken();
 							}
 						}
 					})
