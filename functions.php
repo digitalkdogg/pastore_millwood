@@ -203,28 +203,24 @@ function get_theme_super_customizations() {
 * @return $object, or null if none.  */
 
  function get_stripe_intent ( $params ){
-   $curl = curl_init();
+    require_once(get_home_path(). 'stripe-php/init.php');
+    if ($params['type']=='live') {
+      $stripe = new \Stripe\StripeClient(
+        pastore_church_get_custom_option('api_stripe_payment_live_secret')
+      );
+    } else {
+      $stripe = new \Stripe\StripeClient(
+        pastore_church_get_custom_option('api_stripe_payment_test_secret')
+      );
+    }
 
-   curl_setopt_array($curl, array(
-     CURLOPT_URL => "https://api.stripe.com/v1/payment_intents",
-     CURLOPT_RETURNTRANSFER => true,
-     CURLOPT_ENCODING => "",
-     CURLOPT_MAXREDIRS => 10,
-     CURLOPT_TIMEOUT => 0,
-     CURLOPT_FOLLOWLOCATION => true,
-     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-     CURLOPT_CUSTOMREQUEST => "POST",
-     CURLOPT_POSTFIELDS => "amount=".$params['amount']."&currency=usd",
-     CURLOPT_HTTPHEADER => array(
-       "Authorization: Basic c2tfdGVzdF80ZlVJNDE2ZUNhazNVeW1wSTlNQUROQ00wMGw3UU9WbkRnOg==",
-       "Content-Type: application/x-www-form-urlencoded"
-     ),
-   ));
+      $response = $stripe->paymentIntents->create([
+        'amount' => $params['amount'],
+        'currency' => 'usd',
+        'payment_method_types' => ['card'],
+      ]);
 
-   $response = curl_exec($curl);
-
-   curl_close($curl);
-   return $response;
+       return $response;
 
  }
 

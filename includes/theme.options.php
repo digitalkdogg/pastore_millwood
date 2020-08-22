@@ -611,10 +611,22 @@ if ( !function_exists( 'pastore_church_options_settings_theme_setup' ) ) {
 					"std" => "",
 					"type" => "text"
 			),
+			'api_stripe_payment_test_secret' => array(
+					"title" => esc_html__('Stripe Payment Test secret ',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter Test secret from stripe dashboard", 'pastore-church') ),
+					"std" => "",
+					"type" => "text"
+			),
 
 			'api_stripe_payment_live_key' => array(
 					"title" => esc_html__('Stripe Payment Live Key ',  'pastore-church'),
 					"desc" => wp_kses_data( __("Enter Live Key from stripe dashboard", 'pastore-church') ),
+					"std" => "",
+					"type" => "text"
+			),
+			'api_stripe_payment_live_secret' => array(
+					"title" => esc_html__('Stripe Payment Live secret ',  'pastore-church'),
+					"desc" => wp_kses_data( __("Enter Live Secret from stripe dashboard", 'pastore-church') ),
 					"std" => "",
 					"type" => "text"
 			),

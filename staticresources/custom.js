@@ -631,21 +631,21 @@ var millwood;
 								})
 						},
 						'get_payment_intents' : function (amount) {
+
 							$.ajax({
 								'url': millwood.wp_data.rest_url + 'stripe/v1/create_intent',
 								'type': 'POST',
-								'data': {'amount': parseInt(amount+'00')},
+								'data': {'amount': parseInt(amount+'00'), 'type': stripe_utils.mode},
 								'success': function (data) {
-										let parsedata = JSON.parse(data);
-
 										if (data.error) {
+											// to do make error message appear
 											stripe_utils['valid'] == false;
 										} else {
 
-											stripe_utils['payment_intent'] =  parsedata
+											stripe_utils['payment_intent'] =  data;
 											stripe_utils['valid'] = true;
 											$('button#payment').removeClass('disabled');
-
+											//create_token();
 									}
 							}
 						})
@@ -898,7 +898,7 @@ var millwood;
 						}
 						if (event.complete) {
 								stripe_utils.get_payment_intents(stripe_utils.amount);
-								stripe_utils['valid'] = true;
+								//stripe_utils['valid'] = true;
 						}
 
 					})
@@ -916,6 +916,9 @@ var millwood;
 						if ($(this).hasClass('disabled')!=true) {
 							if (stripe_utils.valid == true) {
 								$('#payment-section button.continue div.spinner').addClass('spin');
+
+							//	stripe_utils.get_payment_intents(stripe_utils.amount);
+
 								createToken();
 							}
 						}
