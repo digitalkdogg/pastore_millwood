@@ -638,7 +638,7 @@ var millwood;
 								'data': {'amount': parseInt(amount+'00'), 'type': stripe_utils.mode},
 								'success': function (data) {
 										if (data.error) {
-											// to do make error message appear
+											$('.confirm-wrapper .card-errors').html(data.error);
 											stripe_utils['valid'] == false;
 										} else {
 
@@ -647,6 +647,9 @@ var millwood;
 											//$('button#payment').removeClass('disabled');
 											stripe_utils.create_stripe_token();
 									}
+							},
+							'error': function (data) {
+								$('.confirm-wrapper .card-errors').html('There was an unexpected error');
 							}
 						})
 					}, //end get_payment_intents
@@ -672,8 +675,13 @@ var millwood;
 								} else {
 									$('#confirm-section').addClass('hide');
 									$('#success-wrapper').removeClass('hide');
-								// The payment has succeeded
-								// Display a success message
+
+									stripe_utils.amount = null;
+									stripe_utils.valid = 'complete'
+									$('#infotab.tab').addClass('disabled');
+									$('#paymenttab.tab').addClass('disabled');
+									$('#confirmtab.tab').addClass('disabled');
+									$('.amount-cell.active').click();
 								}
 						});
 					},
@@ -702,7 +710,8 @@ var millwood;
 
 										stripe_utils.valid = true;
 										stripe_utils.chargable = true;
-										$('#confirm-section button#submit').removeClass('disabled');
+										stripe_utils.confirm_card_payment();
+									//	$('#confirm-section button#submit').removeClass('disabled');
 									}
 								} else {
 									stripe_utils.valid = false;
@@ -731,8 +740,8 @@ var millwood;
 									hiddenInput.setAttribute('name', 'stripeToken');
 									hiddenInput.setAttribute('value', result.token.id);
 									form.appendChild(hiddenInput);
-									$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
-									$('#payment-section button.continue div.spinner.spin').removeClass('spin');
+								//	$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
+								//	$('#payment-section button.continue div.spinner.spin').removeClass('spin');
 									stripe_utils.create_stripe_source();
 
 								}
@@ -774,6 +783,7 @@ var millwood;
 
 						$('#'+nextele).removeClass('hide');
 						$('#'+nexttab+'.tab').addClass('active');
+						$('#'+nexttab+'.tab').removeClass('disabled');
 
 
 
@@ -890,7 +900,7 @@ var millwood;
 							stripe_utils.valid = false;
 							$(stripe_utils.wrapperele).find('button#payment').addClass('disabled');
 							$(stripe_utils.wrapperele).find('#confirmtab').addClass('disabled');
-
+							$('#payment-section .card-errors').html(event.error.message);
 
 						}
 						if (event.complete) {
@@ -904,22 +914,25 @@ var millwood;
 					$(stripe_utils.wrapperele + ' button#submit').on('click', function (e) {
 						e.preventDefault();
 						if ($(this).hasClass('disabled')!=true) {
-							stripe_utils.confirm_card_payment();
+							stripe_utils.get_payment_intents(stripe_utils.amount);
+							$('#confirm-section button#submit .spinner').addClass('spin');
+							//stripe_utils.confirm_card_payment();
 						}
-						$('#confirm-section button#submit .spinner').addClass('spin');
+
 					})
 
 					$(stripe_utils.wrapperele + ' button#payment').on('click', function (e) {
-						e.preventDefault();
-						if ($(this).hasClass('disabled')!=true) {
-							if (stripe_utils.valid == true) {
-								$('#payment-section button.continue div.spinner').addClass('spin');
+			//			e.preventDefault();
+			//			if ($(this).hasClass('disabled')!=true) {
+			//				if (stripe_utils.valid == true) {
 
-								stripe_utils.get_payment_intents(stripe_utils.amount);
+						//		$('#confirm-section button#submit .spinner').addClass('spin');
+						//		$('#payment-section button.continue div.spinner').addClass('spin');
 
-								//createToken();
-							}
-						}
+							//	stripe_utils.get_payment_intents(stripe_utils.amount);
+
+		//					}
+		//				}
 					})
 
 					$(stripe_utils.wrapperele + ' .amount-cell').on('click', function () {
@@ -1002,17 +1015,20 @@ var millwood;
 								stripe_utils.unlockconfirm = true;
 							}
 
-							if (stripe_utils.unlockconfirm == true) {
-								$('#confirmtab.tab.disabled').removeClass('disabled');
-							}
-
+						//	if (stripe_utils.unlockconfirm == true) {
+						//		$('#confirmtab.tab.disabled').removeClass('disabled');
+						//	}
 
 							if (nextele == 'form-wrapper') {
 								if (stripe_utils.check_amount() != false) {
 									stripe_utils.nav_to_next(this);
 								}
-							} else{
+							} else {
 								if (stripe_utils.check_userinfo() != false) {
+									if (nextele == 'confirm-section') {
+										$('#confirm-section button#submit').removeClass('disabled');
+										$('#confirm-section #cardno').html('Valid');
+									}
 									stripe_utils.nav_to_next(this);
 								}
 							}
