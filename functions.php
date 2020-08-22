@@ -203,7 +203,10 @@ function get_theme_super_customizations() {
 * @return $object, or null if none.  */
 
  function get_stripe_intent ( $params ){
-    require_once(get_home_path(). 'stripe-php/init.php');
+    try {
+      require_once(get_home_path(). 'stripe-php/init.php');
+    } catch(exception $e) {}
+
     if ($params['type']=='live') {
       $stripe = new \Stripe\StripeClient(
         pastore_church_get_custom_option('api_stripe_payment_live_secret')
