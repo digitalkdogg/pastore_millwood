@@ -611,14 +611,6 @@ var millwood;
 			},
 			'setup_stripe_api': function () {
 
-
-				// TODO:
-				//
-				//  Make validation for email and name on that page
-				//  Add spinners to payment form button
-				//  Make state apear on confirm
-
-
 				var stripe_utils = {
 						'clear_error': function () {
 
@@ -737,6 +729,7 @@ var millwood;
 							if (result.error) {
 								stripe_utils['valid'] = false;
 								$('.card-errors').each(function () {
+									$('#confirm-section button#submit').removeClass('spin')
 									$(this).html(result.error.message);
 								})
 							} else {
@@ -750,8 +743,6 @@ var millwood;
 									hiddenInput.setAttribute('name', 'stripeToken');
 									hiddenInput.setAttribute('value', result.token.id);
 									form.appendChild(hiddenInput);
-								//	$('#confirm-section #cardno').html('**** **** **** '+result.token.card.last4)
-								//	$('#payment-section button.continue div.spinner.spin').removeClass('spin');
 									stripe_utils.create_stripe_source();
 
 								}
@@ -931,19 +922,6 @@ var millwood;
 
 					})
 
-					$(stripe_utils.wrapperele + ' button#payment').on('click', function (e) {
-			//			e.preventDefault();
-			//			if ($(this).hasClass('disabled')!=true) {
-			//				if (stripe_utils.valid == true) {
-
-						//		$('#confirm-section button#submit .spinner').addClass('spin');
-						//		$('#payment-section button.continue div.spinner').addClass('spin');
-
-							//	stripe_utils.get_payment_intents(stripe_utils.amount);
-
-		//					}
-		//				}
-					})
 
 					$(stripe_utils.wrapperele + ' .amount-cell').on('click', function () {
 						$(stripe_utils.wrapperele + ' .amount-cell').each(function () {
@@ -1024,10 +1002,6 @@ var millwood;
 								stripe_utils.check_goodtogo();
 								stripe_utils.unlockconfirm = true;
 							}
-
-						//	if (stripe_utils.unlockconfirm == true) {
-						//		$('#confirmtab.tab.disabled').removeClass('disabled');
-						//	}
 
 							if (nextele == 'form-wrapper') {
 								if (stripe_utils.check_amount() != false) {
