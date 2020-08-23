@@ -635,7 +635,16 @@ var millwood;
 							$.ajax({
 								'url': millwood.wp_data.rest_url + 'stripe/v1/create_intent',
 								'type': 'POST',
-								'data': {'amount': parseInt(amount+'00'), 'type': stripe_utils.mode},
+								'data': {'amount': parseInt(amount+'00'),
+												'type': stripe_utils.mode,
+												'name': stripe_utils.ownerInfo.owner.name,
+												'email':stripe_utils.ownerInfo.owner.email,
+												'address': {'line1': stripe_utils.ownerInfo.owner.address.line1,
+																		'city': stripe_utils.ownerInfo.owner.address.city,
+																		'state': stripe_utils.ownerInfo.owner.address.state,
+																		'postal_code': stripe_utils.ownerInfo.owner.address.postal_code
+																	}
+												},
 								'success': function (data) {
 										if (data.error) {
 											$('.confirm-wrapper .card-errors').html(data.error);
@@ -664,8 +673,9 @@ var millwood;
 																				'city': stripe_utils.ownerInfo.owner.address.city,
 																				'state': stripe_utils.ownerInfo.owner.address.state,
 																				'postal_code': stripe_utils.ownerInfo.owner.address.postal_code
-																				}
-														}
+																			}
+														},
+									//email: 'dsfdsak@gmail.com'
 								}
 							).then(function(result) {
 								$('#confirm-section button#submit .spinner').removeClass('spin');

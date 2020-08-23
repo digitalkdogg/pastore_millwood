@@ -203,9 +203,9 @@ function get_theme_super_customizations() {
 * @return $object, or null if none.  */
 
  function get_stripe_intent ( $params ){
-    try {
-      require_once(get_home_path(). 'stripe-php/init.php');
-    } catch(exception $e) {}
+
+    require_once(get_home_path(). 'stripe-php/init.php');
+
 
     if ($params['type']=='live') {
       $stripe = new \Stripe\StripeClient(
@@ -217,11 +217,22 @@ function get_theme_super_customizations() {
       );
     }
 
+      $customer = $stripe->customers->create([
+        'description' => $params['name'],
+        'email' =>$params['email'],
+        'address' => $params['address'],
+      ]);
+
       $response = $stripe->paymentIntents->create([
         'amount' => $params['amount'],
         'currency' => 'usd',
+        'receipt_email'=>'digitalkdogg@yahoo.com',
+        'description'=>'Millwood Donation Form',
+        'customer'=>$customer->id,
         'payment_method_types' => ['card'],
       ]);
+
+      $response['customer'] =$customer;
 
        return $response;
 
