@@ -226,7 +226,7 @@ function get_theme_super_customizations() {
       $response = $stripe->paymentIntents->create([
         'amount' => $params['amount'],
         'currency' => 'usd',
-        'receipt_email'=>'digitalkdogg@yahoo.com',
+        'receipt_email'=>$params['email'],
         'description'=>'Millwood Donation Form',
         'customer'=>$customer->id,
         'payment_method_types' => ['card'],
