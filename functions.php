@@ -227,7 +227,7 @@ function get_theme_super_customizations() {
         'amount' => $params['amount'],
         'currency' => 'usd',
         'receipt_email'=>$params['email'],
-        'description'=>'Millwood Donation Form',
+        'description'=>$params['name'],
         'customer'=>$customer->id,
         'payment_method_types' => ['card'],
       ]);
