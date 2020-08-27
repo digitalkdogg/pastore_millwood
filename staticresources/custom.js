@@ -789,6 +789,12 @@ var millwood;
 
 
 					},
+					'check_amount_decimal': function () {
+							if (stripe_utils.amount.indexOf('.')>=0) {
+
+							}
+
+					},
 					'check_amount': function () {
 
 						if (stripe_utils.amount == 0 || stripe_utils.amount == '0') {
@@ -799,6 +805,15 @@ var millwood;
 
 							return false;
 						}
+
+						if (stripe_utils.amount.indexOf('.')>=0) {
+							stripe_utils.valid=false;
+							$('#amount-section .card-errors').html('Please Enter a WHOLE dollar amount')
+							$('#amount-section .amount-wrap').addClass('error');
+							$('#confirm-section .card-errors').html('Please Enter a WHOLE dollar amount')
+							return false;
+						}
+
 						return true;
 					},
 					'check_userinfo': function () {
@@ -960,11 +975,14 @@ var millwood;
 					$(stripe_utils.wrapperele + ' input#amount').on('focusout', function () {
 						$(this).removeClass('active');
 						var amount = $(this).val();
-						$(this).val(parseInt(amount));
+				//		$(this).val(parseInt(amount));
 
 
-						$('div#amount-result').html('$'+amount)
+					//	$('div#amount-result').html('$'+amount)
 						stripe_utils.amount = amount
+
+					  console.log(amount.indexOf('.'))
+
 					})
 
 					$(stripe_utils.wrapperele + ' input#amount').on('input', function () {
