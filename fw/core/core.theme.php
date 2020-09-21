@@ -284,7 +284,7 @@ if ( !function_exists( 'pastore_church_core_frontend_scripts' ) ) {
 		
 		// Modernizr will load in head before other scripts and styles
 		// Use older version (from photostack)
-		pastore_church_enqueue_script( 'pastore_church-core-modernizr-script', pastore_church_get_file_url('js/photostack/modernizr.min.js'), array(), null, false );
+//		pastore_church_enqueue_script( 'pastore_church-core-modernizr-script', pastore_church_get_file_url('js/photostack/modernizr.min.js'), array(), null, false );
 		
 		// Enqueue styles
 		//-----------------------------------------------------------------------------------------------------
