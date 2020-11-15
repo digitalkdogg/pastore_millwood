@@ -645,7 +645,6 @@ div#banner-area-wrap {
 }
 
 div#banner-area-wrap.active {
-  max-height:100%;
   position: absolute;
   z-index: 1000;
   width:100%;
@@ -682,7 +681,7 @@ div#banner-area-wrap span.open_child_menu.open {
 }
 
 div#banner-area-wrap div#banner-area div#banner-text {
-  width:80%;
+  width:100%;
   padding:10px 0;
 }
 
