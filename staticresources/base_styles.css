@@ -24,7 +24,7 @@ button.btn.disabled:hover {
 }
 
 button.btn:hover {
-    background: rgba(207, 74, 70, 0.7);
+    background: #fc4b46;
     cursor:pointer;
 }
 
