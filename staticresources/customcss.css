@@ -32,6 +32,19 @@
     font-size: .8em;
 }
 
+.top_panel_wrap_inner {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+}
+
+.top_panel_inner_style_3 .top_panel_top {
+    background-color: rgb(255 255 255 / 77%);
+}
+.top_panel_middle {
+    background-color: rgb(255 255 255 / 77%);
+}
+
 .content_wrap .contact_logo .logo_text {
      font-size: 28px;
     line-height: 1.2em !important;

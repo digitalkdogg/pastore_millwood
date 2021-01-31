@@ -1065,6 +1065,11 @@ var millwood;
 		$('.top_panel_title_inner .logo_slogan').addClass('mobile-tablet-hidden');
 	}
 
+	if ($('.top_panel_title_inner').length > 0) {
+		let bgimg = $('.top_panel_title_inner').css('background-image');
+		$('.top_panel_wrap_inner').css({'background-image': bgimg})
+	}
+
 	if ($('.page_content_wrap .content_wrap').length > 0) {
 		var href = location.href;
 		if (location.href.slice('-1') == '/') {
@@ -1128,23 +1133,23 @@ var millwood;
 				monthsago.setMonth(monthsago.getMonth() - parseInt(millwood.wp_data.custom_super_options.homepage_fb_months_ago));
 				monthsago = monthsago.getFullYear() + '-' + monthsago.getMonth() + '-' + monthsago.getDate();
 
-				var settings = {
-  					'async': true,
-  					'crossDomain': true,
-  					'url': 'https://graph.facebook.com/v4.0/'+ appid + '/feed?since='+monthsago+'&limit='+limit+'&access_token='+apptoken,
+			//	var settings = {
+  		//			'async': true,
+  	//				'crossDomain': true,
+  	//				'url': 'https://graph.facebook.com/v4.0/'+ appid + '/feed?since='+monthsago+'&limit='+limit+'&access_token='+apptoken,
   					//'url' :  'https://graph.facebook.com/v4.0/'+ appid + '/feed?fields=id,from,name,message,created_time,story,description,link,picture&limit=5&access_token='+apptoken,
-  					'method': 'GET',
-  					'headers': {
-   						'cache-control': 'no-cache',
-  					},
-  					'success': function (data) {
-  						setTimeout(function () {
-  							millwood.success.output_fb_widget(data);
-  						}, 500);
-  					}
-				}
+  	//				'method': 'GET',
+  	//				'headers': {
+   	//					'cache-control': 'no-cache',
+  	//				},
+  	//				'success': function (data) {
+  	//					setTimeout(function () {
+  	//						millwood.success.output_fb_widget(data);
+  	//					}, 500);
+  	//				}
+	//			}
 
-				$.ajax(settings).complete(function (response) { })
+	//			$.ajax(settings).complete(function (response) { })
 			} //end show fb true
 
 		}  else {//end is homepagge
