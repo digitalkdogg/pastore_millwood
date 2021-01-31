@@ -1068,6 +1068,8 @@ var millwood;
 	if ($('.top_panel_title_inner').length > 0) {
 		let bgimg = $('.top_panel_title_inner').css('background-image');
 		$('.top_panel_wrap_inner').css({'background-image': bgimg})
+
+		$('.top_panel_title_inner').css({'background-image': 'none'})
 	}
 
 	if ($('.page_content_wrap .content_wrap').length > 0) {
