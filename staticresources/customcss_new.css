@@ -45,6 +45,10 @@
     background-color: rgb(255 255 255 / 77%);
 }
 
+div.header_mobile {
+    background-size:cover;
+}
+
 div.header_mobile div.content_wrap {
     background-color: rgb(255 255 255 / 87%);
     margin-left: unset;
