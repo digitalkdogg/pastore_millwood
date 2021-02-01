@@ -1154,7 +1154,6 @@ var millwood;
 
 	//			$.ajax(settings).complete(function (response) { })
 			} //end show fb true
-
 		}  else {//end is homepagge
 			if (millwood.wp_data.location.endingpath == millwood.wp_data.custom_super_options.api_news_page) {
 				if (millwood.wp_data.custom_super_options.api_show_cc_news == 'yes') {

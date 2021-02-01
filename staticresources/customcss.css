@@ -35,7 +35,8 @@
 .top_panel_wrap_inner {
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-y: bottom;
+    background-position-y: top;
+    background-attachment: fixed;
 }
 
 .top_panel_inner_style_3 .top_panel_top {
@@ -43,6 +44,11 @@
 }
 .top_panel_middle {
     background-color: rgb(255 255 255 / 77%);
+}
+
+div.header_mobile {
+    background-size:cover;
+    background-attachment: fixed;
 }
 
 div.header_mobile div.content_wrap {
