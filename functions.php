@@ -5,7 +5,7 @@
 
 add_action( 'wp_footer', 'my_footer_scripts' );
 function my_footer_scripts(){
-    wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/customnew.css' );
+    wp_enqueue_style( 'customcss', get_stylesheet_directory_uri() . '/staticresources/css-custom.css' );
 	  wp_enqueue_script( 'customjs', get_stylesheet_directory_uri() . '/staticresources/custom-js.js' );
     wp_enqueue_style( 'foundationcss', get_stylesheet_directory_uri() . '/staticresources/foundation/css/foundation.min.css' );
     wp_enqueue_script( 'foundationjs', get_stylesheet_directory_uri() . '/staticresources/foundation/js/vendor/foundation.min.js' );
