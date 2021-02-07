@@ -915,15 +915,19 @@ footer.footer_area {
     transform: translateY(20px);
 }
 
+footer.footer_area .sc_section_inner {
+    margin: 0 35%;
+}
+
 
 footer.footer_area p.white {
     color:white;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 600px) {
 
 footer.footer_area .sc_section_inner {
-    margin: 0 35%;
+    margin: 0;
 }
 
     }
